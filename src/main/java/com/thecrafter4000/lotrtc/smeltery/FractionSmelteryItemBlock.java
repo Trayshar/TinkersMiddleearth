@@ -12,7 +12,7 @@ import net.minecraft.util.StatCollector;
 import tconstruct.smeltery.itemblocks.SmelteryItemBlock;
 
 public class FractionSmelteryItemBlock extends MultiItemBlock {
-	public final static String[] blockTypes = { "Controller", "Drain", "Brick" };
+	public final static String[] blockTypes = { "Controller", "Drain", "Brick", "CrackedBrick" };
 	
 	public FractionSmelteryItemBlock(Block b) {
 		super(b, "", blockTypes);
@@ -30,7 +30,7 @@ public class FractionSmelteryItemBlock extends MultiItemBlock {
 				list.add(StatCollector.translateToLocal("smeltery.drain.tooltip1"));
 				list.add(StatCollector.translateToLocal("smeltery.drain.tooltip2"));
 				break;
-			case 2: default: 
+			default: 
 				list.add(StatCollector.translateToLocal("smeltery.brick.tooltip1"));
 				list.add(StatCollector.translateToLocal("smeltery.brick.tooltip2"));
 		}

@@ -18,7 +18,7 @@ public class CommonProxy {
     public void init(FMLInitializationEvent e) {
     	ModBlocks.init(e);
     	NetworkRegistry.INSTANCE.registerGuiHandler(LotRTCIntegrator.instance, new GuiHandler());
-    	GameRegistry.registerTileEntity(FractionSmelteryLogic.class, "FractionSmelteryLogic");
+    	GameRegistry.registerTileEntity(FractionSmelteryLogic.class, "lotrtc:fractionsmelterylogic");
     }
 
     public void postInit(FMLPostInitializationEvent e) {
