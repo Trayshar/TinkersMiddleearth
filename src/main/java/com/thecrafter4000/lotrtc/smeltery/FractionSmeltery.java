@@ -21,18 +21,18 @@ import tconstruct.smeltery.logic.SmelteryDrainLogic;
 
 public class FractionSmeltery extends SmelteryBlock {
 
-	public final String fraction;
+	public final SmelteryFraction fraction;
 	
-	public FractionSmeltery(String fraction) {
+	public FractionSmeltery(SmelteryFraction fraction) {
 		super();
 		this.fraction = fraction;
-		this.setBlockName("lotrtc.smelterty_" + fraction);
+		this.setBlockName("lotrtc.smelterty_" + fraction.getFractionString());
 	}
 	
 	@Override
 	public TileEntity createNewTileEntity(World world, int metadata) {
 //		System.out.println("[" + FMLCommonHandler.instance().getEffectiveSide() + "] TEMeta:" + metadata);
-		if(metadata == 0) return new FractionSmelteryLogic();
+		if(metadata == 0) return new FractionSmelteryLogic(fraction);
 		else if(metadata == 1) return new SmelteryDrainLogic();
 //		System.out.println("[" + FMLCommonHandler.instance().getEffectiveSide() + "] Returns MultiServantLogic");
 		return new MultiServantLogic();
@@ -47,7 +47,7 @@ public class FractionSmeltery extends SmelteryBlock {
 	public String[] getTextureNames() {
 		String[] textureNames = { "searedbrick", "smeltery_inactive", "smeltery_active", "drain_out", "drain_basine" ,"searedbrickcracked" };
 		for(int i = 0; i < textureNames.length; i++){
-			textureNames[i] = textureNames[i] + "_" + fraction;
+			textureNames[i] = textureNames[i] + "_" + fraction.getFractionString();
 		}
 		return textureNames;
 	}

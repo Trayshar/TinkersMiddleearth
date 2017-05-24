@@ -28,7 +28,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
-import tconstruct.library.crafting.Smeltery;
 import tconstruct.smeltery.SmelteryDamageSource;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.smeltery.logic.LavaTankLogic;
@@ -37,10 +36,34 @@ import tconstruct.util.config.PHConstruct;
 
 public class FractionSmelteryLogic extends SmelteryLogic {
 
-	public boolean needsUpdate;
+	public SmelteryFraction fraction;
+	
+	private boolean needsUpdate;
+	private int tick;
+	
+	public FractionSmelteryLogic(SmelteryFraction fraction) {
+		super();
+		this.fraction = fraction;
+	}
+	
+	public FractionSmelteryLogic() {
+		super();
+	}
 	
 	@Override public Container getGuiContainer(InventoryPlayer inventoryplayer, World world, int x, int y, int z) {
 		return new FractionSmelteryContainer(inventoryplayer, this);
+	}
+	
+	@Override
+	public void writeToNBT(NBTTagCompound tags) {
+		super.writeToNBT(tags);
+		tags.setString("Fraction", fraction.name());
+	}
+	
+	@Override
+	public void readFromNBT(NBTTagCompound tags) {
+		super.readFromNBT(tags);
+		this.fraction = SmelteryFraction.valueOf(tags.getString("Fraction"));
 	}
 	
 	public boolean isValidBlockID(Block blockID){
@@ -193,8 +216,6 @@ public class FractionSmelteryLogic extends SmelteryLogic {
 	// Override func. for new recipes
 	// WTF 700 Lines of code
 	
-	private int tick;
-	
 	@Override
 	public void updateEntity()
 	/*      */   {
@@ -262,7 +283,7 @@ public class FractionSmelteryLogic extends SmelteryLogic {
 	/*      */     
 	/*      */ 
 	/*  605 */     FluidStack liquid = tankContainer.drain(ForgeDirection.DOWN, 15, false);
-	/*  606 */     if ((liquid != null) && (Smeltery.isSmelteryFuel(liquid.getFluid())))
+	/*  606 */     if ((liquid != null) && (SmelteryRecipeHandler.isSmelteryFuel(fraction, liquid.getFluid())))
 	/*      */     {
 	/*      */       do
 	/*      */       {
@@ -270,8 +291,8 @@ public class FractionSmelteryLogic extends SmelteryLogic {
 	/*      */         
 	/*  612 */         if ((liquid == null) || (liquid.amount == 0))
 	/*      */           break;
-	/*  614 */         this.useTime += (int)(Smeltery.getFuelDuration(liquid.getFluid()) * Math.round(15.0F / liquid.amount));
-	/*  615 */         this.internalTemp = Smeltery.getFuelPower(liquid.getFluid());
+	/*  614 */         this.useTime += (int)(SmelteryRecipeHandler.getFuelDuration(fraction, liquid.getFluid()) * Math.round(15.0F / liquid.amount));
+	/*  615 */         this.internalTemp = SmelteryRecipeHandler.getFuelPower(fraction, liquid.getFluid());
 	/*  616 */       } while (this.useTime < 0);
 	/*      */       
 	/*      */ 
@@ -289,7 +310,7 @@ public class FractionSmelteryLogic extends SmelteryLogic {
 	/*      */       {
 	/*  631 */         FluidStack liquid = ((IFluidHandler)tankContainer).drain(ForgeDirection.DOWN, 15, false);
 	/*      */         
-	/*  633 */         if ((liquid != null) && (Smeltery.isSmelteryFuel(liquid.getFluid()))) {
+	/*  633 */         if ((liquid != null) && (SmelteryRecipeHandler.isSmelteryFuel(fraction, liquid.getFluid()))) {
 	/*  634 */           return;
 	/*      */         }
 	/*      */       }
@@ -314,7 +335,7 @@ public class FractionSmelteryLogic extends SmelteryLogic {
 	/*      */           
 	/*      */ 
 	/*      */ 
-	/*  658 */             (Smeltery.isSmelteryFuel(info[0].fluid.getFluid())))
+	/*  658 */             (SmelteryRecipeHandler.isSmelteryFuel(fraction, info[0].fluid.getFluid())))
 	/*      */           {
 	/*      */ 
 	/*      */ 
@@ -327,7 +348,7 @@ public class FractionSmelteryLogic extends SmelteryLogic {
 	/*      */   }
 	
 	public FluidStack getResultFor(ItemStack stack) {
-		return Smeltery.getSmelteryResult(stack);
+		return SmelteryRecipeHandler.getSmelteryResult(fraction, stack);
 	}
 
 	public void checkValidStructure(int x, int y, int z, int[] sides)
@@ -362,10 +383,10 @@ public class FractionSmelteryLogic extends SmelteryLogic {
 	/*  844 */             FluidStack liquid = ((IFluidHandler)tankContainer).getTankInfo(ForgeDirection.DOWN)[0].fluid;
 	/*  845 */             if ((liquid != null) && 
 	/*      */             
-	/*  847 */               (Smeltery.isSmelteryFuel(liquid.getFluid())))
+	/*  847 */               (SmelteryRecipeHandler.isSmelteryFuel(fraction, liquid.getFluid())))
 	/*      */             {
 	/*      */ 
-	/*  850 */               this.internalTemp = Smeltery.getFuelPower(liquid.getFluid());
+	/*  850 */               this.internalTemp = SmelteryRecipeHandler.getFuelPower(fraction, liquid.getFluid());
 	/*  851 */               this.activeLavaTank = tank;
 	/*      */             }
 	/*      */           }
@@ -406,7 +427,7 @@ public class FractionSmelteryLogic extends SmelteryLogic {
 	/*      */       {
 	/* 1116 */         if (addMoltenMetal2(resource, false))
 	/*      */         {
-	/* 1118 */           ArrayList alloys = Smeltery.mixMetals(this.moltenMetal);
+	/* 1118 */           ArrayList alloys = SmelteryRecipeHandler.mixMetals(fraction, this.moltenMetal);
 	/* 1119 */           for (int al = 0; al < alloys.size(); al++)
 	/*      */           {
 	/* 1121 */             FluidStack liquid = (FluidStack)alloys.get(al);
@@ -580,7 +601,7 @@ public class FractionSmelteryLogic extends SmelteryLogic {
 		/*      */                 {
 		/*  482 */                   this.inventory[i] = null;
 		/*  483 */                   this.activeTemps[i] = 200;
-		/*  484 */                   ArrayList alloys = Smeltery.mixMetals(this.moltenMetal);
+		/*  484 */                   ArrayList alloys = SmelteryRecipeHandler.mixMetals(fraction, this.moltenMetal);
 		/*  485 */                   for (int al = 0; al < alloys.size(); al++)
 		/*      */                   {
 		/*  487 */                     FluidStack liquid = (FluidStack)alloys.get(al);
@@ -662,7 +683,7 @@ public class FractionSmelteryLogic extends SmelteryLogic {
 	private void updateTemperatures() {
 		/*  564 */     for (int i = 0; (i < this.maxBlockCapacity) && (i < this.meltingTemps.length); i++)
 		/*      */     {
-		/*  566 */       this.meltingTemps[i] = (Smeltery.getLiquifyTemperature(this.inventory[i]).intValue() * 10);
+		/*  566 */       this.meltingTemps[i] = (SmelteryRecipeHandler.getLiquifyTemperature(fraction, this.inventory[i]).intValue() * 10);
 		/*      */     }
 		/*      */   }
 
