@@ -1,11 +1,14 @@
 package com.thecrafter4000.lotrtc.smeltery;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
+import com.thecrafter4000.lotrtc.LotRTCIntegrator;
 import com.thecrafter4000.lotrtc.ModBlocks;
 
 import cpw.mods.fml.common.FMLCommonHandler;
+import lotr.common.LOTRMod;
 import mantle.blocks.abstracts.MultiServantLogic;
 import mantle.world.CoordTuple;
 import net.minecraft.block.Block;
@@ -16,6 +19,7 @@ import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -36,18 +40,20 @@ import tconstruct.util.config.PHConstruct;
 
 public class FractionSmelteryLogic extends SmelteryLogic {
 
-	public SmelteryFraction fraction;
+	public LotrSmelteryFraction fraction;
 	
 	private boolean needsUpdate;
 	private int tick;
 	
-	public FractionSmelteryLogic(SmelteryFraction fraction) {
+	public FractionSmelteryLogic(LotrSmelteryFraction fraction) {
 		super();
 		this.fraction = fraction;
+		LotRTCIntegrator.logger.info(SmelteryRecipeHandler.getSmelteryResult(LotrSmelteryFraction.Dwarf, LOTRMod.blockOreStorage, 4).getLocalizedName());
 	}
 	
 	public FractionSmelteryLogic() {
 		super();
+		LotRTCIntegrator.logger.info(SmelteryRecipeHandler.getSmelteryResult(LotrSmelteryFraction.Dwarf, LOTRMod.blockOreStorage, 4).getLocalizedName());
 	}
 	
 	@Override public Container getGuiContainer(InventoryPlayer inventoryplayer, World world, int x, int y, int z) {
@@ -63,11 +69,11 @@ public class FractionSmelteryLogic extends SmelteryLogic {
 	@Override
 	public void readFromNBT(NBTTagCompound tags) {
 		super.readFromNBT(tags);
-		this.fraction = SmelteryFraction.valueOf(tags.getString("Fraction"));
+		this.fraction = LotrSmelteryFraction.valueOf(tags.getString("Fraction"));
 	}
 	
 	public boolean isValidBlockID(Block blockID){
-		if(this.getBlockType() == ModBlocks.smelteryElves && blockID == ModBlocks.smelteryElves) return true;
+		if(this.fraction.isValidBlock(blockID)) return true;
 		return ((blockID == TinkerSmeltery.smeltery) || (blockID == TinkerSmeltery.smelteryNether));
 	}
 	
@@ -213,59 +219,60 @@ public class FractionSmelteryLogic extends SmelteryLogic {
 	/*  992 */     return count;
 	/*      */   }
 
-	// Override func. for new recipes
-	// WTF 700 Lines of code
+	// Copied for use of new recipe class
+	// WTF 600 lines of code
 	
 	@Override
-	public void updateEntity()
-	/*      */   {
-	/*  284 */     this.tick += 1;
-	/*  285 */     if (this.tick == 60)
-	/*      */     {
-	/*  287 */       this.tick = 0;
-	/*  288 */       detectEntities2();
-	/*      */     }
+	public void updateEntity() {
+//		LotRTCIntegrator.logger.info("Inventar: " + Arrays.deepToString(inventory));
+		this.tick += 1;
+		if (this.tick == 60) {
+			this.tick = 0;
+			detectEntities2();
+		}
+		
+		if (this.tick % 4 == 0) {
+			if (this.useTime > 0) {
+				this.useTime -= 4;
+			}
+			if (this.validStructure) {
+				checkHasItems();
+				if ((this.useTime <= 0) && (this.inUse)) {
+					updateFuelGague();
+				}
+				heatItems();
+			}
+		}
 	/*      */     
-	/*      */ 
-	/*      */ 
-	/*      */ 
-	/*      */ 
-	/*      */ 
-	/*  296 */     if (this.tick % 4 == 0) {
-	/*  297 */       if (this.useTime > 0) {
-	/*  298 */         this.useTime -= 4;
-	/*      */       }
-	/*  300 */       if (this.validStructure) {
-	/*  301 */         checkHasItems();
-	/*      */         
-	/*      */ 
-	/*  304 */         if ((this.useTime <= 0) && (this.inUse)) {
-	/*  305 */           updateFuelGague();
-	/*      */         }
-	/*  307 */         heatItems();
-	/*      */       }
-	/*      */     }
-	/*      */     
-	/*  311 */     if (this.tick % 20 == 0)
-	/*      */     {
-	/*  313 */       if (!this.validStructure) {
-	/*  314 */         checkValidPlacement();
-	/*      */       }
-	/*  316 */       if (this.needsUpdate)
-	/*      */       {
-	/*  318 */         this.needsUpdate = false;
-	/*  319 */         this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
-	/*      */       }
-	/*      */     }
-	/*      */   }
+		if (this.tick % 20 == 0) {
+			if (!this.validStructure) {
+				checkValidPlacement();
+			}
+			if (this.needsUpdate) {
+				this.needsUpdate = false;
+				this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
+			}
+		}
+	}
 	
 	public void markDirty()
 	/*      */   {
 	/*  704 */     updateTemperatures();
 	/*  705 */     updateEntity();
-	/*      */     
-	/*  707 */     super.markDirty();
 	/*  708 */     this.needsUpdate = true;
+	
+    if (this.worldObj != null)
+    {
+        this.blockMetadata = this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord);
+        this.worldObj.markTileEntityChunkModified(this.xCoord, this.yCoord, this.zCoord, this);
+
+        if (this.getBlockType() != Blocks.air)
+        {
+            this.worldObj.func_147453_f(this.xCoord, this.yCoord, this.zCoord, this.getBlockType());
+        }
+    }
+
+	
 	/*      */   }
 	
 	public void updateFuelGague()
@@ -583,6 +590,7 @@ public class FractionSmelteryLogic extends SmelteryLogic {
 		/*  463 */       int refTemp = temperature * 10;
 		/*  464 */       for (int i = 0; i < this.maxBlockCapacity; i++)
 		/*      */       {
+//			LotRTCIntegrator.logger.info("ActiveTemp[" + i + "]: " + this.activeTemps[i] + ", MeltingTemp[" + i + "]:" + this.meltingTemps[i]);
 		/*  466 */         if ((this.meltingTemps[i] > 200) && (isStackInSlot(i)))
 		/*      */         {
 		/*  468 */           hasUse = true;
@@ -684,6 +692,7 @@ public class FractionSmelteryLogic extends SmelteryLogic {
 		/*  564 */     for (int i = 0; (i < this.maxBlockCapacity) && (i < this.meltingTemps.length); i++)
 		/*      */     {
 		/*  566 */       this.meltingTemps[i] = (SmelteryRecipeHandler.getLiquifyTemperature(fraction, this.inventory[i]).intValue() * 10);
+//		LotRTCIntegrator.logger.info(" Set MeltingTemp[" + i + "]:" + this.meltingTemps[i]);
 		/*      */     }
 		/*      */   }
 

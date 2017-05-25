@@ -21,9 +21,9 @@ import tconstruct.smeltery.logic.SmelteryDrainLogic;
 
 public class FractionSmeltery extends SmelteryBlock {
 
-	public final SmelteryFraction fraction;
+	public final LotrSmelteryFraction fraction;
 	
-	public FractionSmeltery(SmelteryFraction fraction) {
+	public FractionSmeltery(LotrSmelteryFraction fraction) {
 		super();
 		this.fraction = fraction;
 		this.setBlockName("lotrtc.smelterty_" + fraction.getFractionString());
