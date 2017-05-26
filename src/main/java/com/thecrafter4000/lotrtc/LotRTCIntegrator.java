@@ -12,12 +12,13 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.SidedProxy;
 import tconstruct.smeltery.blocks.SmelteryBlock;
 
-@Mod(version=LotRTCIntegrator.VERSION, name=LotRTCIntegrator.NAME, modid=LotRTCIntegrator.MODID)
+@Mod(version=LotRTCIntegrator.VERSION, name=LotRTCIntegrator.NAME, modid=LotRTCIntegrator.MODID, acceptedMinecraftVersions="1.7.10", dependencies=LotRTCIntegrator.Dependencies )
 public class LotRTCIntegrator {
 
 	public static final String MODID = "lotrtc";
-	public static final String VERSION = "lotrtc";
-	public static final String NAME = "LotRTCIntegrator";
+	public static final String VERSION = "beta 0.1";
+	public static final String NAME = "LotrTiCIntegration";
+	public static final String Dependencies = "required-after:TConstruct;required-after:lotr";
 	@Instance public static LotRTCIntegrator instance;
 	
 	public static final Logger logger = LogManager.getLogger("LotRTiC");

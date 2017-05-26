@@ -1,4 +1,4 @@
-package com.thecrafter4000.lotrtc;
+package com.thecrafter4000.lotrtc.smeltery;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;

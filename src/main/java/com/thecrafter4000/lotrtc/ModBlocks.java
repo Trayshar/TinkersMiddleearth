@@ -2,7 +2,9 @@ package com.thecrafter4000.lotrtc;
 
 import com.thecrafter4000.lotrtc.smeltery.FractionSmeltery;
 import com.thecrafter4000.lotrtc.smeltery.FractionSmelteryItemBlock;
+import com.thecrafter4000.lotrtc.smeltery.LotrFilledBucket;
 import com.thecrafter4000.lotrtc.smeltery.LotrSmelteryFraction;
+import com.thecrafter4000.lotrtc.smeltery.LotrTCFluid;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -19,6 +21,7 @@ import net.minecraftforge.fluids.FluidContainerRegistry.FluidContainerData;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import tconstruct.library.crafting.FluidType;
+import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.smeltery.blocks.SmelteryBlock;
 
 public class ModBlocks {
@@ -28,10 +31,8 @@ public class ModBlocks {
 	public static SmelteryBlock smelteryOrcish;
 	
 	/* Normal Smeltery  */
-	public static Fluid moltenSilverFluid;
 	public static Fluid moltenSarlluinFluid;
 	public static Block moltenSarlluin;
-	public static Block moltenSilver;
 
 	/* Dwarven Smeltery */
 	public static Fluid moltenMithrilFluid;
@@ -45,26 +46,29 @@ public class ModBlocks {
 	
 	/* Elven Smeltery */
 	public static Fluid moltenElvenSteelFluid;
+	public static Fluid moltenEdhelmirFluid;
 	public static Block moltenElvenSteel;
+	public static Block moltenEdhelmir;
 	
 	/* Orcish Smeltery*/
 	public static Fluid moltenMorgulSteelFluid;
 	public static Fluid moltenOrcSteelFluid;
 	public static Fluid moltenUrukSteelFluid;
 	public static Fluid moltenBlackUrukSteelFluid;
+	public static Fluid moltenDurnaurFluid;
+	public static Fluid moltenGuldurilFluid;
 	public static Block moltenMorgulSteel;
 	public static Block moltenOrcSteel;
 	public static Block moltenUrukSteel;
 	public static Block moltenBlackUrukSteel;
+	public static Block moltenDurnaur;
+	public static Block moltenGulduril;
 
 
     public static void preInit(FMLPreInitializationEvent e) {
     	GameRegistry.registerBlock(smelteryElves = new FractionSmeltery(LotrSmelteryFraction.Elf), FractionSmelteryItemBlock.class, "SmelteryElves");
     	GameRegistry.registerBlock(smelteryDwarven = new FractionSmeltery(LotrSmelteryFraction.Dwarf), FractionSmelteryItemBlock.class, "SmelteryDwarven");
     	GameRegistry.registerBlock(smelteryOrcish = new FractionSmeltery(LotrSmelteryFraction.Orc), FractionSmelteryItemBlock.class, "SmelteryOrcish");
-    	
-    	moltenSilverFluid =  registerFluid("silver_lotr");
-    	moltenSilver = moltenSilverFluid.getBlock();
     	
     	moltenSarlluinFluid = registerFluid("sarlluin");
     	moltenSarlluin = moltenSarlluinFluid.getBlock();
@@ -83,6 +87,9 @@ public class ModBlocks {
 
     	moltenElvenSteelFluid = registerFluid("elven_steel");
     	moltenElvenSteel = moltenElvenSteelFluid.getBlock();
+    	
+    	moltenEdhelmirFluid = registerFluid("edhelmir");
+    	moltenEdhelmir = moltenEdhelmirFluid.getBlock();
 
     	moltenMorgulSteelFluid = registerFluid("morgul_steel");
     	moltenMorgulSteel = moltenMorgulSteelFluid.getBlock();
@@ -96,22 +103,29 @@ public class ModBlocks {
     	moltenBlackUrukSteelFluid = registerFluid("black_uruk_steel");
     	moltenBlackUrukSteel = moltenBlackUrukSteelFluid.getBlock();
     	
-    	FluidType.registerFluidType("Silver", LOTRMod.blockOreStorage, 3, 500, moltenSilverFluid, false);
-    	FluidType.registerFluidType("Sarlluin", LOTRMod.rock, 3, 800, moltenSarlluinFluid, true);
-    	FluidType.registerFluidType("Mithril", LOTRMod.blockOreStorage, 4, 500, moltenMithrilFluid, true);
+    	moltenDurnaurFluid = registerFluid("durnaur");
+    	moltenDurnaur = moltenDurnaurFluid.getBlock();
+    	
+    	moltenGuldurilFluid = registerFluid("gulduril");
+    	moltenGulduril = moltenGuldurilFluid.getBlock();
+    	
+    	FluidType.registerFluidType("Silver", LOTRMod.blockOreStorage, 3, 500, TinkerSmeltery.moltenSilverFluid, false);
+    	FluidType.registerFluidType("Sarlluin", LOTRMod.rock, 3, 800, moltenSarlluinFluid, false);
+    	FluidType.registerFluidType("MithrilLotR", LOTRMod.blockOreStorage, 4, 1000, moltenMithrilFluid, true);
     	FluidType.registerFluidType("BlueDwarvenSteel", LOTRMod.blockOreStorage, 15, 700, moltenBlueDwarvenSteelFluid, true);
-    	FluidType.registerFluidType("DwarvenSteel", LOTRMod.blockOreStorage, 7, 750, moltenDwarvenSteelFluid, true);
+    	FluidType.registerFluidType("DwarvenSteel", LOTRMod.blockOreStorage, 7, 900, moltenDwarvenSteelFluid, true);
     	FluidType.registerFluidType("Galvorn", LOTRMod.blockOreStorage, 8, 800, moltenGalvornFluid, false);
     	FluidType.registerFluidType("ElvenSteel", LOTRMod.blockOreStorage2, 1, 750, moltenElvenSteelFluid, true);
-    	FluidType.registerFluidType("MorgulSteel", LOTRMod.blockOreStorage2, 1, 800, moltenMorgulSteelFluid, false);
-    	FluidType.registerFluidType("OrcSteel", LOTRMod.blockOreStorage2, 1, 600, moltenOrcSteelFluid, true);
-    	FluidType.registerFluidType("UrukSteel", LOTRMod.blockOreStorage2, 1, 700, moltenUrukSteelFluid, true);
+    	FluidType.registerFluidType("Edhelmir", LOTRMod.blockOreStorage, 6, 500, moltenEdhelmirFluid, false);
+    	FluidType.registerFluidType("MorgulSteel", LOTRMod.blockOreStorage, 12, 800, moltenMorgulSteelFluid, false);
+    	FluidType.registerFluidType("OrcSteel", LOTRMod.blockOreStorage, 5, 600, moltenOrcSteelFluid, true);
+    	FluidType.registerFluidType("UrukSteel", LOTRMod.blockOreStorage, 9, 700, moltenUrukSteelFluid, true);
     	FluidType.registerFluidType("BlackUrukSteel", LOTRMod.blockOreStorage2, 0, 800, moltenBlackUrukSteelFluid, true);
+    	FluidType.registerFluidType("Durnaur", LOTRMod.blockOreStorage, 10, 600, moltenDurnaurFluid, false);
+    	FluidType.registerFluidType("Gulduril", LOTRMod.blockOreStorage, 11, 500, moltenGuldurilFluid, false);
     }
 
-    public static void init(FMLInitializationEvent e) {
-
-    }
+    public static void init(FMLInitializationEvent e) {}
 
     /* Copied from TiC cause it's necassary.  */
     

@@ -1,16 +1,17 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
+  "modid": "lotrtc",
+  "name": "LotrTiCIntegration",
+  "description": "Makes Mevans LotR mod an TiC compatible.",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
-  "authorList": ["ExampleDude"],
+  "authorList": ["TheCrafter4000"],
   "credits": "The Forge and FML guys, for making this example",
   "logoFile": "",
   "screenshots": [],
-  "dependencies": []
+  "requiredMods": [ "Forge", "TConstruct", "lotr"],
+  "dependencies": [ "TConstruct", "lotr" ]
 }
 ]

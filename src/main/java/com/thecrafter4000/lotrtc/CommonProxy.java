@@ -1,8 +1,16 @@
 package com.thecrafter4000.lotrtc;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import com.thecrafter4000.lotrtc.smeltery.FractionSmelteryLogic;
+import com.thecrafter4000.lotrtc.smeltery.LotrFilledBucket;
 import com.thecrafter4000.lotrtc.smeltery.LotrSmelteryFraction;
 import com.thecrafter4000.lotrtc.smeltery.SmelteryRecipeHandler;
+import com.thecrafter4000.lotrtc.smeltery.SmelteryRecipes;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLInterModComms;
@@ -11,12 +19,21 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import lotr.common.LOTRMod;
+import lotr.common.recipe.LOTRRecipes;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.oredict.OreDictionary;
 import tconstruct.TConstruct;
+import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.FluidType;
+import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.library.crafting.Smeltery;
+import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.smeltery.items.FilledBucket;
+import tconstruct.tools.TinkerTools;
+import tconstruct.util.config.PHConstruct;
 
 public class CommonProxy {
 
@@ -31,19 +48,20 @@ public class CommonProxy {
     	ModBlocks.init(e);
     	NetworkRegistry.INSTANCE.registerGuiHandler(LotRTCIntegrator.instance, new GuiHandler());
     	GameRegistry.registerTileEntity(FractionSmelteryLogic.class, "lotrtc:fractionsmelterylogic");
-    	registerSmelteryStuff();
+    	patchLotrOres();
     }
 
     public void postInit(FMLPostInitializationEvent e) {
-
+    	SmelteryRecipes.registerSmelteryStuff();
+//		for(LotrSmelteryFraction t : LotrSmelteryFraction.class.getEnumConstants()) System.out.println("Fraction: " + t.name() + ": " + SmelteryRecipeHandler.getRenderIndex(t));
     }
     
-
-	public static void registerSmelteryStuff(){
-		Smeltery.addMelting(LOTRMod.blockOreStorage, 3, FluidType.getTemperatureByFluid(ModBlocks.moltenSilverFluid), new FluidStack(ModBlocks.moltenSilverFluid, TConstruct.blockLiquidValue));
-		Smeltery.addMelting(LOTRMod.rock, 3, FluidType.getTemperatureByFluid(ModBlocks.moltenSarlluinFluid), new FluidStack(ModBlocks.moltenSarlluinFluid, TConstruct.stoneLiquidValue));
-		SmelteryRecipeHandler.addMelting(LotrSmelteryFraction.Dwarf, LOTRMod.blockOreStorage, 4, 0, ModBlocks.moltenMithrilFluid, TConstruct.oreLiquidValue);
-		SmelteryRecipeHandler.addMelting(LotrSmelteryFraction.Dwarf, LOTRMod.oreMithril, 0, 0, ModBlocks.moltenMithrilFluid, TConstruct.oreLiquidValue);
-
-	}
+    public static void patchLotrOres(){
+    	OreDictionary.registerOre("blockCopper", new ItemStack(LOTRMod.blockOreStorage, 1, 0));
+    	OreDictionary.registerOre("blockTin", new ItemStack(LOTRMod.blockOreStorage, 1, 1));
+    	OreDictionary.registerOre("blockBronze", new ItemStack(LOTRMod.blockOreStorage, 1, 2));
+    	OreDictionary.registerOre("blockSilver", new ItemStack(LOTRMod.blockOreStorage, 1, 3));
+    	OreDictionary.registerOre("nuggetObsidian", LOTRMod.obsidianShard);
+    }
+     
 }

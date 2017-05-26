@@ -3,6 +3,7 @@ package com.thecrafter4000.lotrtc.smeltery;
 import java.util.List;
 
 import com.thecrafter4000.lotrtc.LotRTCIntegrator;
+import com.thecrafter4000.lotrtc.smeltery.client.FractionSmelteryRender;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
@@ -27,6 +28,11 @@ public class FractionSmeltery extends SmelteryBlock {
 		super();
 		this.fraction = fraction;
 		this.setBlockName("lotrtc.smelterty_" + fraction.getFractionString());
+	}
+	
+	@Override
+	public int getRenderType() {
+		return FractionSmelteryRender.renderId;
 	}
 	
 	@Override

@@ -48,12 +48,10 @@ public class FractionSmelteryLogic extends SmelteryLogic {
 	public FractionSmelteryLogic(LotrSmelteryFraction fraction) {
 		super();
 		this.fraction = fraction;
-		LotRTCIntegrator.logger.info(SmelteryRecipeHandler.getSmelteryResult(LotrSmelteryFraction.Dwarf, LOTRMod.blockOreStorage, 4).getLocalizedName());
 	}
 	
 	public FractionSmelteryLogic() {
 		super();
-		LotRTCIntegrator.logger.info(SmelteryRecipeHandler.getSmelteryResult(LotrSmelteryFraction.Dwarf, LOTRMod.blockOreStorage, 4).getLocalizedName());
 	}
 	
 	@Override public Container getGuiContainer(InventoryPlayer inventoryplayer, World world, int x, int y, int z) {

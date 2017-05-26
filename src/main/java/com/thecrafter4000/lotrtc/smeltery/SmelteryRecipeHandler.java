@@ -169,7 +169,6 @@ import tconstruct.library.crafting.Smeltery;
 
 	        Integer temp = getInstance(fraction).temperatureList.get(new ItemMetaWrapper(item));
 	        if (temp == null) temp = Smeltery.getLiquifyTemperature(item);
-	        LotRTCIntegrator.logger.info(item + ", " + temp);
 	        return temp;
 	    }
 
@@ -218,7 +217,7 @@ import tconstruct.library.crafting.Smeltery;
 	    {
 	        ItemStack tmp = getInstance(fraction).renderIndex.get(new ItemMetaWrapper(input));
 	        if(tmp == null) tmp = Smeltery.getRenderIndex(input);
-	        System.out.println(tmp.getItem() + ", " + tmp.getItemDamage());
+	        LotRTCIntegrator.logger.info("Getting Mapping for " + (input == null ? "null" : input.getDisplayName()) + ": " + (tmp == null ? "null" : tmp.getDisplayName()));
 	        return tmp;
 	    }
 
