@@ -1,0 +1,56 @@
+itemGroup.lotrtc=LotR TiC Compatibility
+
+SmelteryDwarven.Controller.name=Dwarven Smeltery Controller
+SmelteryDwarven.Drain.name=Dwarven Smeltery Drain
+SmelteryDwarven.Brick.name=Seared Dwarven Brick
+SmelteryHighElves.Controller.name=High Elven Smeltery Controller
+SmelteryHighElves.Drain.name=High Elven Smeltery Drain
+SmelteryHighElves.Brick.name=Seared High Elven Brick
+SmelteryAngmar.Controller.name=Angmar Smeltery Controller
+SmelteryAngmar.Drain.name=Angmar Smeltery Drain
+SmelteryAngmar.Brick.name=Seared Angmar Brick
+
+item.lotrtc.bucket.ElvenSteel.name=Molten Elven Steel Bucket
+item.lotrtc.bucket.DwarvenSteel.name=Molten Dwarven Steel Bucket
+item.lotrtc.bucket.OrcSteel.name=Molten Orc Steel Bucket
+item.lotrtc.bucket.BlueDwarvenSteel.name=Molten Blue Dwarven Steel Bucket
+item.lotrtc.bucket.UrukSteel.name=Molten Isengart Uruk Steel Bucket
+item.lotrtc.bucket.BlackUrukSteel.name=Molten Black Uruk Steel Bucket
+item.lotrtc.bucket.MorgulSteel.name=Molten Morgul Steel Bucket
+item.lotrtc.bucket.Sarlluin.name=Molten Sarlluin Bucket
+item.lotrtc.bucket.Coal.name=Liquified Coal Bucket
+item.lotrtc.bucket.MithrilLotR.name=Molten Mithril Bucket
+item.lotrtc.bucket.Galvorn.name=Molten Galvorn Bucket
+item.lotrtc.bucket.Edhelmir.name=Molten Edhelmir Bucket
+item.lotrtc.bucket.Durnaur.name=Molten Durnaur Bucket
+item.lotrtc.bucket.Gulduril.name=Molten Gulduril Bucket
+
+tile.fluid.molten.elven_steel.name=Molten Elven Steel
+tile.fluid.molten.dwarven_steel.name=Molten Dwarven Steel
+tile.fluid.molten.orc_steel.name=Molten Orc Steel
+tile.fluid.molten.uruk_steel.name=Molten Isengart Uruk Steel
+tile.fluid.molten.morgul_steel.name=Molten Morgul Steel
+tile.fluid.molten.black_uruk_steel.name=Molten Black Uruk Steel
+tile.fluid.molten.blue_dwarven_steel.name=Molten Blue Dwarven Steel
+tile.fluid.molten.sarlluin.name=Molten Sarlluin
+tile.fluid.molten.mithril_lotr.name=Molten Mithril
+tile.fluid.molten.galvorn.name=Molten Galvorn
+tile.fluid.molten.edhelmir.name=Molten Edhelmir
+tile.fluid.molten.durnaur.name=Molten Durnaur
+tile.fluid.molten.gulduril.name=Molten Gulduril
+tile.fluid.molten.coal.name=Liquified Coal
+
+fluid.elven_steel.molten=Molten Elven Steel
+fluid.dwarven_steel.molten=Molten Dwarven Steel
+fluid.orc_steel.molten=Molten Orc Steel
+fluid.uruk_steel.molten=Molten Isengart Uruk Steel
+fluid.morgul_steel.molten=Molten Morgul Steel
+fluid.black_uruk_steel.molten=Molten Black Uruk Steel
+fluid.blue_dwarven_steel.molten=Molten Blue Dwarven Steel
+fluid.sarlluin.molten=Molten Sarlluin
+fluid.mithril_lotr.molten=Molten Mithril
+fluid.galvorn.molten=Molten Galvorn
+fluid.edhelmir.molten=Molten Edhelmir
+fluid.durnaur.molten=Molten Durnaur
+fluid.gulduril.molten=Molten Gulduril
+fluid.coal.molten=Liquified Coal

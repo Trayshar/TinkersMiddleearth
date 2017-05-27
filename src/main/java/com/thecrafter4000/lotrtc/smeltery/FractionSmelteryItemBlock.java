@@ -12,12 +12,20 @@ import net.minecraft.util.StatCollector;
 import tconstruct.smeltery.itemblocks.SmelteryItemBlock;
 
 public class FractionSmelteryItemBlock extends MultiItemBlock {
-	public final static String[] blockTypes = { "Controller", "Drain", "Brick", "CrackedBrick" };
+	public final static String[] blockTypes = { "Controller", "Drain", "Brick" };
 	
 	public FractionSmelteryItemBlock(Block b) {
-		super(b, "", blockTypes);
+		super(b, getName(b), blockTypes);
 		setMaxDamage(0);
 		setHasSubtypes(true);
+	}
+	
+	private static String getName(Block b){
+		if(b instanceof FractionSmeltery){
+			FractionSmeltery s = (FractionSmeltery) b;
+			return "Smeltery" + s.fractionName;
+		}
+		return "Smeltery";
 	}
 	
 	@SideOnly(Side.CLIENT)

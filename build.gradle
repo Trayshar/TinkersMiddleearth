@@ -17,8 +17,8 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "1.0"
-group= "thecrafter4000.lotrtc" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+version = "1.0.0"
+group= "com.thecrafter4000.lotrtc" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "LotRTCIntegrator"
 
 minecraft {

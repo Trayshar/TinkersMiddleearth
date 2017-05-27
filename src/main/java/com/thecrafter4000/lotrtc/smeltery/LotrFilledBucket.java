@@ -1,5 +1,6 @@
 package com.thecrafter4000.lotrtc.smeltery;
 
+import com.thecrafter4000.lotrtc.CommonProxy;
 import com.thecrafter4000.lotrtc.LotRTCIntegrator;
 
 import cpw.mods.fml.relauncher.Side;
@@ -22,6 +23,7 @@ public class LotrFilledBucket extends FilledBucket {
 	public LotrFilledBucket(Block b) {
 		super(b);
 		setUnlocalizedName("lotrtc.bucket");
+		this.setCreativeTab(CommonProxy.LotRTiCTab);
 	}
 
     @Override

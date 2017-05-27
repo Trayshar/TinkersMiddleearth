@@ -1,5 +1,7 @@
 package com.thecrafter4000.lotrtc.smeltery;
 
+import com.thecrafter4000.lotrtc.CommonProxy;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraftforge.fluids.Fluid;
@@ -15,6 +17,7 @@ public class LotrTCFluid extends TConstructFluid {
 		super(fluid, material, texture);
 		this.fluid = fluid;
 		this.texture = texture;
+		this.setCreativeTab(CommonProxy.LotRTiCTab);
 	}
 	
     @Override

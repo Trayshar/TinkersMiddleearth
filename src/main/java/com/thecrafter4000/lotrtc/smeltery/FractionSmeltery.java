@@ -2,6 +2,7 @@ package com.thecrafter4000.lotrtc.smeltery;
 
 import java.util.List;
 
+import com.thecrafter4000.lotrtc.CommonProxy;
 import com.thecrafter4000.lotrtc.LotRTCIntegrator;
 import com.thecrafter4000.lotrtc.smeltery.client.FractionSmelteryRender;
 
@@ -29,6 +30,7 @@ public class FractionSmeltery extends SmelteryBlock {
 		super();
 		this.fraction = fraction;
 		this.fractionName = fractionName;
+		this.setCreativeTab(CommonProxy.LotRTiCTab);
 		this.setBlockName("lotrtc.smelterty_" + fractionName);
 	}
 	

@@ -69,9 +69,9 @@ public class ModBlocks {
 
 
     public static void preInit(FMLPreInitializationEvent e) {
-    	GameRegistry.registerBlock(smelteryHighElves = new FractionSmeltery(LotrSmelteryFraction.Elf, "highelves"), FractionSmelteryItemBlock.class, "SmelteryHighElves");
-    	GameRegistry.registerBlock(smelteryDwarven = new FractionSmeltery(LotrSmelteryFraction.Dwarf, "dwarven"), FractionSmelteryItemBlock.class, "SmelteryDwarven");
-    	GameRegistry.registerBlock(smelteryAngmar = new FractionSmeltery(LotrSmelteryFraction.Orc, "angmar"), FractionSmelteryItemBlock.class, "SmelteryAngmar");
+    	GameRegistry.registerBlock(smelteryHighElves = new FractionSmeltery(LotrSmelteryFraction.Elf, "HighElves"), FractionSmelteryItemBlock.class, "SmelteryHighElves");
+    	GameRegistry.registerBlock(smelteryDwarven = new FractionSmeltery(LotrSmelteryFraction.Dwarf, "Dwarven"), FractionSmelteryItemBlock.class, "SmelteryDwarven");
+    	GameRegistry.registerBlock(smelteryAngmar = new FractionSmeltery(LotrSmelteryFraction.Orc, "Angmar"), FractionSmelteryItemBlock.class, "SmelteryAngmar");
     	
     	moltenSarlluinFluid = registerFluid("sarlluin");
     	moltenSarlluin = moltenSarlluinFluid.getBlock();
