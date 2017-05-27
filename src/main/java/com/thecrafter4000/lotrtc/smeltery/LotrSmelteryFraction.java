@@ -20,8 +20,8 @@ public enum LotrSmelteryFraction {
 	
 	public boolean isValidBlock(Block block){
 		switch(this){
-			case Elf: return ModBlocks.smelteryElves == block;
-			case Orc: return ModBlocks.smelteryOrcish == block;
+			case Elf: return ModBlocks.smelteryHighElves == block;
+			case Orc: return ModBlocks.smelteryAngmar == block;
 			case Dwarf: return ModBlocks.smelteryDwarven == block;
 		}
 		return false;

@@ -5,6 +5,6 @@ import tconstruct.util.config.PHConstruct;
 
 public class LotRTCConfig {
 
-	public static int stoneLiquidValue = TConstruct.stoneLiquidValue;
+	public static int sarlluinLiquidValue = TConstruct.stoneLiquidValue;
 	public static int barLiquidValue = (TConstruct.ingotLiquidValue * 6 / 16);
 }

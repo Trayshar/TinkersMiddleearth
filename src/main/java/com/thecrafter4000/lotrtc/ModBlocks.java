@@ -13,6 +13,7 @@ import lotr.common.LOTRMod;
 import lotr.common.block.LOTRBlockWineGlass;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
@@ -26,12 +27,14 @@ import tconstruct.smeltery.blocks.SmelteryBlock;
 
 public class ModBlocks {
 
-	public static SmelteryBlock smelteryElves;
+	public static SmelteryBlock smelteryHighElves;
 	public static SmelteryBlock smelteryDwarven;
-	public static SmelteryBlock smelteryOrcish;
+	public static SmelteryBlock smelteryAngmar;
 	
 	/* Normal Smeltery  */
 	public static Fluid moltenSarlluinFluid;
+	public static Fluid moltenCoalFluid;
+	public static Block moltenCoal;
 	public static Block moltenSarlluin;
 
 	/* Dwarven Smeltery */
@@ -66,13 +69,16 @@ public class ModBlocks {
 
 
     public static void preInit(FMLPreInitializationEvent e) {
-    	GameRegistry.registerBlock(smelteryElves = new FractionSmeltery(LotrSmelteryFraction.Elf), FractionSmelteryItemBlock.class, "SmelteryElves");
-    	GameRegistry.registerBlock(smelteryDwarven = new FractionSmeltery(LotrSmelteryFraction.Dwarf), FractionSmelteryItemBlock.class, "SmelteryDwarven");
-    	GameRegistry.registerBlock(smelteryOrcish = new FractionSmeltery(LotrSmelteryFraction.Orc), FractionSmelteryItemBlock.class, "SmelteryOrcish");
+    	GameRegistry.registerBlock(smelteryHighElves = new FractionSmeltery(LotrSmelteryFraction.Elf, "highelves"), FractionSmelteryItemBlock.class, "SmelteryHighElves");
+    	GameRegistry.registerBlock(smelteryDwarven = new FractionSmeltery(LotrSmelteryFraction.Dwarf, "dwarven"), FractionSmelteryItemBlock.class, "SmelteryDwarven");
+    	GameRegistry.registerBlock(smelteryAngmar = new FractionSmeltery(LotrSmelteryFraction.Orc, "angmar"), FractionSmelteryItemBlock.class, "SmelteryAngmar");
     	
     	moltenSarlluinFluid = registerFluid("sarlluin");
     	moltenSarlluin = moltenSarlluinFluid.getBlock();
 
+    	moltenCoalFluid = registerFluid("coal");
+    	moltenCoal = moltenCoalFluid.getBlock();
+    	
     	moltenMithrilFluid = registerFluid("mithril_lotr");
     	moltenMithril = moltenMithrilFluid.getBlock();
 
@@ -111,6 +117,7 @@ public class ModBlocks {
     	
     	FluidType.registerFluidType("Silver", LOTRMod.blockOreStorage, 3, 500, TinkerSmeltery.moltenSilverFluid, false);
     	FluidType.registerFluidType("Sarlluin", LOTRMod.rock, 3, 800, moltenSarlluinFluid, false);
+    	FluidType.registerFluidType("Coal", Blocks.coal_block, 0, 310, moltenCoalFluid, false);
     	FluidType.registerFluidType("MithrilLotR", LOTRMod.blockOreStorage, 4, 1000, moltenMithrilFluid, true);
     	FluidType.registerFluidType("BlueDwarvenSteel", LOTRMod.blockOreStorage, 15, 700, moltenBlueDwarvenSteelFluid, true);
     	FluidType.registerFluidType("DwarvenSteel", LOTRMod.blockOreStorage, 7, 900, moltenDwarvenSteelFluid, true);
@@ -180,7 +187,7 @@ public class ModBlocks {
                 }
 
             if(!reg)
-                LotRTCIntegrator.logger.error("Couldn't register fluid container for " + name);
+                LotRTCIntegrator.logger.error("Couldn't register fluid container for " + name + "! Please report this to the mod author!");
         }
 
         return fluid;

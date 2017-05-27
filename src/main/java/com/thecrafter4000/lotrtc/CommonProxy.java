@@ -49,11 +49,12 @@ public class CommonProxy {
     	NetworkRegistry.INSTANCE.registerGuiHandler(LotRTCIntegrator.instance, new GuiHandler());
     	GameRegistry.registerTileEntity(FractionSmelteryLogic.class, "lotrtc:fractionsmelterylogic");
     	patchLotrOres();
+    	SmelteryRecipes.registerCasting();
+    	SmelteryRecipes.registerAlloys();
     }
 
     public void postInit(FMLPostInitializationEvent e) {
     	SmelteryRecipes.registerSmelteryStuff();
-//		for(LotrSmelteryFraction t : LotrSmelteryFraction.class.getEnumConstants()) System.out.println("Fraction: " + t.name() + ": " + SmelteryRecipeHandler.getRenderIndex(t));
     }
     
     public static void patchLotrOres(){

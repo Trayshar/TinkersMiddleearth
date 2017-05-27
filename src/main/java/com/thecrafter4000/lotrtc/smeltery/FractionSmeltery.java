@@ -23,11 +23,13 @@ import tconstruct.smeltery.logic.SmelteryDrainLogic;
 public class FractionSmeltery extends SmelteryBlock {
 
 	public final LotrSmelteryFraction fraction;
+	public final String fractionName;
 	
-	public FractionSmeltery(LotrSmelteryFraction fraction) {
+	public FractionSmeltery(LotrSmelteryFraction fraction, String fractionName) {
 		super();
 		this.fraction = fraction;
-		this.setBlockName("lotrtc.smelterty_" + fraction.getFractionString());
+		this.fractionName = fractionName;
+		this.setBlockName("lotrtc.smelterty_" + fractionName);
 	}
 	
 	@Override
@@ -51,9 +53,9 @@ public class FractionSmeltery extends SmelteryBlock {
 	
 	@Override
 	public String[] getTextureNames() {
-		String[] textureNames = { "searedbrick", "smeltery_inactive", "smeltery_active", "drain_out", "drain_basine" ,"searedbrickcracked" };
+		String[] textureNames = { "searedbrick", "smeltery_inactive", "smeltery_active", "drain_out", "drain_basine" ,/*"searedbrickcracked"*/ };
 		for(int i = 0; i < textureNames.length; i++){
-			textureNames[i] = textureNames[i] + "_" + fraction.getFractionString();
+			textureNames[i] = textureNames[i] + "_" + fractionName;
 		}
 		return textureNames;
 	}
@@ -66,8 +68,8 @@ public class FractionSmeltery extends SmelteryBlock {
 				return side == 3 ? this.icons[1] : this.icons[0];
 			case 1:
 				return side == 3 ? this.icons[3] : this.icons[0];
-			case 3:
-				return this.icons[5];
+/*			case 3:
+				return this.icons[5]; */
 			case 2: default:
 				return this.icons[0];
 		}
@@ -96,10 +98,8 @@ public class FractionSmeltery extends SmelteryBlock {
 			}
 			return this.icons[0];
 		}
-		if (meta == 2) {
-			return this.icons[0];
-		}
-		if (meta == 3) return this.icons[5];
+		if (meta == 2) return this.icons[0];
+//		if (meta == 3) return this.icons[5];
 		return null;
 	}
 	
@@ -108,6 +108,6 @@ public class FractionSmeltery extends SmelteryBlock {
 		list.add(new ItemStack(id, 1, 0));
 		list.add(new ItemStack(id, 1, 1));
 		list.add(new ItemStack(id, 1, 2));
-		list.add(new ItemStack(id, 1, 3));
+//		list.add(new ItemStack(id, 1, 3));
 	}
 }

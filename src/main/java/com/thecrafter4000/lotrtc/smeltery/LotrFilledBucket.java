@@ -43,9 +43,9 @@ public class LotrFilledBucket extends FilledBucket {
         return getUnlocalizedName() + "." + materialNames2[arr];
     }
     
-    public static final String[] materialNames2 = new String[] { "Sarlluin", "MithrilLotR", "BlueDwarvenSteel", "DwarvenSteel", "Galvorn", "ElvenSteel", "MorgulSteel", "OrcSteel", "UrukSteel", "BlackUrukSteel", "Edhelmir", "Durnaur", "Gulduril" };
+    public static final String[] materialNames2 = new String[] { "Sarlluin", "Coal", "MithrilLotR", "BlueDwarvenSteel", "DwarvenSteel", "Galvorn", "ElvenSteel", "MorgulSteel", "OrcSteel", "UrukSteel", "BlackUrukSteel", "Edhelmir", "Durnaur", "Gulduril" };
 
-    public static final String[] textureNames2 = new String[] { "sarlluin", "mithril_lotr", "blue_dwarven_steel", "dwarven_steel", "galvorn", "elven_steel", "morgul_steel", "orc_steel", "uruk_steel", "black_uruk_steel", "edhelmir", "durnaur", "gulduril" };
+    public static final String[] textureNames2 = new String[] { "sarlluin", "coal", "mithril_lotr", "blue_dwarven_steel", "dwarven_steel", "galvorn", "elven_steel", "morgul_steel", "orc_steel", "uruk_steel", "black_uruk_steel", "edhelmir", "durnaur", "gulduril" };
 
     public boolean tryPlaceContainedLiquid (World world, int clickX, int clickY, int clickZ, int type)
     {

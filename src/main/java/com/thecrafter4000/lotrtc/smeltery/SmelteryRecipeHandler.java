@@ -217,7 +217,7 @@ import tconstruct.library.crafting.Smeltery;
 	    {
 	        ItemStack tmp = getInstance(fraction).renderIndex.get(new ItemMetaWrapper(input));
 	        if(tmp == null) tmp = Smeltery.getRenderIndex(input);
-	        LotRTCIntegrator.logger.info("Getting Mapping for " + (input == null ? "null" : input.getDisplayName()) + ": " + (tmp == null ? "null" : tmp.getDisplayName()));
+//	        LotRTCIntegrator.logger.info("Getting Mapping for " + (input == null ? "null" : input.getDisplayName()) + ": " + (tmp == null ? "null" : tmp.getDisplayName()));
 	        return tmp;
 	    }
 
