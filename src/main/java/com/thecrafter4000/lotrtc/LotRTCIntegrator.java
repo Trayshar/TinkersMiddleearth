@@ -16,7 +16,7 @@ import tconstruct.smeltery.blocks.SmelteryBlock;
 public class LotRTCIntegrator {
 
 	public static final String MODID = "lotrtc";
-	public static final String VERSION = "1.0.0";
+	public static final String VERSION = "1.0.1";
 	public static final String NAME = "LotrTiCIntegration";
 	public static final String Dependencies = "required-after:TConstruct;required-after:lotr";
 	@Instance public static LotRTCIntegrator instance;
