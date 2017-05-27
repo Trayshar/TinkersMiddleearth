@@ -19,7 +19,7 @@ apply plugin: 'forge'
 
 version = "1.0.1"
 group= "com.thecrafter4000.lotrtc" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "LotRTCIntegrator"
+archivesBaseName = "[1.7.10] Tinker's MiddleEarth"
 
 minecraft {
     version = "1.7.10-10.13.4.1614-1.7.10"
