@@ -10,6 +10,16 @@ SmelteryAngmar.Controller.name=Angmar Smeltery Controller
 SmelteryAngmar.Drain.name=Angmar Smeltery Drain
 SmelteryAngmar.Brick.name=Seared Angmar Brick
 
+TankHighElves.Tank.name=High Elven Tank
+TankAngmar.Tank.name=Angmar Tank
+TankDwarven.Tank.name=Dwarven Tank
+TankHighElves.Gague.name=Seared High Elven Glass
+TankAngmar.Gague.name=Seared Angmar Glass
+TankDwarven.Gague.name=Seared Dwarven Glass
+TankHighElves.Window.name=Seared High Elven Window
+TankAngmar.Window.name=Seared Angmar Window
+TankDwarven.Window.name=Seared Dwarven Window
+
 item.lotrtc.bucket.ElvenSteel.name=Molten Elven Steel Bucket
 item.lotrtc.bucket.DwarvenSteel.name=Molten Dwarven Steel Bucket
 item.lotrtc.bucket.OrcSteel.name=Molten Orc Steel Bucket

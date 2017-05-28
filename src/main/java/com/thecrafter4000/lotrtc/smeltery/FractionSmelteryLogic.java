@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
+import com.thecrafter4000.lotrtc.LotRTCConfig;
 import com.thecrafter4000.lotrtc.LotRTCIntegrator;
 import com.thecrafter4000.lotrtc.ModBlocks;
 
@@ -72,11 +73,14 @@ public class FractionSmelteryLogic extends SmelteryLogic {
 	
 	public boolean isValidBlockID(Block blockID){
 		if(this.fraction.isValidBlock(blockID)) return true;
-		return ((blockID == TinkerSmeltery.smeltery) || (blockID == TinkerSmeltery.smelteryNether));
+		else if(LotRTCConfig.shouldUseNormalSmelteryBlocks) return ((blockID == TinkerSmeltery.smeltery) || (blockID == TinkerSmeltery.smelteryNether));
+		return false;
 	}
 	
 	public boolean isValidTankID(Block blockID){
-		return ((blockID == TinkerSmeltery.lavaTank) || (blockID == TinkerSmeltery.lavaTankNether));
+		if(this.fraction.isValidTank(blockID)) return true;
+		else if(LotRTCConfig.shouldUseNormalSmelteryBlocks) return ((blockID == TinkerSmeltery.lavaTank) || (blockID == TinkerSmeltery.lavaTankNether));
+		return false;
 	}
 	
 	// Only copied cause validBlockId(Block) is not visible :d

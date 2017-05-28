@@ -2,9 +2,11 @@ package com.thecrafter4000.lotrtc;
 
 import com.thecrafter4000.lotrtc.smeltery.FractionSmeltery;
 import com.thecrafter4000.lotrtc.smeltery.FractionSmelteryItemBlock;
+import com.thecrafter4000.lotrtc.smeltery.FractionTankBlock;
 import com.thecrafter4000.lotrtc.smeltery.LotrFilledBucket;
 import com.thecrafter4000.lotrtc.smeltery.LotrSmelteryFraction;
 import com.thecrafter4000.lotrtc.smeltery.LotrTCFluid;
+import com.thecrafter4000.lotrtc.smeltery.TankItemBlock;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -23,13 +25,19 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import tconstruct.library.crafting.FluidType;
 import tconstruct.smeltery.TinkerSmeltery;
+import tconstruct.smeltery.blocks.LavaTankBlock;
 import tconstruct.smeltery.blocks.SmelteryBlock;
 
 public class ModBlocks {
-
+	/* Smeltery Blocks */
 	public static SmelteryBlock smelteryHighElves;
 	public static SmelteryBlock smelteryDwarven;
 	public static SmelteryBlock smelteryAngmar;
+	
+	/* Tank Blocks */
+	public static LavaTankBlock tankHighElves;
+	public static LavaTankBlock tankDwarven;
+	public static LavaTankBlock tankAngmar; 
 	
 	/* Normal Smeltery  */
 	public static Fluid moltenSarlluinFluid;
@@ -72,6 +80,10 @@ public class ModBlocks {
     	GameRegistry.registerBlock(smelteryHighElves = new FractionSmeltery(LotrSmelteryFraction.Elf, "HighElves"), FractionSmelteryItemBlock.class, "SmelteryHighElves");
     	GameRegistry.registerBlock(smelteryDwarven = new FractionSmeltery(LotrSmelteryFraction.Dwarf, "Dwarven"), FractionSmelteryItemBlock.class, "SmelteryDwarven");
     	GameRegistry.registerBlock(smelteryAngmar = new FractionSmeltery(LotrSmelteryFraction.Orc, "Angmar"), FractionSmelteryItemBlock.class, "SmelteryAngmar");
+    	
+    	GameRegistry.registerBlock(tankHighElves = new FractionTankBlock("HighElves"), TankItemBlock.class , "LavaTankHighElves");
+    	GameRegistry.registerBlock(tankAngmar = new FractionTankBlock("Angmar"), TankItemBlock.class , "LavaTankAngmar");
+    	GameRegistry.registerBlock(tankDwarven = new FractionTankBlock("Dwarven"), TankItemBlock.class , "LavaTankDwarven");
     	
     	moltenSarlluinFluid = registerFluid("sarlluin");
     	moltenSarlluin = moltenSarlluinFluid.getBlock();
