@@ -12,6 +12,7 @@ import com.thecrafter4000.lotrtc.smeltery.LotrFilledBucket;
 import com.thecrafter4000.lotrtc.smeltery.LotrSmelteryFraction;
 import com.thecrafter4000.lotrtc.smeltery.SmelteryRecipeHandler;
 import com.thecrafter4000.lotrtc.smeltery.SmelteryRecipes;
+import com.thecrafter4000.lotrtc.tools.ToolRecipes;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLInterModComms;
@@ -59,14 +60,16 @@ public class CommonProxy {
     public void preInit(FMLPreInitializationEvent e) {
     	GameRegistry.registerItem(buckets = new LotrFilledBucket(mantle.blocks.BlockUtils.getBlockFromItem(buckets)), "buckets");
     	ModBlocks.preInit(e);
+    	MaterialRegistry.setup();
+    	ToolRecipes.registerMaterials();
     }
 
     public void init(FMLInitializationEvent e) {
-    	ModBlocks.init(e);
     	NetworkRegistry.INSTANCE.registerGuiHandler(LotRTCIntegrator.instance, new GuiHandler());
     	GameRegistry.registerTileEntity(FractionSmelteryLogic.class, "lotrtc:fractionsmelterylogic");
     	patchLotrOres();
     	SmelteryRecipes.registerCasting();
+    	ToolRecipes.registerToolCasting();
     	SmelteryRecipes.registerAlloys();
     	registerSmelteryBlock(LOTRRecipes.angmarRecipes, ModBlocks.smelteryAngmar);
     	registerSmelteryBlock(LOTRRecipes.dwarvenRecipes, ModBlocks.smelteryDwarven);
@@ -75,6 +78,7 @@ public class CommonProxy {
 
     public void postInit(FMLPostInitializationEvent e) {
     	SmelteryRecipes.registerSmelteryStuff();
+    	ToolRecipes.registerMetals();
     }
     
     public static void patchLotrOres(){

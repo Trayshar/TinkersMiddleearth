@@ -8,6 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -188,34 +189,4 @@ public class SmelteryRecipes {
 	private static void registerBlockCasting(FluidType ft, ItemStack ore, int fluidAmount) {
 		TConstructRegistry.getBasinCasting().addCastingRecipe(new ItemStack(ore.getItem(), 1, ore.getItemDamage()), new FluidStack(ft.fluid, fluidAmount), 100);
 	}
-	
-	/*      */   private static void registerIngotCasting(FluidType ft, String name)
-	/*      */   {
-	/*  924 */     ItemStack pattern = new ItemStack(TinkerSmeltery.metalPattern, 1, 0);
-	/*  925 */     LiquidCasting tableCasting = TConstructRegistry.getTableCasting();
-	/*  926 */     for (ItemStack ore : OreDictionary.getOres(name))
-	/*      */     {
-	/*  928 */       tableCasting.addCastingRecipe(pattern, new FluidStack(TinkerSmeltery.moltenAlubrassFluid, 144), new ItemStack(ore.getItem(), 1, ore.getItemDamage()), false, 50);
-	/*  929 */       tableCasting.addCastingRecipe(pattern, new FluidStack(TinkerSmeltery.moltenGoldFluid, 288), new ItemStack(ore.getItem(), 1, ore.getItemDamage()), false, 50);
-	/*  930 */       tableCasting.addCastingRecipe(new ItemStack(ore.getItem(), 1, ore.getItemDamage()), new FluidStack(ft.fluid, 144), pattern, 80);
-	/*      */     }
-	/*      */   }
-	/*      */   
-	/*      */   private static void registerNuggetCasting(FluidType ft, String name)
-	/*      */   {
-	/*  936 */     ItemStack pattern = new ItemStack(TinkerSmeltery.metalPattern, 1, 27);
-	/*  937 */     LiquidCasting tableCasting = TConstructRegistry.getTableCasting();
-	/*  938 */     for (ItemStack ore : OreDictionary.getOres(name)) {
-	/*  950 */         tableCasting.addCastingRecipe(pattern, new FluidStack(TinkerSmeltery.moltenAlubrassFluid, 144), new ItemStack(ore.getItem(), 1, ore.getItemDamage()), false, 50);
-	/*  951 */         tableCasting.addCastingRecipe(pattern, new FluidStack(TinkerSmeltery.moltenGoldFluid, 288), new ItemStack(ore.getItem(), 1, ore.getItemDamage()), false, 50);
-	/*  952 */         tableCasting.addCastingRecipe(new ItemStack(ore.getItem(), 1, ore.getItemDamage()), new FluidStack(ft.fluid, 16), pattern, 40);
-	/*      */     }
-	/*      */   }
-	/*      */   
-	/*      */   private static void registerBlockCasting(FluidType ft, String name) {
-	/*  958 */     for (ItemStack ore : OreDictionary.getOres(name))
-	/*      */     {
-	/*  960 */       TConstructRegistry.getBasinCasting().addCastingRecipe(new ItemStack(ore.getItem(), 1, ore.getItemDamage()), new FluidStack(ft.fluid, TConstruct.blockLiquidValue), 100);
-	/*      */     }
-	/*      */   }
 }

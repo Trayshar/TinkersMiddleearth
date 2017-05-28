@@ -144,7 +144,7 @@ public class ModBlocks {
     	FluidType.registerFluidType("Gulduril", LOTRMod.blockOreStorage, 11, 500, moltenGuldurilFluid, false);
     }
 
-    public static void init(FMLInitializationEvent e) {}
+//    public static void init(FMLInitializationEvent e) {}
 
     /* Copied from TiC cause it's necassary.  */
     
