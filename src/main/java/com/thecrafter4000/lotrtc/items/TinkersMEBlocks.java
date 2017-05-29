@@ -1,34 +1,38 @@
-package com.thecrafter4000.lotrtc;
+package com.thecrafter4000.lotrtc.items;
 
+import java.util.List;
+
+import com.thecrafter4000.lotrtc.TinkersMiddleearth;
 import com.thecrafter4000.lotrtc.smeltery.FractionSmeltery;
-import com.thecrafter4000.lotrtc.smeltery.FractionSmelteryItemBlock;
 import com.thecrafter4000.lotrtc.smeltery.FractionTankBlock;
-import com.thecrafter4000.lotrtc.smeltery.LotrFilledBucket;
-import com.thecrafter4000.lotrtc.smeltery.LotrSmelteryFraction;
 import com.thecrafter4000.lotrtc.smeltery.LotrTCFluid;
-import com.thecrafter4000.lotrtc.smeltery.TankItemBlock;
+import com.thecrafter4000.lotrtc.smeltery.SmelteryMainFraction;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import lotr.common.LOTRMod;
-import lotr.common.block.LOTRBlockWineGlass;
+import lotr.common.recipe.LOTRRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidContainerRegistry.FluidContainerData;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.oredict.OreDictionary;
 import tconstruct.library.crafting.FluidType;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.smeltery.blocks.LavaTankBlock;
 import tconstruct.smeltery.blocks.SmelteryBlock;
+import tconstruct.tools.TinkerTools;
 
-public class ModBlocks {
+public class TinkersMEBlocks {
 	/* Smeltery Blocks */
 	public static SmelteryBlock smelteryHighElves;
 	public static SmelteryBlock smelteryDwarven;
@@ -77,9 +81,9 @@ public class ModBlocks {
 
 
     public static void preInit(FMLPreInitializationEvent e) {
-    	GameRegistry.registerBlock(smelteryHighElves = new FractionSmeltery(LotrSmelteryFraction.Elf, "HighElves"), FractionSmelteryItemBlock.class, "SmelteryHighElves");
-    	GameRegistry.registerBlock(smelteryDwarven = new FractionSmeltery(LotrSmelteryFraction.Dwarf, "Dwarven"), FractionSmelteryItemBlock.class, "SmelteryDwarven");
-    	GameRegistry.registerBlock(smelteryAngmar = new FractionSmeltery(LotrSmelteryFraction.Orc, "Angmar"), FractionSmelteryItemBlock.class, "SmelteryAngmar");
+    	GameRegistry.registerBlock(smelteryHighElves = new FractionSmeltery(SmelteryMainFraction.Elf, "HighElves"), FractionSmelteryItemBlock.class, "SmelteryHighElves");
+    	GameRegistry.registerBlock(smelteryDwarven = new FractionSmeltery(SmelteryMainFraction.Dwarf, "Dwarven"), FractionSmelteryItemBlock.class, "SmelteryDwarven");
+    	GameRegistry.registerBlock(smelteryAngmar = new FractionSmeltery(SmelteryMainFraction.Orc, "Angmar"), FractionSmelteryItemBlock.class, "SmelteryAngmar");
     	
     	GameRegistry.registerBlock(tankHighElves = new FractionTankBlock("HighElves"), TankItemBlock.class , "LavaTankHighElves");
     	GameRegistry.registerBlock(tankAngmar = new FractionTankBlock("Angmar"), TankItemBlock.class , "LavaTankAngmar");
@@ -144,19 +148,36 @@ public class ModBlocks {
     	FluidType.registerFluidType("Gulduril", LOTRMod.blockOreStorage, 11, 500, moltenGuldurilFluid, false);
     }
 
-//    public static void init(FMLInitializationEvent e) {}
+    public static void init(FMLInitializationEvent e) {
+    	registerSmelteryBlockCrafting(LOTRRecipes.angmarRecipes, TinkersMEBlocks.smelteryAngmar, TinkersMEBlocks.tankAngmar);
+    	registerSmelteryBlockCrafting(LOTRRecipes.dwarvenRecipes, TinkersMEBlocks.smelteryDwarven, TinkersMEBlocks.tankDwarven);
+    	registerSmelteryBlockCrafting(LOTRRecipes.highElvenRecipes, TinkersMEBlocks.smelteryHighElves, TinkersMEBlocks.tankHighElves);
+    }
+    
+    private static void registerSmelteryBlockCrafting(List<IRecipe> recipeList, Block smeltery, Block tank){
+    	ItemStack searedBrick = new ItemStack(TinkerTools.materials, 1, 2);
+    	recipeList.add(new ShapedRecipes(3, 3, new ItemStack[]{searedBrick, searedBrick, searedBrick, searedBrick, null, searedBrick, searedBrick, searedBrick, searedBrick}, new ItemStack(smeltery, 1, 0)));
+    	recipeList.add(new ShapedRecipes(3, 3, new ItemStack[]{searedBrick, null, searedBrick, searedBrick, null, searedBrick, searedBrick, null, searedBrick}, new ItemStack(smeltery, 1, 1)));
+    	recipeList.add(new ShapedRecipes(2, 2, new ItemStack[]{searedBrick, searedBrick, searedBrick, searedBrick}, new ItemStack(smeltery, 1, 2)));
+    	for(ItemStack ore : OreDictionary.getOres("blockGlass")) {
+    		recipeList.add(new ShapedRecipes(3, 3, new ItemStack[]{searedBrick, searedBrick, searedBrick, searedBrick, ore, searedBrick, searedBrick, searedBrick, searedBrick}, new ItemStack(tank)));
+    		recipeList.add(new ShapedRecipes(3, 3, new ItemStack[]{searedBrick, ore, searedBrick, ore, ore, ore, searedBrick, ore, searedBrick}, new ItemStack(tank, 1, 1)));
+    		recipeList.add(new ShapedRecipes(3, 3, new ItemStack[]{searedBrick, ore, searedBrick, searedBrick, ore, searedBrick, searedBrick, ore, searedBrick}, new ItemStack(tank, 1, 2)));
+
+    	}
+    }
 
     /* Copied from TiC cause it's necassary.  */
     
-    public static Fluid registerFluid(String name) {
+    private static Fluid registerFluid(String name) {
         return registerFluid(name, "liquid_" + name);
     }
 
-    public static Fluid registerFluid(String name, String texture) {
+    private static Fluid registerFluid(String name, String texture) {
         return registerFluid(name, name + ".molten", "fluid.molten." + name, texture, 3000, 6000, 1300, Material.lava);
     }
 
-    public static Fluid registerFluid(String name, String fluidName, String blockName, String texture, int density, int viscosity, int temperature, Material material) {
+    private static Fluid registerFluid(String name, String fluidName, String blockName, String texture, int density, int viscosity, int temperature, Material material) {
         // create the new fluid
         Fluid fluid = new Fluid(fluidName).setDensity(density).setViscosity(viscosity).setTemperature(temperature);
 
@@ -194,12 +215,12 @@ public class ModBlocks {
             boolean reg = false;
             for(int i = 0; i < LotrFilledBucket.textureNames2.length; i++)
                 if(LotrFilledBucket.textureNames2[i].equals(name)) {
-                    FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(fluid, 1000), new ItemStack(CommonProxy.buckets, 1, i), new ItemStack(Items.bucket)));
+                    FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(fluid, 1000), new ItemStack(TinkersMEItems.buckets, 1, i), new ItemStack(Items.bucket)));
                     reg = true;
                 }
 
             if(!reg)
-                LotRTCIntegrator.logger.error("Couldn't register fluid container for " + name + "! Please report this to the mod author!");
+                TinkersMiddleearth.logger.error("Couldn't register fluid container for " + name + "! Please report this to the mod author!");
         }
 
         return fluid;

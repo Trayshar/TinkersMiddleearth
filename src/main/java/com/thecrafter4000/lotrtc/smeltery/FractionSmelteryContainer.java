@@ -1,9 +1,5 @@
 package com.thecrafter4000.lotrtc.smeltery;
 
-import com.thecrafter4000.lotrtc.ModBlocks;
-
-import cpw.mods.fml.common.FMLCommonHandler;
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import tconstruct.smeltery.inventory.SmelteryContainer;

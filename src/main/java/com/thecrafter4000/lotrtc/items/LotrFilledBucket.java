@@ -1,7 +1,7 @@
-package com.thecrafter4000.lotrtc.smeltery;
+package com.thecrafter4000.lotrtc.items;
 
 import com.thecrafter4000.lotrtc.CommonProxy;
-import com.thecrafter4000.lotrtc.LotRTCIntegrator;
+import com.thecrafter4000.lotrtc.TinkersMiddleearth;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -13,9 +13,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidFinite;
-import tconstruct.TConstruct;
 import tconstruct.library.crafting.FluidType;
-import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.smeltery.items.FilledBucket;
 
 public class LotrFilledBucket extends FilledBucket {
@@ -71,7 +69,7 @@ public class LotrFilledBucket extends FilledBucket {
             }
             catch (ArrayIndexOutOfBoundsException ex)
             {
-                LotRTCIntegrator.logger.warn("AIOBE occured when placing bucket into world; " + ex);
+                TinkersMiddleearth.logger.warn("AIOBE occured when placing bucket into world; " + ex);
                 return false;
             }
 

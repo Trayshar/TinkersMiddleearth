@@ -1,6 +1,8 @@
-package com.thecrafter4000.lotrtc.smeltery;
+package com.thecrafter4000.lotrtc.items;
 
 import java.util.List;
+
+import com.thecrafter4000.lotrtc.smeltery.FractionTankBlock;
 
 import mantle.blocks.abstracts.MultiItemBlock;
 import net.minecraft.block.Block;
@@ -8,7 +10,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
-import tconstruct.smeltery.itemblocks.LavaTankItemBlock;
 
 public class TankItemBlock extends MultiItemBlock {
 

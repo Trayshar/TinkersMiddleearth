@@ -1,6 +1,8 @@
-package com.thecrafter4000.lotrtc.smeltery;
+package com.thecrafter4000.lotrtc.items;
 
 import java.util.List;
+
+import com.thecrafter4000.lotrtc.smeltery.FractionSmeltery;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -9,7 +11,6 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
-import tconstruct.smeltery.itemblocks.SmelteryItemBlock;
 
 public class FractionSmelteryItemBlock extends MultiItemBlock {
 	public final static String[] blockTypes = { "Controller", "Drain", "Brick" };

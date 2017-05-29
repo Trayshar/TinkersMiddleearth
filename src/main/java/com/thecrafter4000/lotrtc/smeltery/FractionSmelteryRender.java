@@ -1,8 +1,6 @@
-package com.thecrafter4000.lotrtc.smeltery.client;
+package com.thecrafter4000.lotrtc.smeltery;
 
-import com.thecrafter4000.lotrtc.LotRTCIntegrator;
-import com.thecrafter4000.lotrtc.smeltery.FractionSmelteryLogic;
-import com.thecrafter4000.lotrtc.smeltery.SmelteryRecipeHandler;
+import com.thecrafter4000.lotrtc.TinkersMiddleearth;
 
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import mantle.world.CoordTuple;
@@ -134,7 +132,7 @@ public class FractionSmelteryRender extends SmelteryRender {
 
                         Block liquidBlock = Block.getBlockFromItem(blockToRender.getItem());
                         if(blockToRender.getItem() != null) BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, blockToRender.getItemDamage(), x, posY, z, renderer, world);
-                        else LotRTCIntegrator.logger.fatal("Invalid Render Mapping! Item=" + logic.getStackInSlot(i).getDisplayName());
+                        else TinkersMiddleearth.logger.fatal("Invalid Render Mapping! Item=" + logic.getStackInSlot(i).getDisplayName());
                     }
                 }
                 i++;

@@ -1,25 +1,22 @@
 package com.thecrafter4000.lotrtc.tools;
 
-import com.thecrafter4000.lotrtc.LotRTCConfig;
-import com.thecrafter4000.lotrtc.LotRTCConfig.LotRMaterialID;
-import com.thecrafter4000.lotrtc.LotRTCIntegrator;
-import com.thecrafter4000.lotrtc.MaterialRegistry;
+import com.thecrafter4000.lotrtc.TinkersMEConfig;
+import com.thecrafter4000.lotrtc.TinkersMEConfig.LotRMaterialID;
+import com.thecrafter4000.lotrtc.TinkersMEConfig.LotRToolStats;
+import com.thecrafter4000.lotrtc.TinkersMiddleearth;
+import com.thecrafter4000.lotrtc.items.MaterialRegistry;
 
 import lotr.common.LOTRMod;
-import lotr.common.item.LOTRMaterial;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import tconstruct.TConstruct;
-import tconstruct.api.TConstructAPI;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.FluidType;
 import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.library.crafting.Smeltery;
-import tconstruct.library.tools.DynamicToolPart;
 import tconstruct.library.util.IPattern;
 import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.tools.TinkerTools;
@@ -45,14 +42,14 @@ public class ToolRecipes {
 	
 	public static void registerMaterials(){
 		// Tool Materials: id, name, harvestlevel, durability, speed, damage, handlemodifier, reinforced, shoddy, style color, primary color for block use
-		TConstructRegistry.addToolMaterial(LotRMaterialID.MithrilLotR, "MithrilLotR", 5, 2400, 900, 5, LotRTCConfig.handleModifierMithril, 3, 0f, EnumChatFormatting.WHITE.toString(), 0xededed);
-		TConstructRegistry.addToolMaterial(LotRMaterialID.DwarvenSteel, "DwarvenSteel", 3, 700, 900, 3, LotRTCConfig.handleModifierDwarf, 2, 0f, EnumChatFormatting.GRAY.toString(), 0x3d3e44);
-		TConstructRegistry.addToolMaterial(LotRMaterialID.BlueDwarvenSteel, "BlueDwarvenSteel", 3, 650, 700, 3, LotRTCConfig.handleModifierBlueDwarf, 1, 0f, EnumChatFormatting.BLUE.toString(), 0x113b7f);
-		TConstructRegistry.addToolMaterial(LotRMaterialID.ElvenSteel, "ElvenSteel", 2, 700, 800, 3, LotRTCConfig.handleModifierElf, 2, 0f, EnumChatFormatting.WHITE.toString(), 0xd1cccc);
-		TConstructRegistry.addToolMaterial(LotRMaterialID.OrcSteel, "OrcSteel", 2, 400, 600, 2, LotRTCConfig.handleModifierOrc, 0, 0.3f, EnumChatFormatting.DARK_GRAY.toString(), 0x3a3838);
-		TConstructRegistry.addToolMaterial(LotRMaterialID.UrukSteel, "UrukSteel", 2, 550, 600, 3, LotRTCConfig.handleModifierUruk, 1, 0f, EnumChatFormatting.DARK_GRAY.toString(), 0x4c2409);
-		TConstructRegistry.addToolMaterial(LotRMaterialID.BlackUrukSteel, "BlackUrukSteel", 3, 570, 700, 3, LotRTCConfig.handleModifierBlackUruk, 2, 0f, EnumChatFormatting.BLACK.toString(), 0x000000);
-		TConstructRegistry.addToolMaterial(LotRMaterialID.Mallorn, "Mallorn", 1, 200, 400, 1, LotRTCConfig.handleModifierMallorn, 0, 0f, EnumChatFormatting.GOLD.toString(), 0xd1cf8a);
+		TConstructRegistry.addToolMaterial(LotRMaterialID.MithrilLotR, "MithrilLotR", 5, 2400, 900, 5, LotRToolStats.handleModifierMithril, 3, 0f, EnumChatFormatting.WHITE.toString(), 0xededed);
+		TConstructRegistry.addToolMaterial(LotRMaterialID.DwarvenSteel, "DwarvenSteel", 3, 700, 900, 3, LotRToolStats.handleModifierDwarf, 2, 0f, EnumChatFormatting.GRAY.toString(), 0x3d3e44);
+		TConstructRegistry.addToolMaterial(LotRMaterialID.BlueDwarvenSteel, "BlueDwarvenSteel", 3, 650, 700, 3, LotRToolStats.handleModifierBlueDwarf, 1, 0f, EnumChatFormatting.BLUE.toString(), 0x113b7f);
+		TConstructRegistry.addToolMaterial(LotRMaterialID.ElvenSteel, "ElvenSteel", 2, 700, 800, 3, LotRToolStats.handleModifierElf, 2, 0f, EnumChatFormatting.WHITE.toString(), 0xd1cccc);
+		TConstructRegistry.addToolMaterial(LotRMaterialID.OrcSteel, "OrcSteel", 2, 400, 600, 2, LotRToolStats.handleModifierOrc, 0, 0.3f, EnumChatFormatting.DARK_GRAY.toString(), 0x3a3838);
+		TConstructRegistry.addToolMaterial(LotRMaterialID.UrukSteel, "UrukSteel", 2, 550, 600, 3, LotRToolStats.handleModifierUruk, 1, 0f, EnumChatFormatting.DARK_GRAY.toString(), 0x4c2409);
+		TConstructRegistry.addToolMaterial(LotRMaterialID.BlackUrukSteel, "BlackUrukSteel", 3, 570, 700, 3, LotRToolStats.handleModifierBlackUruk, 2, 0f, EnumChatFormatting.BLACK.toString(), 0x000000);
+		TConstructRegistry.addToolMaterial(LotRMaterialID.Mallorn, "Mallorn", 1, 200, 400, 1, LotRToolStats.handleModifierMallorn, 0, 0f, EnumChatFormatting.GOLD.toString(), 0xd1cf8a);
 		
 		TConstructRegistry.addDefaultToolPartMaterial(LotRMaterialID.Mallorn);
 		TConstructRegistry.addDefaultShardMaterial(LotRMaterialID.Mallorn);
@@ -88,7 +85,7 @@ public class ToolRecipes {
 	                    ItemStack metalCast = new ItemStack(TinkerTools.patternOutputs[iter], 1, id);
 	                    tableCasting.addCastingRecipe(metalCast, new FluidStack(fs, fluidAmount), cast, 50);
 	                    Smeltery.addMelting(FluidType.getFluidType(fs), metalCast, 0, fluidAmount);
-                	}else if(id != LotRMaterialID.Mallorn) LotRTCIntegrator.logger.warn("MaterialRegistry: ID " + id + " has no fluid accosiated!");
+                	}else if(id != LotRMaterialID.Mallorn) TinkersMiddleearth.logger.warn("MaterialRegistry: ID " + id + " has no fluid accosiated!");
                 }
             }
         }

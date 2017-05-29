@@ -6,22 +6,21 @@ import org.apache.logging.log4j.Logger;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.SidedProxy;
-import tconstruct.smeltery.blocks.SmelteryBlock;
 
-@Mod(version=LotRTCIntegrator.VERSION, name=LotRTCIntegrator.NAME, modid=LotRTCIntegrator.MODID, acceptedMinecraftVersions="1.7.10", dependencies=LotRTCIntegrator.Dependencies )
-public class LotRTCIntegrator {
+@Mod(version=TinkersMiddleearth.VERSION, name=TinkersMiddleearth.NAME, modid=TinkersMiddleearth.MODID, acceptedMinecraftVersions="1.7.10", dependencies=TinkersMiddleearth.Dependencies )
+public class TinkersMiddleearth {
 
 	public static final String MODID = "lotrtc";
 	public static final String VERSION = "1.0.2";
 	public static final String NAME = "Tinker's MiddleEarth";
 	public static final String Dependencies = "required-after:TConstruct;required-after:lotr";
-	@Instance public static LotRTCIntegrator instance;
+	@Instance public static TinkersMiddleearth instance;
 	
-	public static final Logger logger = LogManager.getLogger("LotRTiC");
+	public static final Logger logger = LogManager.getLogger("Tinker's Middleearth");
 	@SidedProxy(clientSide="com.thecrafter4000.lotrtc.ClientProxy", serverSide="com.thecrafter4000.lotrtc.ServerProxy")	public static CommonProxy proxy;
 	
 	@EventHandler

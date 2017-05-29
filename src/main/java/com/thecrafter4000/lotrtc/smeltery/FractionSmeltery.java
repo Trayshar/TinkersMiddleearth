@@ -3,10 +3,7 @@ package com.thecrafter4000.lotrtc.smeltery;
 import java.util.List;
 
 import com.thecrafter4000.lotrtc.CommonProxy;
-import com.thecrafter4000.lotrtc.LotRTCIntegrator;
-import com.thecrafter4000.lotrtc.smeltery.client.FractionSmelteryRender;
 
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mantle.blocks.abstracts.MultiServantLogic;
@@ -23,10 +20,10 @@ import tconstruct.smeltery.logic.SmelteryDrainLogic;
 
 public class FractionSmeltery extends SmelteryBlock {
 
-	public final LotrSmelteryFraction fraction;
+	public final SmelteryMainFraction fraction;
 	public final String fractionName;
 	
-	public FractionSmeltery(LotrSmelteryFraction fraction, String fractionName) {
+	public FractionSmeltery(SmelteryMainFraction fraction, String fractionName) {
 		super();
 		this.fraction = fraction;
 		this.fractionName = fractionName;

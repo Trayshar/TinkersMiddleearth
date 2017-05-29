@@ -1,15 +1,10 @@
 package com.thecrafter4000.lotrtc.smeltery;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
-import com.thecrafter4000.lotrtc.LotRTCConfig;
-import com.thecrafter4000.lotrtc.LotRTCIntegrator;
-import com.thecrafter4000.lotrtc.ModBlocks;
+import com.thecrafter4000.lotrtc.TinkersMEConfig;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import lotr.common.LOTRMod;
 import mantle.blocks.abstracts.MultiServantLogic;
 import mantle.world.CoordTuple;
 import net.minecraft.block.Block;
@@ -41,12 +36,12 @@ import tconstruct.util.config.PHConstruct;
 
 public class FractionSmelteryLogic extends SmelteryLogic {
 
-	public LotrSmelteryFraction fraction;
+	public SmelteryMainFraction fraction;
 	
 	private boolean needsUpdate;
 	private int tick;
 	
-	public FractionSmelteryLogic(LotrSmelteryFraction fraction) {
+	public FractionSmelteryLogic(SmelteryMainFraction fraction) {
 		super();
 		this.fraction = fraction;
 	}
@@ -68,18 +63,18 @@ public class FractionSmelteryLogic extends SmelteryLogic {
 	@Override
 	public void readFromNBT(NBTTagCompound tags) {
 		super.readFromNBT(tags);
-		this.fraction = LotrSmelteryFraction.valueOf(tags.getString("Fraction"));
+		this.fraction = SmelteryMainFraction.valueOf(tags.getString("Fraction"));
 	}
 	
 	public boolean isValidBlockID(Block blockID){
 		if(this.fraction.isValidBlock(blockID)) return true;
-		else if(LotRTCConfig.shouldUseNormalSmelteryBlocks) return ((blockID == TinkerSmeltery.smeltery) || (blockID == TinkerSmeltery.smelteryNether));
+		else if(TinkersMEConfig.canUseNormalSmelteryBlocks) return ((blockID == TinkerSmeltery.smeltery) || (blockID == TinkerSmeltery.smelteryNether));
 		return false;
 	}
 	
 	public boolean isValidTankID(Block blockID){
 		if(this.fraction.isValidTank(blockID)) return true;
-		else if(LotRTCConfig.shouldUseNormalSmelteryBlocks) return ((blockID == TinkerSmeltery.lavaTank) || (blockID == TinkerSmeltery.lavaTankNether));
+		else if(TinkersMEConfig.canUseNormalSmelteryBlocks) return ((blockID == TinkerSmeltery.lavaTank) || (blockID == TinkerSmeltery.lavaTankNether));
 		return false;
 	}
 	
