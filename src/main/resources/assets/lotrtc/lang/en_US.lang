@@ -20,6 +20,15 @@ TankHighElves.Window.name=Seared High Elven Window
 TankAngmar.Window.name=Seared Angmar Window
 TankDwarven.Window.name=Seared Dwarven Window
 
+material.mithrillotr=Mithril
+material.dwarvensteel=Dwarven Steel
+material.bluedwarvensteel=Blue Dwarven Steel
+material.elvensteel=Elven Steel
+material.orcsteel=Orc Steel
+material.uruksteel=Uruk Steel
+material.blackuruksteel=Black Uruk Steel
+material.mallorn=Mallorn
+
 item.lotrtc.bucket.ElvenSteel.name=Molten Elven Steel Bucket
 item.lotrtc.bucket.DwarvenSteel.name=Molten Dwarven Steel Bucket
 item.lotrtc.bucket.OrcSteel.name=Molten Orc Steel Bucket

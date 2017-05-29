@@ -23,7 +23,7 @@ public class MaterialRegistry {
 		registerMaterial(LotRMaterialID.OrcSteel, "OrcSteel", TinkersMEBlocks.moltenOrcSteelFluid);
 		registerMaterial(LotRMaterialID.UrukSteel, "UrukSteel", TinkersMEBlocks.moltenUrukSteelFluid);
 		registerMaterial(LotRMaterialID.BlackUrukSteel, "BlackUrukSteel", TinkersMEBlocks.moltenBlackUrukSteelFluid);
-		registerMaterial(LotRMaterialID.Mallorn, "Mallorn");
+//		registerMaterial(LotRMaterialID.Mallorn, "Mallorn");
 	}
 	
 	private static void registerMaterial(int materialid, String materialName, Fluid fluid){

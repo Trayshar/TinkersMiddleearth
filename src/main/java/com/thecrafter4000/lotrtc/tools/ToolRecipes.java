@@ -38,6 +38,8 @@ public class ToolRecipes {
 		PatternBuilder.instance.registerMaterial(new ItemStack(LOTRMod.blockOreStorage, 1, 9), 18, "UrukSteel");
 		PatternBuilder.instance.registerMaterial(new ItemStack(LOTRMod.blackUrukSteel), 2, "BlackUrukSteel");
 		PatternBuilder.instance.registerMaterial(new ItemStack(LOTRMod.blockOreStorage2), 18, "BlackUrukSteel");
+//		PatternBuilder.instance.registerMaterial(new ItemStack(LOTRMod.planks, 1, 1), 2, "Malorn");
+//		PatternBuilder.instance.registerMaterial(new ItemStack(LOTRMod.mallornStick), 1, "Malorn");
 	}
 	
 	public static void registerMaterials(){
@@ -49,13 +51,13 @@ public class ToolRecipes {
 		TConstructRegistry.addToolMaterial(LotRMaterialID.OrcSteel, "OrcSteel", 2, 400, 600, 2, LotRToolStats.handleModifierOrc, 0, 0.3f, EnumChatFormatting.DARK_GRAY.toString(), 0x3a3838);
 		TConstructRegistry.addToolMaterial(LotRMaterialID.UrukSteel, "UrukSteel", 2, 550, 600, 3, LotRToolStats.handleModifierUruk, 1, 0f, EnumChatFormatting.DARK_GRAY.toString(), 0x4c2409);
 		TConstructRegistry.addToolMaterial(LotRMaterialID.BlackUrukSteel, "BlackUrukSteel", 3, 570, 700, 3, LotRToolStats.handleModifierBlackUruk, 2, 0f, EnumChatFormatting.BLACK.toString(), 0x000000);
-		TConstructRegistry.addToolMaterial(LotRMaterialID.Mallorn, "Mallorn", 1, 200, 400, 1, LotRToolStats.handleModifierMallorn, 0, 0f, EnumChatFormatting.GOLD.toString(), 0xd1cf8a);
+//		TConstructRegistry.addToolMaterial(LotRMaterialID.Mallorn, "Mallorn", 1, 200, 400, 1, LotRToolStats.handleModifierMallorn, 0, 0f, EnumChatFormatting.GOLD.toString(), 0xd1cf8a);
 		
-		TConstructRegistry.addDefaultToolPartMaterial(LotRMaterialID.Mallorn);
-		TConstructRegistry.addDefaultShardMaterial(LotRMaterialID.Mallorn);
+//		TConstructRegistry.addDefaultToolPartMaterial(LotRMaterialID.Mallorn);
 		
 		PatternBuilder pb = PatternBuilder.instance;
-		pb.registerFullMaterial(new ItemStack(LOTRMod.planks, 1, 1), 2, "Mallorn", new ItemStack(LOTRMod.mallornStick), new ItemStack(LOTRMod.mallornStick), LotRMaterialID.Mallorn);
+//		pb.registerMaterialSet("Mallorn", new ItemStack(LOTRMod.mallornStick, 2), new ItemStack(LOTRMod.mallornStick), LotRMaterialID.Mallorn);
+//		pb.registerFullMaterial(new ItemStack(LOTRMod.planks, 1, 1), 2, "Mallorn", new ItemStack(LOTRMod.mallornStick), new ItemStack(LOTRMod.mallornStick), LotRMaterialID.Mallorn);
 		for(Integer i : MaterialRegistry.mapIdName.keySet()){
 			TConstructRegistry.addDefaultToolPartMaterial(i);
 			pb.registerMaterialSet(MaterialRegistry.mapIdName.get(i), new ItemStack(TinkerTools.toolShard, 1, i), new ItemStack(TinkerTools.toolRod, 1, i), i);
@@ -85,7 +87,9 @@ public class ToolRecipes {
 	                    ItemStack metalCast = new ItemStack(TinkerTools.patternOutputs[iter], 1, id);
 	                    tableCasting.addCastingRecipe(metalCast, new FluidStack(fs, fluidAmount), cast, 50);
 	                    Smeltery.addMelting(FluidType.getFluidType(fs), metalCast, 0, fluidAmount);
-                	}else if(id != LotRMaterialID.Mallorn) TinkersMiddleearth.logger.warn("MaterialRegistry: ID " + id + " has no fluid accosiated!");
+                	}else 
+//                		if(id != LotRMaterialID.Mallorn) 
+                		TinkersMiddleearth.logger.warn("MaterialRegistry: ID " + id + " has no fluid accosiated!");
                 }
             }
         }

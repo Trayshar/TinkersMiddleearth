@@ -59,6 +59,6 @@ public class TinkersMEConfig {
 	
 	public static class LotRMaterialID{
 		public static int MithrilLotR = 50, DwarvenSteel = 51, BlueDwarvenSteel = 52, ElvenSteel = 53, OrcSteel = 54, UrukSteel = 55, BlackUrukSteel = 56;
-		public static int Mallorn = 57;
+//		public static int Mallorn = 57;
 	}
 }
