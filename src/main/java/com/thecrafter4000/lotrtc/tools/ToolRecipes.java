@@ -2,7 +2,6 @@ package com.thecrafter4000.lotrtc.tools;
 
 import com.thecrafter4000.lotrtc.TinkersMEConfig;
 import com.thecrafter4000.lotrtc.TinkersMEConfig.LotRMaterialID;
-import com.thecrafter4000.lotrtc.TinkersMEConfig.LotRToolStats;
 import com.thecrafter4000.lotrtc.TinkersMiddleearth;
 import com.thecrafter4000.lotrtc.items.MaterialRegistry;
 
@@ -41,16 +40,8 @@ public class ToolRecipes {
 	}
 	
 	public static void registerMaterials(){
-		// Tool Materials: id, name, harvestlevel, durability, speed, damage, handlemodifier, reinforced, shoddy, style color, primary color for block use
-		TConstructRegistry.addToolMaterial(LotRMaterialID.MithrilLotR, "MithrilLotR", 5, 2400, 900, 5, LotRToolStats.handleModifierMithril, 3, 0f, EnumChatFormatting.YELLOW.toString(), 0xededed);
-		TConstructRegistry.addToolMaterial(LotRMaterialID.DwarvenSteel, "DwarvenSteel", 3, 750, 900, 3, LotRToolStats.handleModifierDwarf, 2, 0f, EnumChatFormatting.GRAY.toString(), 0x3d3e44);
-		TConstructRegistry.addToolMaterial(LotRMaterialID.BlueDwarvenSteel, "BlueDwarvenSteel", 3, 650, 700, 3, LotRToolStats.handleModifierBlueDwarf, 1, 0f, EnumChatFormatting.BLUE.toString(), 0x113b7f);
-		TConstructRegistry.addToolMaterial(LotRMaterialID.ElvenSteel, "ElvenSteel", 2, 700, 800, 3, LotRToolStats.handleModifierElf, 1, 0f, EnumChatFormatting.AQUA.toString(), 0xd1cccc);
-		TConstructRegistry.addToolMaterial(LotRMaterialID.OrcSteel, "OrcSteel", 2, 400, 600, 2, LotRToolStats.handleModifierOrc, 0, 0.3f, EnumChatFormatting.DARK_GRAY.toString(), 0x3a3838);
-		TConstructRegistry.addToolMaterial(LotRMaterialID.UrukSteel, "UrukSteel", 2, 550, 600, 3, LotRToolStats.handleModifierUruk, 1, 0f, EnumChatFormatting.DARK_GRAY.toString(), 0x4c2409);
-		TConstructRegistry.addToolMaterial(LotRMaterialID.BlackUrukSteel, "BlackUrukSteel", 3, 650, 700, 3, LotRToolStats.handleModifierBlackUruk, 2, 0f, EnumChatFormatting.DARK_RED.toString(), 0x000000);
-
 		for(Integer i : MaterialRegistry.mapIdName.keySet()){
+			TConstructRegistry.addtoolMaterial(i, MaterialRegistry.mapTool.get(i));
 			TConstructRegistry.addDefaultToolPartMaterial(i);
 			PatternBuilder.instance.registerMaterialSet(MaterialRegistry.mapIdName.get(i), new ItemStack(TinkerTools.toolShard, 1, i), new ItemStack(TinkerTools.toolRod, 1, i), i);
 		}
