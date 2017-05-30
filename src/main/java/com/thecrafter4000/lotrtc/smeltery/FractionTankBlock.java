@@ -15,6 +15,7 @@ public class FractionTankBlock extends LavaTankBlock {
 		this.fractionName = fractionName;
 		this.setCreativeTab(CommonProxy.LotRTiCTab);
 		this.setBlockName("lotrtc.Tank" + fractionName);
+		this.setStepSound(soundTypeGlass);
 	}
 	
     public String[] getTextureNames ()
