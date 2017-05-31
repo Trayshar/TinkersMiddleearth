@@ -45,10 +45,6 @@ public class TinkersMEConfig {
 						stat = config.get(c.getSimpleName(), f.getName().toLowerCase(Locale.ENGLISH), f.getFloat(null));
 						f.setFloat(null, (float)stat.getDouble());
 					}
-					else if(f.getType() == String.class) {
-						stat = config.get(c.getSimpleName(), f.getName().toLowerCase(Locale.ENGLISH), (String)f.get(null));
-						f.set(null, stat.getString());
-					}
 				}
 			}
 		}catch(Exception e){
