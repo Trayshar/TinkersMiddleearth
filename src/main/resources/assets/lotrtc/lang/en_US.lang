@@ -1,5 +1,12 @@
 itemGroup.lotrtc=LotR TiC Compatibility
 
+item.lotrtc.manual.intro.name=The Beginning
+Manual.intro.tooltip.name=How to use Tinkers Construct in Middleearth!
+item.lotrtc.manual.material.name=New Materials
+Manual.material.tooltip.name=An empty placeholder.
+item.lotrtc.manual.blocks.name=New Blocks
+Manual.blocks.tooltip.name=An empty placeholder.
+
 SmelteryDwarven.Controller.name=Dwarven Smeltery Controller
 SmelteryDwarven.Drain.name=Dwarven Smeltery Drain
 SmelteryDwarven.Brick.name=Seared Dwarven Brick

@@ -35,22 +35,22 @@ public class MaterialRegistry {
 //		registerMaterial(LotRMaterialID.Mallorn, "Mallorn");
 	}
 	
-	private static void registerMaterial(int materialid, String materialName, Fluid fluid, ToolMaterial material){
+	public static void registerMaterial(int materialid, String materialName, Fluid fluid, ToolMaterial material){
 		mapIdName.put(materialid, materialName);
 		mapNameId.put(materialName, materialid);
 		mapfluids.put(materialid, fluid);
 		mapTool.put(materialid, material);
 	}
 	
-	private static void registerMaterial(int materialid, String materialName, Fluid fluid){
+	public static void registerMaterial(int materialid, String materialName, Fluid fluid){
 		registerMaterial(materialid, materialName, fluid, TinkersMEConfig.getToolMaterial(materialName));
 	}	
 	
-	private static void registerMaterial(int materialid, String materialName, ToolMaterial material){
+	public static void registerMaterial(int materialid, String materialName, ToolMaterial material){
 		registerMaterial(materialid, materialName, null, material);
 	}
 	
-	private static void registerMaterial(int materialid, String materialName){
+	public static void registerMaterial(int materialid, String materialName){
 		registerMaterial(materialid, materialName, (Fluid)null);
 	}
 }
