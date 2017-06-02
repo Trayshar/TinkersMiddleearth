@@ -1,5 +1,6 @@
 package com.thecrafter4000.lotrtc;
 
+import com.thecrafter4000.lotrtc.manual.ManualContentRegistry;
 import com.thecrafter4000.lotrtc.manual.ManualRegistry;
 import com.thecrafter4000.lotrtc.smeltery.FractionSmelteryRender;
 
@@ -20,5 +21,6 @@ public class ClientProxy extends CommonProxy {
 		super.init(e);
 		RenderingRegistry.registerBlockHandler(new FractionSmelteryRender());
 		ManualRegistry.initClient();
+		ManualContentRegistry.init();
 	}
 }

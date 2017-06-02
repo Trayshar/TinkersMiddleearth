@@ -11,6 +11,7 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import tconstruct.TConstruct;
+import tconstruct.library.TConstructRegistry;
 import tconstruct.library.tools.ToolMaterial;
 
 public class TinkersMEConfig {
@@ -24,16 +25,15 @@ public class TinkersMEConfig {
 			config.load();
 			
 			Property canUseNormalSmelteryBlocks = config.get(CategorySmeltery, "canUseNormalSmelteryBlocks", true);
-			Property sarlluinLiquidValue = config.get(CategorySmeltery, "sarlluinLiquidValue", TConstruct.stoneLiquidValue);
 			TinkersMEConfig.canUseNormalSmelteryBlocks = canUseNormalSmelteryBlocks.getBoolean();
-			TinkersMEConfig.sarlluinLiquidValue = sarlluinLiquidValue.getInt();
-			
+
+/*			Removed cause this will crash your server if the player uses other values. Maybe that could be changed, but not yet.
 			Property material;
 			for(Field f : LotRMaterialID.class.getFields()) {
 				material = config.get(CategoryMaterials, f.getName().toLowerCase(Locale.ENGLISH), f.getInt(null));
 				f.setInt(null, material.getInt());
 			}
-			
+
 			Property stat;
 			for(Class c : LotRToolStats.class.getDeclaredClasses()){
 				for(Field f : c.getFields()){
@@ -47,6 +47,7 @@ public class TinkersMEConfig {
 					}
 				}
 			}
+*/
 		}catch(Exception e){
 			TinkersMiddleearth.logger.catching(Level.WARN, e);
 		}finally{
@@ -54,7 +55,6 @@ public class TinkersMEConfig {
 		}
 	}
 	
-	public static int sarlluinLiquidValue = TConstruct.stoneLiquidValue;
 	public static boolean canUseNormalSmelteryBlocks = false;
 	
 	static class LotRToolStats{

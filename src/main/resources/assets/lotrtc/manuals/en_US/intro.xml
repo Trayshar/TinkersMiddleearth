@@ -1,13 +1,132 @@
 <?xml version="1.0"?>
 
 <book>
-<page type="text">
-<text>Welcome to Middleearth! This book will show you how to use the basic things i
+<page type="intro">
+<text>Welcome to Middleearth! This book will show you how to use the basic things in this new country.
 
-Today is a new day. I finally left home and decided to wander around in the wilderness until I find a good place to call my home. 
-
-Tinker's Log #2:
-
-I've decided to keep a log of my creations and machinations, as well as some insights into what I'm doing. I haven't actually built anything yet. There is a small cave I can board up for the night. I created a stone pickaxe affectionately called "Betsy".</text>
+This book updates itself if something changed. Keep it with you.</text>
 </page>
+
+<page type="contents">
+<text>Table of Contents</text>
+<link>
+ <text>New Smelterys</text>
+ <icon>highelvensmelterycontroller</icon>
+ <jump>2</jump>
+</link>
+<link>
+ <text>New Structure Blocks</text>
+ <icon>highelvensmelterybrick</icon>
+ <jump>8</jump>
+</link>
+<link>
+ <text>Materials</text>
+ <icon>bluedwarvensteel</icon>
+ <jump>14</jump>
+</link>
+</page>
+
+<page type="crafting">
+<text>High Elven Smeltery Controller</text>
+<recipe>
+ <name>highelvensmelterycontroller</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="text">
+<text>The high elvens are known for making great swords. Their smiths could create sharp blades.
+
+Crafted on Lindon Crafting table.
+
+Alloys: 
+- Elven Steel(Liquified Coal[1] + Molten Iron[1])</text>
+</page>
+
+<page type="crafting">
+<text>Dwarven Smeltery Controller</text>
+<recipe>
+ <name>dwarvensmelterycontroller</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="text">
+<text>The dwarvens are known for their great blacksmithing. They use furnaces hotter than any other.
+
+Abilitys: Smelts a bit faster and hotter, so it could smelt mithril ore more efficently.
+Crafted on Dwarven Crafting table.
+
+Alloys: 
+- Dwarven Steel(Liquified Coal[1] + Molten Iron[1])
+- Galvorn(Molten Edhelmir[1] + Molten Iron[1])
+- Blue Dwarven Steel(Molten Sarlluin[2] + Molten Iron[1])</text>
+</page>
+
+<page type="crafting">
+<text>Angmar Smeltery Controller</text>
+<recipe>
+ <name>angmarsmelterycontroller</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="text">
+<text>Angmar, the fallen realm of the witch-king.
+
+Abilitys: Smelts morgul iron ore more efficently.
+Crafted on Angmar Crafting table.
+
+Alloys:
+- Uruk Steel(Liquified Coal[1] + Molten Iron[1])
+- Black Uruk Steel(Molten Orc Steel[1] + Molten Durnaur[1])
+- Morgul Steel(Molten Orc Steel[1] + Molten Gulduril[1])</text>
+</page>
+
+<page type="text">
+<text>There are other blocks for the new smelterys: bricks and tanks. They are crafted like the normal ones, but on other craftig tables.
+
+High Elven blocks: Lindon Crafting table
+Dwarven blocks: Dwarven Crafting table
+Angmar blocks: Angmar Crafting table</text>
+</page>
+
+<page type="crafting">
+<text>Smeltery Drain</text>
+<recipe>
+ <name>smelterydrain</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Seared Tank</text>
+<recipe>
+ <name>smelterytank1</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Seared Glass</text>
+<recipe>
+ <name>smelterytank2</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Seared Window</text>
+<recipe>
+ <name>smelterytank3</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="text">
+<text>There are also new materials. This book could be crafted into an new book with a full list. But not yet. You have to wait with this until the next release is out.
+
+All you have to know is that by smelting an nugget, ingot or block of an material in an smeltery, you will get it. You could also create tools with these.</text>
+</page>
+
 </book>
