@@ -1,6 +1,5 @@
 package com.thecrafter4000.lotrtc.smeltery;
 
-import com.thecrafter4000.lotrtc.TinkersMEConfig;
 import com.thecrafter4000.lotrtc.items.TinkersMEBlocks;
 
 import lotr.common.LOTRMod;

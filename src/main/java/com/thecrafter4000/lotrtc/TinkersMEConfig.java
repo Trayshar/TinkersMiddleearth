@@ -1,7 +1,6 @@
 package com.thecrafter4000.lotrtc;
 
 import java.lang.reflect.Field;
-import java.util.Locale;
 
 import org.apache.logging.log4j.Level;
 
@@ -10,8 +9,6 @@ import com.thecrafter4000.lotrtc.TinkersMEConfig.LotRToolStats.*;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
-import tconstruct.TConstruct;
-import tconstruct.library.TConstructRegistry;
 import tconstruct.library.tools.ToolMaterial;
 
 public class TinkersMEConfig {

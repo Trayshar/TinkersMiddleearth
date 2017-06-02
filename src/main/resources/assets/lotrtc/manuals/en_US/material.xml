@@ -1,7 +1,87 @@
 <?xml version="1.0"?>
 
 <book>
-<page type="text">
-<text> Well, what did you excpect? .</text>
+<page type="intro">
+<text> A list of all materials
+
+This book updates itself if something changed. Keep it with you.</text>
+</page>
+
+<page type="sectionpage">
+<title>Material Traits</title>
+<text>Some materials have traits that augment their natural uses.
+
+- Reinforced: 10% chance per level of not using durability
+- Stonebound: The tool mines faster as it wears out, but does less damage</text>
+</page>
+
+<page type="materialstats">
+<title>Mithril</title>
+<toolmaterial>MithrilLotR</toolmaterial>
+<icon>mithrilsword</icon>
+<text>The true-silver from the misty mountains.</text>
+<material>
+ <main>mithrilingot</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Dwarven Steel</title>
+<toolmaterial>DwarvenSteel</toolmaterial>
+<icon>dwarvenwarhammer</icon>
+<text>The steel-alloy of the dwarves.</text>
+<material>
+ <main>dwarveningot</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Blue Dwarven Steel</title>
+<toolmaterial>BlueDwarvenSteel</toolmaterial>
+<icon>bluedwarvenwarhammer</icon>
+<text>The steel-alloy of the dwarves in the blue mountains.</text>
+<material>
+ <main>bluedwarveningot</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Elven Steel</title>
+<toolmaterial>ElvenSteel</toolmaterial>
+<icon>elvensword</icon>
+<text>The steel-alloy of the elves.</text>
+<material>
+ <main>elveningot</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Orc Steel</title>
+<toolmaterial>OrcSteel</toolmaterial>
+<icon>mordorpickaxe</icon>
+<text>Common metal in dark regions</text>
+<material>
+ <main>orcingot</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Uruk Steel</title>
+<toolmaterial>UrukSteel</toolmaterial>
+<icon>urukhelmet</icon>
+<text>The material Isengart Uruks use</text>
+<material>
+ <main>urukingot</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Black Uruk Steel</title>
+<toolmaterial>BlackUrukSteel</toolmaterial>
+<icon>blackurukhelmet</icon>
+<text>Strong alloy</text>
+<material>
+ <main>blackurukingot</main>
+</material>
 </page>
 </book>

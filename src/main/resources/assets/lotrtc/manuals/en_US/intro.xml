@@ -2,7 +2,7 @@
 
 <book>
 <page type="intro">
-<text>Welcome to Middleearth! This book will show you how to use the basic things in this new country.
+<text>Welcome to Middleearth! This book will show you how to use the basic things in this country.
 
 This book updates itself if something changed. Keep it with you.</text>
 </page>
@@ -124,9 +124,7 @@ Angmar blocks: Angmar Crafting table</text>
 </page>
 
 <page type="text">
-<text>There are also new materials. This book could be crafted into an new book with a full list. But not yet. You have to wait with this until the next release is out.
-
-All you have to know is that by smelting an nugget, ingot or block of an material in an smeltery, you will get it. You could also create tools with these.</text>
+<text>There are also new materials. This book could be crafted into an new book with a full list of these.</text>
 </page>
 
 </book>

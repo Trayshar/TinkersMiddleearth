@@ -1,13 +1,10 @@
 package com.thecrafter4000.lotrtc.tools;
 
-import com.thecrafter4000.lotrtc.TinkersMEConfig;
-import com.thecrafter4000.lotrtc.TinkersMEConfig.LotRMaterialID;
 import com.thecrafter4000.lotrtc.TinkersMiddleearth;
 import com.thecrafter4000.lotrtc.items.MaterialRegistry;
 
 import lotr.common.LOTRMod;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import tconstruct.TConstruct;

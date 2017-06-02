@@ -7,6 +7,7 @@ import com.thecrafter4000.lotrtc.smeltery.FractionSmelteryLogic;
 import com.thecrafter4000.lotrtc.smeltery.SmelteryRecipes;
 import com.thecrafter4000.lotrtc.tools.ToolRecipes;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -15,6 +16,7 @@ import lotr.common.LOTRMod;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -35,6 +37,9 @@ public class CommonProxy {
     	TinkersMEBlocks.preInit(e);
     	MaterialRegistry.setup();
     	ToolRecipes.registerMaterials();
+    	TinkersMEEvents eh = new TinkersMEEvents();
+    	FMLCommonHandler.instance().bus().register(eh);
+    	MinecraftForge.EVENT_BUS.register(eh);
     }
 
     public void init(FMLInitializationEvent e) {

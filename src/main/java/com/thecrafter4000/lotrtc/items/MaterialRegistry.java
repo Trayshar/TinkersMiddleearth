@@ -1,15 +1,11 @@
 package com.thecrafter4000.lotrtc.items;
 
-import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.logging.log4j.Level;
-
-import com.thecrafter4000.lotrtc.TinkersMiddleearth;
 import com.thecrafter4000.lotrtc.TinkersMEConfig;
 import com.thecrafter4000.lotrtc.TinkersMEConfig.LotRMaterialID;
-import net.minecraft.util.EnumChatFormatting;
+
 import net.minecraftforge.fluids.Fluid;
 import tconstruct.library.tools.ToolMaterial;
 

@@ -10,6 +10,7 @@ import tconstruct.tools.TinkerTools;
 public class ManualContentRegistry {
 
 	public static void init(){
+		/* First book */
 		MantleClientRegistry.registerManualIcon("highelvensmelterycontroller", new ItemStack(TinkersMEBlocks.smelteryHighElves, 1, 0));
 		MantleClientRegistry.registerManualIcon("highelvensmelterybrick", new ItemStack(TinkersMEBlocks.smelteryHighElves, 1, 2));
 		MantleClientRegistry.registerManualIcon("bluedwarvensteel", new ItemStack(LOTRMod.blueDwarfSteel));
@@ -19,6 +20,20 @@ public class ManualContentRegistry {
 		MantleClientRegistry.registerManualLargeRecipe("highelvensmelterycontroller", new ItemStack(TinkersMEBlocks.smelteryHighElves, 1, 0), controller);
 		MantleClientRegistry.registerManualLargeRecipe("dwarvensmelterycontroller", new ItemStack(TinkersMEBlocks.smelteryDwarven, 1, 0), controller);
 		MantleClientRegistry.registerManualLargeRecipe("angmarsmelterycontroller", new ItemStack(TinkersMEBlocks.smelteryAngmar, 1, 0), controller);
+		/* Second book */
+		MantleClientRegistry.registerManualIcon("mithrilsword", new ItemStack(LOTRMod.swordMithril));
+		MantleClientRegistry.registerManualIcon("mithrilingot", new ItemStack(LOTRMod.mithril));
+		MantleClientRegistry.registerManualIcon("dwarvenwarhammer", new ItemStack(LOTRMod.hammerDwarven));
+		MantleClientRegistry.registerManualIcon("dwarveningot", new ItemStack(LOTRMod.dwarfSteel));
+		MantleClientRegistry.registerManualIcon("bluedwarvenwarhammer", new ItemStack(LOTRMod.hammerBlueDwarven));
+		MantleClientRegistry.registerManualIcon("bluedwarveningot", new ItemStack(LOTRMod.blueDwarfSteel));
+		MantleClientRegistry.registerManualIcon("elvensword", new ItemStack(LOTRMod.swordHighElven));
+		MantleClientRegistry.registerManualIcon("elveningot", new ItemStack(LOTRMod.elfSteel));
+		MantleClientRegistry.registerManualIcon("mordorpickaxe", new ItemStack(LOTRMod.pickaxeOrc));
+		MantleClientRegistry.registerManualIcon("orcingot", new ItemStack(LOTRMod.orcSteel));
+		MantleClientRegistry.registerManualIcon("urukhelmet", new ItemStack(LOTRMod.helmetUruk));
+		MantleClientRegistry.registerManualIcon("urukingot", new ItemStack(LOTRMod.urukSteel));
+		MantleClientRegistry.registerManualIcon("blackurukhelmet", new ItemStack(LOTRMod.helmetBlackUruk));
+		MantleClientRegistry.registerManualIcon("blackurukingot", new ItemStack(LOTRMod.blackUrukSteel));
 	}
-	
 }

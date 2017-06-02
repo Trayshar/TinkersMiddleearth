@@ -11,14 +11,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 import mantle.books.BookData;
 import mantle.client.gui.GuiManual;
 import mantle.items.abstracts.CraftingItem;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tconstruct.TConstruct;
-import tconstruct.achievements.TAchievements;
-import tconstruct.client.TProxyClient;
 
 public class ManualItem extends CraftingItem {
 

@@ -2,9 +2,7 @@ package com.thecrafter4000.lotrtc.manual;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -15,7 +13,6 @@ import mantle.books.BookData;
 import mantle.books.BookDataStore;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.util.ResourceLocation;
 import tconstruct.TConstruct;
 
 public class ManualRegistry {
@@ -25,7 +22,7 @@ public class ManualRegistry {
 	public static void preInitClient(){
 		list.add( new BookRegEntry("intro"));
 		list.add( new BookRegEntry("material"));
-		list.add( new BookRegEntry("blocks"));
+//		list.add( new BookRegEntry("blocks"));
 	}
 	
 	public static void initClient(){
