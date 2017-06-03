@@ -2,17 +2,15 @@
 
 <book>
 <page type="intro">
-<text> A list of all materials
+<text>New Materials: A complete list of all new materials
+by TheCrafter4000
 
 This book updates itself if something changed. Keep it with you.</text>
 </page>
 
 <page type="sectionpage">
-<title>Material Traits</title>
-<text>Some materials have traits that augment their natural uses.
-
-- Reinforced: 10% chance per level of not using durability
-- Stonebound: The tool mines faster as it wears out, but does less damage</text>
+<title>Other Materials</title>
+<text>This book includes only materials exclusivly found in Middleearth. If you want to read about others, you have to read an other book.</text>
 </page>
 
 <page type="materialstats">

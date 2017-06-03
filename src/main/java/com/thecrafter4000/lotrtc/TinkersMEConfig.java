@@ -137,13 +137,13 @@ public class TinkersMEConfig {
 	}
 	
 	private static class Color{
-		public static int MithrilLotR = 0xededed;
-		public static int DwarvenSteel = 0x3d3e44;
-		public static int BlueDwarvenSteel = 0x113b7f;
-		public static int ElvenSteel = 0xd1cccc;
-		public static int OrcSteel = 0x3a3838;
-		public static int UrukSteel = 0x4c2409;
-		public static int BlackUrukSteel = 0x000000;
+		public static int MithrilLotR = 0xe1e4f5;
+		public static int DwarvenSteel = 0x414e50;
+		public static int BlueDwarvenSteel = 0x2d485d;
+		public static int ElvenSteel = 0xd2cfc4;
+		public static int OrcSteel = 0x40483d;
+		public static int UrukSteel = 0x3c3e28;
+		public static int BlackUrukSteel = 0x323028;
 	}
 	
 	public static ToolMaterial getToolMaterial(String materialName) {

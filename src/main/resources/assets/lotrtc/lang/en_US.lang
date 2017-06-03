@@ -1,9 +1,9 @@
 itemGroup.lotrtc=LotR TiC Compatibility
 
-item.lotrtc.manual.intro.name=The Beginning
-Manual.intro.tooltip.name=How to use Tinkers Construct in Middleearth!
+item.lotrtc.manual.intro.name=The Journey Begins...
+Manual.intro.tooltip.name=How everything starts
 item.lotrtc.manual.material.name=New Materials
-Manual.material.tooltip.name=An empty placeholder.
+Manual.material.tooltip.name=A complete list of all new materials
 item.lotrtc.manual.blocks.name=New Blocks
 Manual.blocks.tooltip.name=An empty placeholder.
 
