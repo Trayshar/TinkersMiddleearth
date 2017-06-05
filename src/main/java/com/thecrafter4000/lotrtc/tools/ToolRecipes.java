@@ -1,5 +1,6 @@
 package com.thecrafter4000.lotrtc.tools;
 
+import com.thecrafter4000.lotrtc.TinkersMEConfig.LotRMaterialID;
 import com.thecrafter4000.lotrtc.TinkersMiddleearth;
 import com.thecrafter4000.lotrtc.items.MaterialRegistry;
 
@@ -34,14 +35,20 @@ public class ToolRecipes {
 		PatternBuilder.instance.registerMaterial(new ItemStack(LOTRMod.blockOreStorage, 1, 9), 18, "UrukSteel");
 		PatternBuilder.instance.registerMaterial(new ItemStack(LOTRMod.blackUrukSteel), 2, "BlackUrukSteel");
 		PatternBuilder.instance.registerMaterial(new ItemStack(LOTRMod.blockOreStorage2), 18, "BlackUrukSteel");
+		PatternBuilder.instance.registerMaterial(new ItemStack(LOTRMod.planks, 1, 1), 2, "Mallorn");
+		PatternBuilder.instance.registerMaterial(new ItemStack(LOTRMod.mallornStick), 1, "Mallorn");
+		PatternBuilder.instance.registerMaterial(new ItemStack(LOTRMod.blackroot), 2, "Blackroot");
+		PatternBuilder.instance.registerMaterial(new ItemStack(LOTRMod.blackrootStick), 1, "Blackroot");
 	}
 	
 	public static void registerMaterials(){
 		for(Integer i : MaterialRegistry.mapIdName.keySet()){
 			TConstructRegistry.addtoolMaterial(i, MaterialRegistry.mapTool.get(i));
 			TConstructRegistry.addDefaultToolPartMaterial(i);
-			PatternBuilder.instance.registerMaterialSet(MaterialRegistry.mapIdName.get(i), new ItemStack(TinkerTools.toolShard, 1, i), new ItemStack(TinkerTools.toolRod, 1, i), i);
+			if(MaterialRegistry.mapfluids.containsKey(i)) PatternBuilder.instance.registerMaterialSet(MaterialRegistry.mapIdName.get(i), new ItemStack(TinkerTools.toolShard, 1, i), new ItemStack(TinkerTools.toolRod, 1, i), i);
 		}
+		PatternBuilder.instance.registerFullMaterial(new ItemStack(LOTRMod.planks, 1, 1), 2, "Mallorn", new ItemStack(LOTRMod.mallornStick), new ItemStack(LOTRMod.mallornStick), LotRMaterialID.Mallorn);
+		PatternBuilder.instance.registerFullMaterial(new ItemStack(LOTRMod.blackroot), 2, "Blackroot", new ItemStack(LOTRMod.blackrootStick), new ItemStack(LOTRMod.blackrootStick), LotRMaterialID.Blackroot);
 	}
 	
 	public static void registerToolCasting(){
@@ -67,9 +74,9 @@ public class ToolRecipes {
 	                    ItemStack metalCast = new ItemStack(TinkerTools.patternOutputs[iter], 1, id);
 	                    tableCasting.addCastingRecipe(metalCast, new FluidStack(fs, fluidAmount), cast, 50);
 	                    Smeltery.addMelting(FluidType.getFluidType(fs), metalCast, 0, fluidAmount);
-                	}else 
-//                		if(id != LotRMaterialID.Mallorn) 
-                		TinkersMiddleearth.logger.warn("MaterialRegistry: ID " + id + " has no fluid accosiated!");
+                	}else {
+                        TConstructRegistry.addPartMapping(TinkerTools.woodPattern, iter + 1, id, new ItemStack(TinkerTools.patternOutputs[iter], 1, id));
+                	}
                 }
             }
         }

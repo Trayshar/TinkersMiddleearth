@@ -1,4 +1,4 @@
-itemGroup.lotrtc=LotR TiC Compatibility
+itemGroup.lotrtc=Tinkers Middleearth
 
 item.lotrtc.manual.intro.name=The Journey Begins...
 Manual.intro.tooltip.name=How everything starts
@@ -35,6 +35,7 @@ material.orcsteel=Orc Steel
 material.uruksteel=Uruk Steel
 material.blackuruksteel=Black Uruk Steel
 material.mallorn=Mallorn
+material.blackroot=Blackroot
 
 item.lotrtc.bucket.ElvenSteel.name=Molten Elven Steel Bucket
 item.lotrtc.bucket.DwarvenSteel.name=Molten Dwarven Steel Bucket

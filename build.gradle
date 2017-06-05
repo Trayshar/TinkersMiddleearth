@@ -17,7 +17,7 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "1.2.5"
+version = "1.2.6a"
 group= "com.thecrafter4000.lotrtc" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "[1.7.10] Tinker's Middleearth"
 

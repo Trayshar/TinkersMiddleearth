@@ -7,6 +7,7 @@ import com.thecrafter4000.lotrtc.TinkersMEConfig;
 import com.thecrafter4000.lotrtc.TinkersMEConfig.LotRMaterialID;
 
 import net.minecraftforge.fluids.Fluid;
+import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.ToolMaterial;
 
 public class MaterialRegistry {
@@ -28,7 +29,8 @@ public class MaterialRegistry {
 		registerMaterial(LotRMaterialID.OrcSteel, "OrcSteel", TinkersMEBlocks.moltenOrcSteelFluid);
 		registerMaterial(LotRMaterialID.UrukSteel, "UrukSteel", TinkersMEBlocks.moltenUrukSteelFluid);
 		registerMaterial(LotRMaterialID.BlackUrukSteel, "BlackUrukSteel", TinkersMEBlocks.moltenBlackUrukSteelFluid);
-//		registerMaterial(LotRMaterialID.Mallorn, "Mallorn");
+		registerMaterial(LotRMaterialID.Mallorn, "Mallorn");
+		registerMaterial(LotRMaterialID.Blackroot, "Blackroot");
 	}
 	
 	public static void registerMaterial(int materialid, String materialName, Fluid fluid, ToolMaterial material){
