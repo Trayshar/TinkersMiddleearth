@@ -24,11 +24,16 @@ import net.minecraft.world.World;
 import tconstruct.items.tools.Battleaxe;
 import tconstruct.library.ActiveToolMod;
 import tconstruct.library.TConstructRegistry;
+import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.tools.TinkerTools;
 import tconstruct.weaponry.TinkerWeaponry;
 
 public class LotRBattleAxe extends Battleaxe {
 
+	public LotRBattleAxe() {
+		this.damageVsEntity = 5;
+	}
+	
 	@Override
 	public String getLocalizedToolName() {
 		return StatCollector.translateToLocal("tool.battleaxe");
@@ -81,7 +86,7 @@ public class LotRBattleAxe extends Battleaxe {
 	
 	@Override public void onPlayerStoppedUsing(ItemStack stack, World world, EntityPlayer player, int useCount) {}
 	
-	/** Use LotR-Combatsystem. No need for extra knockback here. */
+	/** No need for extra knockback here. */
 	@Override public boolean hitEntity(ItemStack stack, EntityLivingBase mob, EntityLivingBase player) {
 		return true;
 	}

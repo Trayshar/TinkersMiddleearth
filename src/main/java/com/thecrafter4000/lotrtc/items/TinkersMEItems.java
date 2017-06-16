@@ -39,19 +39,14 @@ public class TinkersMEItems {
 	public static void init(FMLInitializationEvent e) {
 		GameRegistry.addShapelessRecipe(new ItemStack(TinkersMEItems.manual, 1, 1), new ItemStack(TinkersMEItems.manual));
 		
-		System.out.println(TinkerTools.battleaxe.getClass().getSimpleName());
-		
 		for(ToolRecipe t : ToolBuilder.instance.combos){
 			if(t.getType() == TinkerTools.battleaxe) {
 				ToolBuilder.instance.combos.remove(t);
 	        	ToolBuilder.instance.recipeList.remove(TinkerTools.battleaxe.getToolName());
 	    		ToolBuilder.instance.addNormalToolRecipe(TinkersMEItems.battleaxe, TinkerTools.broadAxeHead, TinkerTools.toughRod, TinkerTools.broadAxeHead, TinkerTools.toughBinding);
-		        TinkersMiddleearth.logger.info("Replaced recipe for battleaxe");
 	        	break;
 	        }
 		}
-		
-		System.out.println(TinkerTools.battleaxe.getClass().getSimpleName());
 	}
 	
 	public static void postInit(FMLPostInitializationEvent e){}
