@@ -72,6 +72,7 @@ public class CommonProxy {
 
     public void postInit(FMLPostInitializationEvent e) {
     	ToolRecipes.registerMetals();
+    	TinkersMEItems.postInit(e);
     }
     
     public static void patchLotrOres(){
