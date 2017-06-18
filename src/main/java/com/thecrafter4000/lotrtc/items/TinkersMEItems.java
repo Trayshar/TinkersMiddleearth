@@ -1,10 +1,13 @@
 package com.thecrafter4000.lotrtc.items;
 
-import java.lang.reflect.Field;
+import java.util.Arrays;
 
 import com.thecrafter4000.lotrtc.TinkersMiddleearth;
 import com.thecrafter4000.lotrtc.manual.ManualItem;
 import com.thecrafter4000.lotrtc.tools.LotRBattleAxe;
+import com.thecrafter4000.lotrtc.tools.LotRPattern;
+import com.thecrafter4000.lotrtc.tools.ToolRegistry;
+import com.thecrafter4000.lotrtc.tools.ToolRegistry.ToolEntry;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -15,38 +18,42 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.client.TConstructClientRegistry;
+import tconstruct.library.crafting.PatternBuilder;
+import tconstruct.library.crafting.StencilBuilder;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.crafting.ToolRecipe;
+import tconstruct.library.tools.DynamicToolPart;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.tools.TinkerTools;
+import tconstruct.tools.items.ToolPart;
 
 public class TinkersMEItems {
 	
 	public static Item buckets;
 	public static Item manual;
 	
+	public static LotRPattern woodPattern;
+	public static LotRPattern metalPattern;
+	
 	public static LotRBattleAxe battleaxe;
+	public static Item warHammerHead;
 	
 	public static void preInit(FMLPreInitializationEvent e) {
 		GameRegistry.registerItem(buckets = new LotrFilledBucket(Block.getBlockFromItem(buckets)), "buckets");
 		GameRegistry.registerItem(manual = new ManualItem(), "manual");
-	
-		battleaxe = new LotRBattleAxe();
-		GameRegistry.registerItem(battleaxe, "battleaxe");
-		TConstructRegistry.addToolMapping(battleaxe);
+		
+		ToolRegistry.addTool("battleaxe", battleaxe = new LotRBattleAxe(), TinkerTools.broadAxeHead, TinkerTools.toughRod, TinkerTools.broadAxeHead, TinkerTools.toughBinding);
+		ToolRegistry.addToolPart((DynamicToolPart) (warHammerHead = new DynamicToolPart("_warhammer_head", "WarHammerHead", "lotrtc").setUnlocalizedName("lotrtc.WarHammerHead")), 8);
+
+		GameRegistry.registerItem(woodPattern = new LotRPattern("pattern_", "lotrtc.WoodPattern"), "woodPattern");
+		GameRegistry.registerItem(metalPattern = new LotRPattern("cast_", "lotrtc.MetalPattern"), "metalPattern");
 	}
 	
 	public static void init(FMLInitializationEvent e) {
 		GameRegistry.addShapelessRecipe(new ItemStack(TinkersMEItems.manual, 1, 1), new ItemStack(TinkersMEItems.manual));
+		PatternBuilder.instance.addToolPattern(woodPattern);
 		
-		for(ToolRecipe t : ToolBuilder.instance.combos){
-			if(t.getType() == TinkerTools.battleaxe) {
-				ToolBuilder.instance.combos.remove(t);
-	        	ToolBuilder.instance.recipeList.remove(TinkerTools.battleaxe.getToolName());
-	    		ToolBuilder.instance.addNormalToolRecipe(TinkersMEItems.battleaxe, TinkerTools.broadAxeHead, TinkerTools.toughRod, TinkerTools.broadAxeHead, TinkerTools.toughBinding);
-	        	break;
-	        }
-		}
+		ToolRegistry.removeRecipe(TinkerTools.battleaxe);
 	}
 	
 	public static void postInit(FMLPostInitializationEvent e){}

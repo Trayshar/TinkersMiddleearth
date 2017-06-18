@@ -7,6 +7,7 @@ import com.thecrafter4000.lotrtc.smeltery.FractionSmelteryLogic;
 import com.thecrafter4000.lotrtc.smeltery.SmelteryRecipes;
 import com.thecrafter4000.lotrtc.tools.HitDelayPatcher;
 import com.thecrafter4000.lotrtc.tools.ToolRecipes;
+import com.thecrafter4000.lotrtc.tools.ToolRegistry;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -51,6 +52,7 @@ public class CommonProxy {
 //    	TinkersMEConfig.load();
     	TinkersMEItems.preInit(e);
     	TinkersMEBlocks.preInit(e);
+    	ToolRegistry.preInit();
     	MaterialRegistry.setup();
     	ToolRecipes.registerMaterials();
     	
@@ -64,6 +66,7 @@ public class CommonProxy {
     	patchLotrOres();
     	TinkersMEBlocks.init(e);
     	TinkersMEItems.init(e);
+    	ToolRegistry.init();
     	SmelteryRecipes.registerCasting();
     	ToolRecipes.registerToolCasting();
     	SmelteryRecipes.registerSmelteryMeltings();

@@ -31,6 +31,7 @@ import tconstruct.weaponry.TinkerWeaponry;
 public class LotRBattleAxe extends Battleaxe {
 
 	public LotRBattleAxe() {
+		super();
 		this.damageVsEntity = 5;
 	}
 	
@@ -81,12 +82,12 @@ public class LotRBattleAxe extends Battleaxe {
 	
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
-		return EnumAction.block;
+		return EnumAction.none;
 	}
 	
 	@Override public void onPlayerStoppedUsing(ItemStack stack, World world, EntityPlayer player, int useCount) {}
 	
-	/** No need for extra knockback here. */
+	/** No need for extra knockback here, I use LotR Combat system*/
 	@Override public boolean hitEntity(ItemStack stack, EntityLivingBase mob, EntityLivingBase player) {
 		return true;
 	}

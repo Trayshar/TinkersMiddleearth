@@ -53,9 +53,6 @@ public class ToolRecipes {
 	
 	public static void registerToolCasting(){
 		LiquidCasting tableCasting = TConstructRegistry.instance.getTableCasting();
-		
-        int fluidAmount = 0;
-        Fluid fs = null;
 
         for (int iter = 0; iter < TinkerTools.patternOutputs.length; iter++)
         {
@@ -68,9 +65,9 @@ public class ToolRecipes {
 
                 for (Integer id : MaterialRegistry.mapIdName.keySet())
                 {
-                	fs = MaterialRegistry.mapfluids.get(id);
+                	Fluid fs = MaterialRegistry.mapfluids.get(id);
                 	if(fs != null){
-	                    fluidAmount = ((IPattern) TinkerSmeltery.metalPattern).getPatternCost(cast) * TConstruct.ingotLiquidValue / 2;
+                		int fluidAmount = ((IPattern) TinkerSmeltery.metalPattern).getPatternCost(cast) * TConstruct.ingotLiquidValue / 2;
 	                    ItemStack metalCast = new ItemStack(TinkerTools.patternOutputs[iter], 1, id);
 	                    tableCasting.addCastingRecipe(metalCast, new FluidStack(fs, fluidAmount), cast, 50);
 	                    Smeltery.addMelting(FluidType.getFluidType(fs), metalCast, 0, fluidAmount);

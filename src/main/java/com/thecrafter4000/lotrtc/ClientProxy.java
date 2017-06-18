@@ -4,6 +4,8 @@ import com.thecrafter4000.lotrtc.items.TinkersMEItems;
 import com.thecrafter4000.lotrtc.manual.ManualContentRegistry;
 import com.thecrafter4000.lotrtc.manual.ManualRegistry;
 import com.thecrafter4000.lotrtc.smeltery.FractionSmelteryRender;
+import com.thecrafter4000.lotrtc.tools.ToolRegistry;
+import com.thecrafter4000.lotrtc.tools.ToolRegistry.ToolEntry;
 
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -27,6 +29,10 @@ public class ClientProxy extends CommonProxy {
 		ManualRegistry.initClient();
 		ManualContentRegistry.init();
 		
-		MinecraftForgeClient.registerItemRenderer(TinkersMEItems.battleaxe, new FlexibleToolRenderer());
+		/* Register ItemRenderer */
+		FlexibleToolRenderer r = new FlexibleToolRenderer();
+		for(ToolEntry t : ToolRegistry.tools){
+			MinecraftForgeClient.registerItemRenderer(t.tool, r);
+		}
 	}
 }
