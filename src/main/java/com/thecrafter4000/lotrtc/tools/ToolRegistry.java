@@ -18,9 +18,11 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
+import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.crafting.FluidType;
 import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.library.crafting.Smeltery;
+import tconstruct.library.crafting.StencilBuilder;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.crafting.ToolRecipe;
 import tconstruct.library.tools.DynamicToolPart;
@@ -61,17 +63,14 @@ public class ToolRegistry {
 	
 	/* Integer -> Pattern ID. I use an map instead of an list so I can remove an pattern if necessary. */
 	public final static Map<Integer, ToolPartEntry> parts = new HashMap<Integer, ToolPartEntry>();
-	/* Pattern ID, GUI ID */
-	public final static Map<Integer, Integer> guiIDs = new HashMap<Integer, Integer>();
-	private static int nextIndex = 0;
+	public static int nextIndex = 0;
 
 	public final static void addToolPart(DynamicToolPart item, int materialCosts){
-		addToolPart(item, materialCosts, true);
+		addToolPart(item, materialCosts, "textures/gui/icons.png", true);
 	}
 	
-	public final static void addToolPart(DynamicToolPart item, int materialCosts, boolean addSmelteryCasting){
-		parts.put(nextIndex, new ToolPartEntry(item, materialCosts, addSmelteryCasting));
-		guiIDs.put(nextIndex, 0); // I do this in PostInit
+	public final static void addToolPart(DynamicToolPart item, int materialCosts, String texture, boolean addSmelteryCasting){
+		parts.put(nextIndex, new ToolPartEntry(item, materialCosts, addSmelteryCasting, texture));
 		nextIndex++;
 	}
 		
@@ -93,14 +92,20 @@ public class ToolRegistry {
 		public final boolean addSmelteryCasting;
 		public final int materialCosts;
 		
-		/* Gets all necessary information from the item*/
-		public ToolPartEntry(DynamicToolPart item, int materialCosts, boolean addSmelteryCasting) {
+		public final String textureButtonStencil;
+		public final int xButtonStencil = 0;
+		public final int yButtonStencil = 3;
+		public int stencilGuiID;
+		
+		/* Gets all necessary information from the item */
+		public ToolPartEntry(DynamicToolPart item, int materialCosts, boolean addSmelteryCasting, String texture) {
 			this.item = item;
 			this.texture = item.texture;
 			this.name = item.partName;
 			this.domain = item.modTexPrefix;
 			this.materialCosts = materialCosts;
 			this.addSmelteryCasting = addSmelteryCasting;
+			this.textureButtonStencil = texture;
 		}
 	}
 	
@@ -184,5 +189,23 @@ public class ToolRegistry {
         		}
         	}	
         }
+	}
+
+	public static void postInit(){
+		Integer[] partIndecies = parts.keySet().toArray(new Integer[]{});
+		int nextPartIndex = 0;
+		
+		/* register stencil building */
+		for(int i = 0; nextPartIndex < partIndecies.length; i++){
+			if(!StencilBuilder.instance.stencils.containsKey(i)) {
+				parts.get(partIndecies[nextPartIndex]).stencilGuiID = i;
+				StencilBuilder.registerStencil(i, TinkersMEItems.woodPattern, partIndecies[nextPartIndex]);
+				nextPartIndex++;
+			}
+		}
+		
+		for(ToolPartEntry entry : parts.values()){
+			TConstructClientRegistry.addStencilButton2(entry.xButtonStencil, entry.yButtonStencil, entry.stencilGuiID, entry.domain, entry.textureButtonStencil);
+		}
 	}
 }

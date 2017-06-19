@@ -26,9 +26,12 @@ public class LotRPattern extends Pattern {
 		String[] array = new String[ToolRegistry.parts.size()];
 		for(Integer i : ToolRegistry.parts.keySet()){
 			ToolPartEntry e = ToolRegistry.parts.get(i);
-			if(e.addSmelteryCasting) array[i] = ToolRegistry.parts.get(i).name.toLowerCase(Locale.ENGLISH);
-			else if(!patternType.equals("cast_")) array[i] = ToolRegistry.parts.get(i).name.toLowerCase(Locale.ENGLISH);
-			else array[i] = "";
+			if(e.addSmelteryCasting || !patternType.equals("cast_")){
+				array[i] = ToolRegistry.parts.get(i).name.toLowerCase(Locale.ENGLISH);
+			}
+			else {
+				array[i] = "";
+			}
 		}
 		return array;
 	}
