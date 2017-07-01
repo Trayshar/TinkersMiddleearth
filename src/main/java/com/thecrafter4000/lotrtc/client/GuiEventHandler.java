@@ -6,28 +6,103 @@ import java.lang.reflect.Method;
 import com.thecrafter4000.lotrtc.TinkersMiddleearth;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.GuiScreenEvent.InitGuiEvent;
+import net.minecraftforge.client.event.GuiScreenEvent.InitGuiEvent.Post;
 import net.minecraftforge.common.MinecraftForge;
 import tconstruct.library.client.StencilGuiElement;
 import tconstruct.library.client.TConstructClientRegistry;
+import tconstruct.library.client.ToolGuiElement;
 import tconstruct.library.crafting.StencilBuilder;
 import tconstruct.tools.gui.GuiButtonStencil;
+import tconstruct.tools.gui.GuiButtonTool;
 import tconstruct.tools.gui.StencilTableGui;
+import tconstruct.tools.gui.ToolForgeGui;
+import tconstruct.tools.gui.ToolStationGui;
 import tconstruct.tools.logic.StencilTableLogic;
 
-public class StencilGuiEventHandler {
+public class GuiEventHandler {
 
 	public static void register(){
-		MinecraftForge.EVENT_BUS.register(new StencilGuiEventHandler());
+		MinecraftForge.EVENT_BUS.register(new GuiEventHandler());
 	}
 	
 	@SubscribeEvent
 	public void onInitGuiPost(InitGuiEvent.Post e){
-		if(e.gui.getClass() != StencilTableGui.class) return;
+		if(e.gui.getClass() == StencilTableGui.class) {
+			onStencilGui(e);
+		}
+		else if(e.gui.getClass() == ToolForgeGui.class) {
+//			onForgeGui(e);
+		}
+		else if(e.gui.getClass() == ToolStationGui.class) {
+//			onStationGui(e);
+		}
+	}
+	
+	@SubscribeEvent
+	public void onGuiOpen(GuiOpenEvent e){
+		if(e.gui == null) return;
+		if(e.gui.getClass() == ToolStationGui.class){
+			e.gui = new ToolStationGui2((ToolStationGui) e.gui);
+		}else if(e.gui.getClass() == ToolForgeGui.class){
+			e.gui = new ToolForgeGui2((ToolForgeGui) e.gui);
+		}
+	}
+	
+	private void onStationGui(Post e) {
+        int xSize = 176 + 110;
+        int ySize = 166;
+        int guiLeft = (e.gui.width - 176) / 2 - 110;
+        int guiTop = (e.gui.height - ySize) / 2;
+
+        e.buttonList.clear();
+        ToolGuiElement repair = TConstructClientRegistry.toolButtons.get(0);
+        GuiButtonTool repairButton = new GuiButtonTool2(0, guiLeft, guiTop, repair); // Repair
+        repairButton.enabled = false;
+        e.buttonList.add(repairButton);
+
+        for (int iter = 1; iter < TConstructClientRegistry.toolButtons.size(); iter++)
+        {
+            ToolGuiElement element = TConstructClientRegistry.toolButtons.get(iter);
+            GuiButtonTool button = new GuiButtonTool2(iter, guiLeft + 22 * (iter % 5), guiTop + 22 * (iter / 5), element);
+            e.buttonList.add(button);
+        }
+    }
+
+	private void onForgeGui(Post e) {
+        int xSize = 176 + 110;
+        int ySize = 166;
+        int guiLeft = (e.gui.width - 176) / 2 - 110;
+        int guiTop = (e.gui.height - ySize) / 2;
 		
+        e.buttonList.clear();
+        ToolGuiElement repair = TConstructClientRegistry.toolButtons.get(0);
+        GuiButtonTool repairButton = new GuiButtonTool2(0, guiLeft, guiTop, repair); // Repair
+        repairButton.enabled = false;
+        e.buttonList.add(repairButton);
+        int offset = TConstructClientRegistry.tierTwoButtons.size();
+
+        for (int iter = 0; iter < TConstructClientRegistry.tierTwoButtons.size(); iter++)
+        {
+            ToolGuiElement element = TConstructClientRegistry.tierTwoButtons.get(iter);
+            GuiButtonTool button = new GuiButtonTool2(iter + 1, guiLeft + 22 * ((iter + 1) % 5), guiTop + 22 * ((iter + 1) / 5), element);
+            e.buttonList.add(button);
+        }
+
+        for (int iter = 1; iter < TConstructClientRegistry.toolButtons.size(); iter++)
+        {
+            ToolGuiElement element = TConstructClientRegistry.toolButtons.get(iter);
+            GuiButtonTool button = new GuiButtonTool2(iter + offset, guiLeft + 22 * ((iter + offset) % 5), guiTop + 22 * ((iter + offset) / 5), element);
+            e.buttonList.add(button);
+        }
+	}
+
+	private void onStencilGui(InitGuiEvent.Post e){
 		try{ // Copy of StencilTableGui.initGui()
 			// Getting non-visible fields without reflection. I don't like getting mc fields with reflection.
 			int xSize = 176;
@@ -55,8 +130,8 @@ public class StencilGuiEventHandler {
 	
 	        // secondary buttons, yay!
 	        // these are to use for other mods :I
-	        // Good joke dude :DDDDDD
-	        // I have to override this shit!!!!!!!
+	        // Good joke dude :D
+	        // I have to override this!
 	        cornerX = guiLeft + xSize + 4;
 	        for (int iter = 0; iter < TConstructClientRegistry.stencilButtons2.size(); iter++)
 	        {
@@ -94,9 +169,7 @@ public class StencilGuiEventHandler {
 	        m.invoke(e.gui, stack);
 	        
 	        // Set active button
-			Field f = StencilTableGui.class.getDeclaredField("activeButton");
-			f.setAccessible(true);
-			f.set(e.gui, activeButton);
+			setProtectedField(StencilTableGui.class, "activeButton", e.gui, activeButton);
 		}catch(NoClassDefFoundError ncdfe){
 			TinkersMiddleearth.logger.catching(ncdfe);
 		}catch(Exception ex){
@@ -108,5 +181,11 @@ public class StencilGuiEventHandler {
 		Field f = clazz.getDeclaredField(name);
 		f.setAccessible(true);
 		return f.get(holder);
+	}
+	
+	private void setProtectedField(Class clazz, String name, Object holder, Object obj) throws Exception {
+		Field f = clazz.getDeclaredField(name);
+		f.setAccessible(true);
+		f.set(holder, obj);
 	}
 }

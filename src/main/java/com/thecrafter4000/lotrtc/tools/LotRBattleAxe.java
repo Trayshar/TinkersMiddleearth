@@ -40,6 +40,11 @@ public class LotRBattleAxe extends Battleaxe {
 		return StatCollector.translateToLocal("tool.battleaxe");
 	}
 	
+//	@Override
+//	public float getDurabilityModifier() {
+//		return 1f;
+//	}
+	
 	@Override
 	public void onUpdate(ItemStack stack, World world, Entity entity, int par4, boolean par5) {
         for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
@@ -69,11 +74,6 @@ public class LotRBattleAxe extends Battleaxe {
                         nearbyStack = null;
                         player.inventory.setInventorySlotContents(itemSlot, null);
                     }
-                }
-
-                // throw shurikens!
-                if(item != null && item == TinkerWeaponry.shuriken) {
-                    item.onItemRightClick(nearbyStack, world, player);
                 }
             }
         }

@@ -1,6 +1,6 @@
 package com.thecrafter4000.lotrtc;
 
-import com.thecrafter4000.lotrtc.client.StencilGuiEventHandler;
+import com.thecrafter4000.lotrtc.client.GuiEventHandler;
 import com.thecrafter4000.lotrtc.items.MaterialRegistry;
 import com.thecrafter4000.lotrtc.items.TinkersMEBlocks;
 import com.thecrafter4000.lotrtc.items.TinkersMEItems;
@@ -61,7 +61,7 @@ public class CommonProxy {
     	FMLCommonHandler.instance().bus().register(eventHandler);
     	MinecraftForge.EVENT_BUS.register(eventHandler);
     	
-    	StencilGuiEventHandler.register();
+    	GuiEventHandler.register();
     }
 
     public void init(FMLInitializationEvent e) {

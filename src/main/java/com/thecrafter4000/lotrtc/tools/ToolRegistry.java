@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.thecrafter4000.lotrtc.TinkersMiddleearth;
+import com.thecrafter4000.lotrtc.client.ExtendedToolGuiElement;
 import com.thecrafter4000.lotrtc.items.MaterialRegistry;
 import com.thecrafter4000.lotrtc.items.TinkersMEItems;
 import com.thecrafter4000.lotrtc.tools.ToolRegistry.ToolEntry;
@@ -14,6 +15,7 @@ import com.thecrafter4000.lotrtc.tools.ToolRegistry.ToolEntry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import tconstruct.TConstruct;
@@ -39,10 +41,30 @@ public class ToolRegistry {
 	public static final List<ToolCore> removeRecipe = new ArrayList<ToolCore>();
 	public static final List<ToolEntry> tools = new ArrayList<ToolEntry>();
 	
-	public static void addTool(String name, ToolCore tool, Item... items){
-		tools.add(new ToolEntry(name, tool, items));
+	/**
+	 * Add's an normal tool
+	 */
+	public static void addTool(String name, ToolCore tool, int buttonX, int buttonY, int guiType, int[] iconX, int[] iconY){
+		tools.add(new ToolEntry(name, tool, "textures/gui/icons.png", buttonX, buttonY, guiType, iconX, iconY, "lotrtc", true, false, tool.getHeadItem(), tool.getHandleItem(), tool.getAccessoryItem(), tool.getExtraItem()));
 	}
 	
+	/**
+	 * Add's an tool only crafted on tool forge
+	 */
+	public static void addTierTwoTool(String name, ToolCore tool, int buttonX, int buttonY, int guiType, int[] iconX, int[] iconY){
+		tools.add(new ToolEntry(name, tool, "textures/gui/icons.png", buttonX, buttonY, guiType, iconX, iconY, "lotrtc", true, true, tool.getHeadItem(), tool.getHandleItem(), tool.getAccessoryItem(), tool.getExtraItem()));
+	}
+	
+	/**
+	 *  Add's an tool, but no button
+	 */
+	public static void addToolWithoutGui(String name, ToolCore tool){
+		tools.add(new ToolEntry(name, tool, "", 0, 0, 0, new int[]{}, new int[]{}, "lotrtc", false, false, tool.getHeadItem(), tool.getHandleItem(), tool.getAccessoryItem(), tool.getExtraItem()));
+	}
+	
+	/**
+	 *  Removes all recipes crafting a tool
+	 */
 	public static void removeRecipe(ToolCore tool){
 		removeRecipe.add(tool);
 	}
@@ -52,10 +74,27 @@ public class ToolRegistry {
 		public final ToolCore tool;
 		public final Item[] recipe;
 		
-		public ToolEntry(String name, ToolCore tool, Item... items) {
+		public final int guiType;
+		public final String domain;
+		public final String textureButton;
+		public final int xButton, yButton;
+		public final int[] xIcon, yIcon;
+		public final boolean addGui;
+		public final boolean tierTwo;
+		
+		public ToolEntry(String name, ToolCore tool, String texture, int buttonX, int buttonY, int guiType, int[] iconX, int[] iconY, String domain, boolean addGui, boolean tierTwo, Item... items) {
 			this.name = name;
 			this.tool = tool;
 			this.recipe = items;
+			this.domain = domain;
+			this.textureButton = texture;
+			this.xButton = buttonX;
+			this.yButton = buttonY;
+			this.addGui = addGui;
+			this.xIcon = iconX;
+			this.yIcon = iconY;
+			this.guiType = guiType;
+			this.tierTwo = tierTwo;
 		}
 	}
 	
@@ -63,25 +102,29 @@ public class ToolRegistry {
 	
 	/* Integer -> Pattern ID. I use an map instead of an list so I can remove an pattern if necessary. */
 	public final static Map<Integer, ToolPartEntry> parts = new HashMap<Integer, ToolPartEntry>();
+	public static final List<ToolPartRenderEntry> partRender = new ArrayList<ToolPartRenderEntry>();
 	public static int nextIndex = 0;
 
-	public final static void addToolPart(DynamicToolPart item, int materialCosts){
-		addToolPart(item, materialCosts, "textures/gui/icons.png", true);
+	/**
+	 *  Add's a tool part
+	 */
+	public static void addToolPart(DynamicToolPart item, int materialCosts, int iconX, int iconY){
+		addToolPart(item, materialCosts, "textures/gui/icons.png", iconX, iconY, true);
 	}
 	
-	public final static void addToolPart(DynamicToolPart item, int materialCosts, String texture, boolean addSmelteryCasting){
-		parts.put(nextIndex, new ToolPartEntry(item, materialCosts, addSmelteryCasting, texture));
+	/**
+	 *  Add's a tool part
+	 */
+	public static void addToolPart(DynamicToolPart item, int materialCosts, String texture, int iconX, int iconY, boolean addSmelteryCasting ){
+		parts.put(nextIndex, new ToolPartEntry(item, materialCosts, addSmelteryCasting, texture, iconX, iconY));
 		nextIndex++;
 	}
 		
-	public static int getPatternCost(int meta) {
-		ToolPartEntry e = parts.get(meta);
-		if(e == null){
-			TinkersMiddleearth.logger.warn("[ToolRegistry] Called getPatternOutput with invalid meta: " + meta + "!");
-			TinkersMiddleearth.logger.warn("If you haven't created this pattern with invalid meta using commands, that's an bug.");
-			return 0;
-		}
-		return e.materialCosts;
+	/**
+	 *  Registers an icon for an tool part on tool station/forge. It is used to draw the slot backgrounds for non-tinker items.
+	 */
+	public static void addToolPartRender(Item tool, ResourceLocation tex, int x, int y){
+		partRender.add(new ToolPartRenderEntry(tool, tex, x, y));
 	}
 	
 	public static class ToolPartEntry{
@@ -92,20 +135,36 @@ public class ToolRegistry {
 		public final boolean addSmelteryCasting;
 		public final int materialCosts;
 		
-		public final String textureButtonStencil;
-		public final int xButtonStencil = 0;
-		public final int yButtonStencil = 3;
-		public int stencilGuiID;
+		public final String textureButton;
+		public final int xButton;
+		public final int yButton;
+		public int guiID;
 		
 		/* Gets all necessary information from the item */
-		public ToolPartEntry(DynamicToolPart item, int materialCosts, boolean addSmelteryCasting, String texture) {
+		public ToolPartEntry(DynamicToolPart item, int materialCosts, boolean addSmelteryCasting, String texture, int iconX, int iconY) {
 			this.item = item;
 			this.texture = item.texture;
 			this.name = item.partName;
 			this.domain = item.modTexPrefix;
 			this.materialCosts = materialCosts;
 			this.addSmelteryCasting = addSmelteryCasting;
-			this.textureButtonStencil = texture;
+			this.textureButton = texture;
+			this.xButton = iconX;
+			this.yButton = iconY;
+		}
+	}
+	
+	public static class ToolPartRenderEntry{
+		public final Item part;
+		public final ResourceLocation tex;
+		public final int x;
+		public final int y;
+		
+		public ToolPartRenderEntry(Item part, ResourceLocation tex, int x, int y) {
+			this.part = part;
+			this.tex = tex;
+			this.x = x;
+			this.y = y;
 		}
 	}
 	
@@ -195,17 +254,30 @@ public class ToolRegistry {
 		Integer[] partIndecies = parts.keySet().toArray(new Integer[]{});
 		int nextPartIndex = 0;
 		
-		/* register stencil building */
+		/* set gui id's */
 		for(int i = 0; nextPartIndex < partIndecies.length; i++){
 			if(!StencilBuilder.instance.stencils.containsKey(i)) {
-				parts.get(partIndecies[nextPartIndex]).stencilGuiID = i;
+				parts.get(partIndecies[nextPartIndex]).guiID = i;
 				StencilBuilder.registerStencil(i, TinkersMEItems.woodPattern, partIndecies[nextPartIndex]);
 				nextPartIndex++;
 			}
 		}
 		
+		/* Register */
 		for(ToolPartEntry entry : parts.values()){
-			TConstructClientRegistry.addStencilButton2(entry.xButtonStencil, entry.yButtonStencil, entry.stencilGuiID, entry.domain, entry.textureButtonStencil);
+			TConstructClientRegistry.addStencilButton2(entry.xButton, entry.yButton, entry.guiID, entry.domain, entry.textureButton);
+		}
+		
+		/* Register */
+		for(ToolEntry entry : tools){
+			if(entry.addGui){
+				String desc = String.format("gui.toolstation.%s.desc", entry.tool.getToolName().toLowerCase());
+				if(entry.tierTwo) {
+					TConstructClientRegistry.addTierTwoButton(new ExtendedToolGuiElement(entry.guiType, entry.xButton, entry.yButton, entry.xIcon, entry.yIcon, entry.tool.getLocalizedToolName(), desc, entry.domain, entry.textureButton, entry.tool));
+				}else{
+					TConstructClientRegistry.addToolButton(new ExtendedToolGuiElement(entry.guiType, entry.xButton, entry.yButton, entry.xIcon, entry.yIcon, entry.tool.getLocalizedToolName(), desc, entry.domain, entry.textureButton, entry.tool));					
+				}
+			}
 		}
 	}
 }

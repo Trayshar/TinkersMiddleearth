@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Locale;
 
 import com.thecrafter4000.lotrtc.CommonProxy;
+import com.thecrafter4000.lotrtc.TinkersMiddleearth;
 import com.thecrafter4000.lotrtc.tools.ToolRegistry.ToolPartEntry;
 
 import net.minecraft.creativetab.CreativeTabs;
@@ -58,6 +59,14 @@ public class LotRPattern extends Pattern {
     
     @Override
     public int getPatternCost(ItemStack pattern) {
-    	return ToolRegistry.getPatternCost(pattern.getItemDamage());
+    	if(pattern == null) return 0;
+    	
+		ToolPartEntry e = ToolRegistry.parts.get(pattern.getItemDamage());
+		if(e == null){
+			TinkersMiddleearth.logger.warn("[ToolRegistry] Called getPatternOutput with invalid meta: " + pattern.getItemDamage() + "!");
+			TinkersMiddleearth.logger.warn("If you haven't created this pattern with invalid meta using commands, that's an bug.");
+			return 0;
+		}
+		return e.materialCosts;
     }
 }
