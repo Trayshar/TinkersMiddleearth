@@ -23,5 +23,6 @@ public class HitDelayPatcher {
 		LOTRWeaponStats.registerMeleeReach(LotRBattleAxe.class, 1.25f);
 		
 		LOTRWeaponStats.registerMeleeExtraKnockback(LotRBattleAxe.class, 1);
+		LOTRWeaponStats.registerMeleeExtraKnockback(Warhammer.class, 2);
 	}
 }

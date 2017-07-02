@@ -50,7 +50,7 @@ public class TinkersMEItems {
 		GameRegistry.registerItem(manual = new ManualItem(), "manual");
 
 		// Tool parts
-		ToolRegistry.addToolPart((DynamicToolPart) (warHammerHead = new DynamicToolPart("_warhammer_head", "WarHammerHead", "lotrtc").setUnlocalizedName("lotrtc.WarHammerHead")), 4, 0, 0);
+		ToolRegistry.addToolPart((DynamicToolPart) (warHammerHead = new DynamicToolPart("_warhammer_head", "WarHammerHead", "lotrtc").setUnlocalizedName("lotrtc.WarHammerHead")), 8, 0, 1);
 		ToolRegistry.addToolPartRender(warHammerHead, icons, 0, 1);
 		// Tools
 		ToolRegistry.addTierTwoTool("warhammer", warhammer = new Warhammer(), 0, 0, 1, new int[] { 0, 8, 9, 0 }, new int[] { 0, 3, 3, 0 });

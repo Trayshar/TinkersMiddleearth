@@ -37,6 +37,17 @@ material.blackuruksteel=Black Uruk Steel
 material.mallorn=Mallorn
 material.blackroot=Blackroot
 
+tool.warhammer=Warhammer
+
+toolpart.WarHammerHead=%%material Warhammer Head
+
+item.lotrtc.MetalPattern.warhammerhead.name=Warhammmer Head Cast
+
+item.lotrtc.WoodPattern.warhammerhead.name=Warhammmer Head Pattern
+
+gui.toolstation.warhammer.desc=The Warhammer is a heavy offensive weapon.\n\nNatural Abilities:\n- Knockback\n\nDamage: Average\nDurability: Average
+
+
 item.lotrtc.bucket.ElvenSteel.name=Molten Elven Steel Bucket
 item.lotrtc.bucket.DwarvenSteel.name=Molten Dwarven Steel Bucket
 item.lotrtc.bucket.OrcSteel.name=Molten Orc Steel Bucket

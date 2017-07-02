@@ -39,6 +39,7 @@ public class Warhammer extends Weapon {
         return 4.5f;
     }
 
+    /**Using broken handle*/
     @Override public IIcon getIcon (ItemStack stack, int renderPass)
     {
         NBTTagCompound tags = stack.getTagCompound();
