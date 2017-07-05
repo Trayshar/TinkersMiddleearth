@@ -7,6 +7,8 @@ import com.thecrafter4000.lotrtc.tools.ToolRegistry;
 import com.thecrafter4000.lotrtc.tools.ToolRegistry.ToolPartEntry;
 import com.thecrafter4000.lotrtc.tools.ToolRegistry.ToolPartRenderEntry;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -21,6 +23,7 @@ import tconstruct.tools.gui.ToolForgeGui;
 import tconstruct.tools.gui.ToolStationGui;
 import tconstruct.tools.logic.ToolForgeLogic;
 
+@SideOnly(Side.CLIENT)
 public class ToolStationGui2 extends ToolStationGui {
 
 	public ResourceLocation[] textures = new ResourceLocation[4];

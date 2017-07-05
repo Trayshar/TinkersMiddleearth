@@ -1,0 +1,8 @@
+Custom Weapons:
+- Spike
+- Battlestaff
+
+Add some modifier stuuf
+- Other way to obtain extra modifier
+- Recyler
+- Toolpart color changer

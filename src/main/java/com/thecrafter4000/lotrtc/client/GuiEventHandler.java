@@ -6,6 +6,8 @@ import java.lang.reflect.Method;
 import com.thecrafter4000.lotrtc.TinkersMiddleearth;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -25,6 +27,7 @@ import tconstruct.tools.gui.ToolForgeGui;
 import tconstruct.tools.gui.ToolStationGui;
 import tconstruct.tools.logic.StencilTableLogic;
 
+@SideOnly(Side.CLIENT)
 public class GuiEventHandler {
 
 	public static void register(){

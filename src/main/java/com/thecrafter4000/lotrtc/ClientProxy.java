@@ -1,5 +1,6 @@
 package com.thecrafter4000.lotrtc;
 
+import com.thecrafter4000.lotrtc.client.GuiEventHandler;
 import com.thecrafter4000.lotrtc.items.TinkersMEItems;
 import com.thecrafter4000.lotrtc.manual.ManualContentRegistry;
 import com.thecrafter4000.lotrtc.manual.ManualRegistry;
@@ -20,6 +21,7 @@ public class ClientProxy extends CommonProxy {
 	public void preInit(FMLPreInitializationEvent e) {
 		ManualRegistry.preInitClient();
 		super.preInit(e);
+		GuiEventHandler.register();
 	}
 	
 	@Override

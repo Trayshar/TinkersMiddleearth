@@ -15,7 +15,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 public class TinkersMiddleearth {
 
 	public static final String MODID = "lotrtc";
-	public static final String VERSION = "1.3.0";
+	public static final String VERSION = "1.3.4";
 	public static final String NAME = "Tinker's MiddleEarth";
 	public static final String Dependencies = "required-after:TConstruct;required-after:lotr";
 	@Instance public static TinkersMiddleearth instance;

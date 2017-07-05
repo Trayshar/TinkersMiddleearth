@@ -68,14 +68,18 @@ public class ToolForgeGui2 extends ToolForgeGui {
 	 *  Helper func
 	 */
 	public int getSelectedButton(){
+		Field f = null;
 		try {
-			Field f = ToolForgeGui.class.getDeclaredField("selectedButton");
+			f = ToolForgeGui.class.getDeclaredField("selectedButton");
+		} catch (Exception e) {}
+		
+		try{
+			if(f == null) f = ToolForgeGui.class.getDeclaredField("field_146290_a"); // Deobfuscated name
 			f.setAccessible(true);
 			return f.getInt(this);
-		} catch (Exception e) {
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		return -1;
 	}
 	

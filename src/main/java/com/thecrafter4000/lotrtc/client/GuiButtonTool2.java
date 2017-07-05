@@ -2,11 +2,14 @@ package com.thecrafter4000.lotrtc.client;
 
 import org.lwjgl.opengl.GL11;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import tconstruct.library.client.ToolGuiElement;
 import tconstruct.tools.gui.GuiButtonTool;
 
+@SideOnly(Side.CLIENT)
 public class GuiButtonTool2 extends GuiButtonTool {
 
 	public ResourceLocation background;
