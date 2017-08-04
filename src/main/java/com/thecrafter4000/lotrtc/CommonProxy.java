@@ -1,5 +1,8 @@
 package com.thecrafter4000.lotrtc;
 
+import com.thecrafter4000.lotrtc.client.GuiEventHandler;
+import com.thecrafter4000.lotrtc.dyer.DyePacket;
+import com.thecrafter4000.lotrtc.dyer.DyerLogic;
 import com.thecrafter4000.lotrtc.items.MaterialRegistry;
 import com.thecrafter4000.lotrtc.items.TinkersMEBlocks;
 import com.thecrafter4000.lotrtc.items.TinkersMEItems;
@@ -9,34 +12,25 @@ import com.thecrafter4000.lotrtc.tools.HitDelayPatcher;
 import com.thecrafter4000.lotrtc.tools.ToolRecipes;
 import com.thecrafter4000.lotrtc.tools.ToolRegistry;
 
+import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.IGuiHandler;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import lotr.common.LOTRMod;
-import lotr.common.recipe.LOTRRecipes;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.oredict.OreDictionary;
-import tconstruct.items.tools.Battleaxe;
-import tconstruct.items.tools.Longsword;
-import tconstruct.library.ActiveToolMod;
-import tconstruct.library.TConstructRegistry;
-import tconstruct.tools.TinkerTools;
+import tconstruct.TConstruct;
 
-public class CommonProxy {
+public class CommonProxy{
 
 	public static final CreativeTabs LotRTiCTab = new CreativeTabs("lotrtc") {
 		
@@ -45,6 +39,7 @@ public class CommonProxy {
 			return Item.getItemFromBlock(TinkersMEBlocks.smelteryHighElves);
 		}
 	};
+	
 	
     public void preInit(FMLPreInitializationEvent e) {
     	HitDelayPatcher.patch();
@@ -60,9 +55,11 @@ public class CommonProxy {
     	FMLCommonHandler.instance().bus().register(eventHandler);
     	MinecraftForge.EVENT_BUS.register(eventHandler);
     }
-
+    
     public void init(FMLInitializationEvent e) {
     	GameRegistry.registerTileEntity(FractionSmelteryLogic.class, "lotrtc:fractionsmelterylogic");
+    	GameRegistry.registerTileEntity(DyerLogic.class, "lotrtc:dyerlogic");
+    	NetworkRegistry.INSTANCE.registerGuiHandler(TinkersMiddleearth.instance, new TinkersMEGuiHandler());
     	patchLotrOres();
     	TinkersMEBlocks.init(e);
     	TinkersMEItems.init(e);
@@ -71,6 +68,8 @@ public class CommonProxy {
     	ToolRecipes.registerToolCasting();
     	SmelteryRecipes.registerSmelteryMeltings();
     	SmelteryRecipes.registerAlloys();
+    	
+    	TConstruct.packetPipeline.registerPacket(DyePacket.class);
     }
 
     public void postInit(FMLPostInitializationEvent e) {

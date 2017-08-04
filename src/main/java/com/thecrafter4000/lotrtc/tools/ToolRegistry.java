@@ -10,7 +10,6 @@ import com.thecrafter4000.lotrtc.TinkersMiddleearth;
 import com.thecrafter4000.lotrtc.client.ExtendedToolGuiElement;
 import com.thecrafter4000.lotrtc.items.MaterialRegistry;
 import com.thecrafter4000.lotrtc.items.TinkersMEItems;
-import com.thecrafter4000.lotrtc.tools.ToolRegistry.ToolEntry;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
@@ -31,8 +30,6 @@ import tconstruct.library.tools.DynamicToolPart;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.util.IPattern;
 import tconstruct.smeltery.TinkerSmeltery;
-import tconstruct.tools.TinkerTools;
-import tconstruct.tools.TinkerTools.MaterialID;
 
 public class ToolRegistry {
 

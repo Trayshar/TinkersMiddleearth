@@ -2,7 +2,7 @@ Custom Weapons:
 - Spike
 - Battlestaff
 
-Add some modifier stuuf
+Add some modifier stuff
 - Other way to obtain extra modifier
-- Recyler
+- Way of recycle old tools, similar to the unsmeltery
 - Toolpart color changer

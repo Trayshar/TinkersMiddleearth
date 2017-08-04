@@ -7,7 +7,6 @@ import com.thecrafter4000.lotrtc.TinkersMEConfig;
 import com.thecrafter4000.lotrtc.TinkersMEConfig.LotRMaterialID;
 
 import net.minecraftforge.fluids.Fluid;
-import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.ToolMaterial;
 
 public class MaterialRegistry {

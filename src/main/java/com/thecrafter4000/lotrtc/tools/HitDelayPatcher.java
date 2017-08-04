@@ -1,7 +1,12 @@
 package com.thecrafter4000.lotrtc.tools;
 
 import lotr.common.item.LOTRWeaponStats;
-import tconstruct.items.tools.*;
+import tconstruct.items.tools.Cleaver;
+import tconstruct.items.tools.Cutlass;
+import tconstruct.items.tools.Dagger;
+import tconstruct.items.tools.FryingPan;
+import tconstruct.items.tools.Hammer;
+import tconstruct.items.tools.Rapier;
 
 public class HitDelayPatcher {
 

@@ -3,6 +3,7 @@ package com.thecrafter4000.lotrtc.items;
 import java.util.List;
 
 import com.thecrafter4000.lotrtc.TinkersMiddleearth;
+import com.thecrafter4000.lotrtc.dyer.Dyer;
 import com.thecrafter4000.lotrtc.smeltery.FractionSmeltery;
 import com.thecrafter4000.lotrtc.smeltery.FractionTankBlock;
 import com.thecrafter4000.lotrtc.smeltery.LotrTCFluid;
@@ -33,6 +34,9 @@ import tconstruct.smeltery.blocks.SmelteryBlock;
 import tconstruct.tools.TinkerTools;
 
 public class TinkersMEBlocks {
+	/* Dyer */
+	public static Dyer dyer;
+	
 	/* Smeltery Blocks */
 	public static SmelteryBlock smelteryHighElves;
 	public static SmelteryBlock smelteryDwarven;
@@ -88,6 +92,8 @@ public class TinkersMEBlocks {
     	GameRegistry.registerBlock(tankHighElves = new FractionTankBlock("HighElves"), TankItemBlock.class , "LavaTankHighElves");
     	GameRegistry.registerBlock(tankAngmar = new FractionTankBlock("Angmar"), TankItemBlock.class , "LavaTankAngmar");
     	GameRegistry.registerBlock(tankDwarven = new FractionTankBlock("Dwarven"), TankItemBlock.class , "LavaTankDwarven");
+    	
+    	GameRegistry.registerBlock(dyer = new Dyer(Material.wood), "dyer");
     	
     	moltenSarlluinFluid = registerFluid("sarlluin");
     	moltenSarlluin = moltenSarlluinFluid.getBlock();

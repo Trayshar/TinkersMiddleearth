@@ -8,9 +8,7 @@ import com.thecrafter4000.lotrtc.TinkersMiddleearth;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.GuiScreenEvent.InitGuiEvent;
@@ -39,12 +37,12 @@ public class GuiEventHandler {
 		if(e.gui.getClass() == StencilTableGui.class) {
 			onStencilGui(e);
 		}
-		else if(e.gui.getClass() == ToolForgeGui.class) {
+//		else if(e.gui.getClass() == ToolForgeGui.class) {
 //			onForgeGui(e);
-		}
-		else if(e.gui.getClass() == ToolStationGui.class) {
+//		}
+//		else if(e.gui.getClass() == ToolStationGui.class) {
 //			onStationGui(e);
-		}
+//		}
 	}
 	
 	@SubscribeEvent

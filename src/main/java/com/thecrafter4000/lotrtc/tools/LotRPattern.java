@@ -11,7 +11,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import tconstruct.tools.items.Pattern;
-import tconstruct.util.Reference;
 
 public class LotRPattern extends Pattern {
 	

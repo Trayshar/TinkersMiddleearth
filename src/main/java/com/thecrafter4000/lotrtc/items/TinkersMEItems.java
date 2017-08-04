@@ -1,14 +1,10 @@
 package com.thecrafter4000.lotrtc.items;
 
-import java.util.Arrays;
-
-import com.thecrafter4000.lotrtc.TinkersMiddleearth;
 import com.thecrafter4000.lotrtc.manual.ManualItem;
 import com.thecrafter4000.lotrtc.tools.LotRBattleAxe;
 import com.thecrafter4000.lotrtc.tools.LotRPattern;
 import com.thecrafter4000.lotrtc.tools.ToolRegistry;
 import com.thecrafter4000.lotrtc.tools.Warhammer;
-import com.thecrafter4000.lotrtc.tools.ToolRegistry.ToolEntry;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -18,16 +14,9 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import tconstruct.library.TConstructRegistry;
-import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.crafting.PatternBuilder;
-import tconstruct.library.crafting.StencilBuilder;
-import tconstruct.library.crafting.ToolBuilder;
-import tconstruct.library.crafting.ToolRecipe;
 import tconstruct.library.tools.DynamicToolPart;
-import tconstruct.library.tools.ToolCore;
 import tconstruct.tools.TinkerTools;
-import tconstruct.tools.items.ToolPart;
 
 public class TinkersMEItems {
 	
