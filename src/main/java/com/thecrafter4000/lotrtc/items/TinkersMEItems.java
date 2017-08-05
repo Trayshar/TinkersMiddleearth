@@ -2,6 +2,7 @@ package com.thecrafter4000.lotrtc.items;
 
 import java.util.Arrays;
 
+import com.thecrafter4000.lotrtc.CommonProxy;
 import com.thecrafter4000.lotrtc.TinkersMiddleearth;
 import com.thecrafter4000.lotrtc.manual.ManualItem;
 import com.thecrafter4000.lotrtc.tools.LotRBattleAxe;
@@ -14,7 +15,9 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
+import lotr.common.LOTRMod;
 import net.minecraft.block.Block;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -36,6 +39,7 @@ public class TinkersMEItems {
 	
 	public static Item buckets;
 	public static Item manual;
+	public static Item autosmelt;
 	// Patterns
 	public static LotRPattern woodPattern;
 	public static LotRPattern metalPattern;
@@ -48,7 +52,11 @@ public class TinkersMEItems {
 	public static void preInit(FMLPreInitializationEvent e) {
 		GameRegistry.registerItem(buckets = new LotrFilledBucket(Block.getBlockFromItem(buckets)), "buckets");
 		GameRegistry.registerItem(manual = new ManualItem(), "manual");
-
+		GameRegistry.registerItem(autosmelt = new Item().setCreativeTab(CommonProxy.LotRTiCTab).setUnlocalizedName("autosmeltitem"), "autosmeltitem");
+		
+		GameRegistry.addRecipe(new ItemStack(autosmelt), new Object[]{" # ", "#b#", " # ", '#', LOTRMod.blackUrukSteel, 'b', LOTRMod.balrogFire});
+//		GameRegistry.addRecipe(new ItemStack(TinkerTools.materials, 1, 26), new Object[]{" # ", "#b#", " # ", '#', new ItemStack(TinkerTools.materials, 1, 25), 'b', LOTRMod.emerald}); // Silky jewel
+		
 		// Tool parts
 		ToolRegistry.addToolPart((DynamicToolPart) (warHammerHead = new DynamicToolPart("_warhammer_head", "WarHammerHead", "lotrtc").setUnlocalizedName("lotrtc.WarHammerHead")), 8, 0, 1);
 		ToolRegistry.addToolPartRender(warHammerHead, icons, 0, 1);
