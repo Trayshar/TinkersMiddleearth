@@ -130,9 +130,13 @@ public class GuiEventHandler {
 	            GuiButtonStencil button = new GuiButtonStencil2(cornerX + 22 * (iter % bpr), cornerY + 22 * (iter / bpr), element);
 	            e.buttonList.add(button);
 	        }
-	
+	        // TiCon:
+	        
 	        // secondary buttons, yay!
 	        // these are to use for other mods :I
+	        
+	        // TheCrafter4000:
+	        
 	        // Good joke dude :D
 	        // I have to override this!
 	        cornerX = guiLeft + xSize + 4;

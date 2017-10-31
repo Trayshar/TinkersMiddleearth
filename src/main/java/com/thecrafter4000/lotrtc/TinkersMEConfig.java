@@ -79,7 +79,7 @@ public class TinkersMEConfig {
 	}
 	
 	static class LotRToolStats{
-		private static class MiningLevel{
+		static class MiningLevel{
 			public static int MithrilLotR = 5;
 			public static int DwarvenSteel = 3;
 			public static int BlueDwarvenSteel = 2;
@@ -91,7 +91,7 @@ public class TinkersMEConfig {
 			public static int Blackroot = 0;
 		}
 		
-		private static class Durability{
+		static class Durability{
 			public static int MithrilLotR = 2400;
 			public static int DwarvenSteel = 750;
 			public static int BlueDwarvenSteel = 650;
@@ -103,7 +103,7 @@ public class TinkersMEConfig {
 			public static int Blackroot = 130;
 		}
 		
-		private static class MiningSpeed{
+		static class MiningSpeed{
 			public static int MithrilLotR = 900;
 			public static int DwarvenSteel = 900;
 			public static int BlueDwarvenSteel = 700;
@@ -115,7 +115,7 @@ public class TinkersMEConfig {
 			public static int Blackroot = 350;
 		}
 		
-		private static class Damage{
+		static class Damage{
 			public static int MithrilLotR = 5;
 			public static int DwarvenSteel = 3;
 			public static int BlueDwarvenSteel = 2;
@@ -127,7 +127,7 @@ public class TinkersMEConfig {
 			public static int Blackroot = 1;
 		}
 
-		private static class HandleModifier{
+		static class HandleModifier{
 			public static float MithrilLotR = 3f;
 			public static float DwarvenSteel = 1.5f;
 			public static float BlueDwarvenSteel = 1.3f;
@@ -139,7 +139,7 @@ public class TinkersMEConfig {
 			public static float Blackroot = 1.2f;
 		}
 
-		private static class Reinforcement{
+		static class Reinforcement{
 			public static int MithrilLotR = 3;
 			public static int DwarvenSteel = 2;
 			public static int BlueDwarvenSteel = 1;
@@ -151,7 +151,7 @@ public class TinkersMEConfig {
 			public static int Blackroot = 0;
 		}
 
-		private static class StoneBound{
+		static class StoneBound{
 			public static float MithrilLotR = 0f;
 			public static float DwarvenSteel = 0f;
 			public static float BlueDwarvenSteel = 0f;
