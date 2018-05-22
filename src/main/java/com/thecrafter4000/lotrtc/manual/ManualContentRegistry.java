@@ -2,7 +2,6 @@ package com.thecrafter4000.lotrtc.manual;
 
 import com.thecrafter4000.lotrtc.items.TinkersMEBlocks;
 import com.thecrafter4000.lotrtc.items.TinkersMEItems;
-
 import lotr.common.LOTRMod;
 import mantle.lib.client.MantleClientRegistry;
 import net.minecraft.item.ItemStack;

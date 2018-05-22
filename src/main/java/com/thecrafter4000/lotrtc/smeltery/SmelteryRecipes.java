@@ -1,7 +1,6 @@
 package com.thecrafter4000.lotrtc.smeltery;
 
 import com.thecrafter4000.lotrtc.items.TinkersMEBlocks;
-
 import lotr.common.LOTRMod;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -16,21 +15,22 @@ import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.library.crafting.Smeltery;
 import tconstruct.smeltery.TinkerSmeltery;
 
+//TODO: Have one utility method per fluid; Nobody wants to read this shit.
 public class SmelteryRecipes {
 
 	public static void registerSmelteryMeltings(){
-		SmelteryRecipeHandler.addSmelteryFuel(SmelteryMainFraction.Dwarf, FluidRegistry.LAVA, 1500, 90);
-		
+		SmelteryRecipeHandler.addSmelteryFuel(SmelteryMainFaction.Dwarf, FluidRegistry.LAVA, 1500, 90);
+
 		/* Register Ores */
 		Smeltery.addMelting(FluidType.getFluidType("Obsidian"), new ItemStack(LOTRMod.obsidianGravel), -300, TConstruct.ingotLiquidValue);
 		Smeltery.addDictionaryMelting("oreSilver", FluidType.getFluidType("Silver"), 0, TConstruct.oreLiquidValue);
-		SmelteryRecipeHandler.addMelting(SmelteryMainFraction.Dwarf, LOTRMod.oreMithril, 0, 0, TinkersMEBlocks.moltenMithrilFluid, TConstruct.oreLiquidValue);
+		SmelteryRecipeHandler.addMelting(SmelteryMainFaction.Dwarf, LOTRMod.oreMithril, 0, 0, TinkersMEBlocks.moltenMithrilFluid, TConstruct.oreLiquidValue);
 		Smeltery.addMelting(FluidType.getFluidType("MithrilLotR"), new ItemStack(LOTRMod.oreMithril), 100, (int)(TConstruct.ingotLiquidValue * 1.5D));
-		SmelteryRecipeHandler.addMelting(SmelteryMainFraction.Orc, LOTRMod.oreMorgulIron, 0, 0, TinkersMEBlocks.moltenOrcSteelFluid, TConstruct.oreLiquidValue);
+		SmelteryRecipeHandler.addMelting(SmelteryMainFaction.Orc, LOTRMod.oreMorgulIron, 0, 0, TinkersMEBlocks.moltenOrcSteelFluid, TConstruct.oreLiquidValue);
 		Smeltery.addMelting(FluidType.getFluidType("OrcSteel"), new ItemStack(LOTRMod.oreMorgulIron), 100, (int)(TConstruct.ingotLiquidValue * 1.5D));
-		SmelteryRecipeHandler.addMelting(SmelteryMainFraction.Orc, LOTRMod.oreMorgulIron, 1, 0, TinkersMEBlocks.moltenOrcSteelFluid, TConstruct.oreLiquidValue);
+		SmelteryRecipeHandler.addMelting(SmelteryMainFaction.Orc, LOTRMod.oreMorgulIron, 1, 0, TinkersMEBlocks.moltenOrcSteelFluid, TConstruct.oreLiquidValue);
 		Smeltery.addMelting(FluidType.getFluidType("OrcSteel"), new ItemStack(LOTRMod.oreMorgulIron, 1, 1), 100, (int)(TConstruct.ingotLiquidValue * 1.5D));
-		
+
 		/* Register Ingots and Blocks */
 		Smeltery.addMelting(FluidType.getFluidType("Coal"), new ItemStack(Items.coal, 1, 0), -100, TConstruct.ingotLiquidValue);
 		Smeltery.addMelting(FluidType.getFluidType("Coal"), new ItemStack(Blocks.coal_block, 1, 0), 0, TConstruct.blockLiquidValue);
@@ -60,7 +60,7 @@ public class SmelteryRecipes {
 		Smeltery.addMelting(FluidType.getFluidType("Durnaur"), new ItemStack(LOTRMod.nauriteGem), -50, TConstruct.ingotLiquidValue);
 		Smeltery.addMelting(FluidType.getFluidType("Gulduril"), new ItemStack(LOTRMod.blockOreStorage, 1, 11), 0, TConstruct.blockLiquidValue);
 		Smeltery.addMelting(FluidType.getFluidType("Gulduril"), new ItemStack(LOTRMod.guldurilCrystal), -50, TConstruct.ingotLiquidValue);
-	
+
 		/* Register bars */
 		Smeltery.addMelting(FluidType.getFluidType("BlueDwarvenSteel"), new ItemStack(LOTRMod.blueDwarfBars), 0, (TConstruct.ingotLiquidValue * 6 / 16));
 		Smeltery.addMelting(FluidType.getFluidType("Bronze"), new ItemStack(LOTRMod.bronzeBars), 0, (TConstruct.ingotLiquidValue * 6 / 16));
@@ -73,7 +73,7 @@ public class SmelteryRecipes {
 		Smeltery.addMelting(FluidType.getFluidType("OrcSteel"), new ItemStack(LOTRMod.orcSteelBars), 0, (TConstruct.ingotLiquidValue * 6 / 16));
 		Smeltery.addMelting(FluidType.getFluidType("Silver"), new ItemStack(LOTRMod.silverBars), 0, (TConstruct.ingotLiquidValue * 6 / 16));
 		Smeltery.addMelting(FluidType.getFluidType("UrukSteel"), new ItemStack(LOTRMod.urukBars), 0, (TConstruct.ingotLiquidValue * 6 / 16));
-	
+
 		/* Register Treasures */
 		Block[] treasures = new Block[]{LOTRMod.treasureCopper, LOTRMod.treasureGold, LOTRMod.treasureSilver};
 		FluidType[]fluids = new FluidType[]{FluidType.getFluidType("Copper"), FluidType.getFluidType("Gold"), FluidType.getFluidType("Silver")};
@@ -82,7 +82,7 @@ public class SmelteryRecipes {
 				Smeltery.addMelting(fluids[i], new ItemStack(treasures[i], 1, meta), 0, (TConstruct.ingotLiquidValue*(meta+1)/2));
 			}
 		}
-		
+
 		/* Chandelier */
 		Smeltery.addMelting(FluidType.getFluidType("Bronze"), new ItemStack(LOTRMod.chandelier, 1, 0), -100, TConstruct.chunkLiquidValue);
 		Smeltery.addMelting(FluidType.getFluidType("Iron"), new ItemStack(LOTRMod.chandelier, 1, 1), -100, TConstruct.chunkLiquidValue);
@@ -96,7 +96,7 @@ public class SmelteryRecipes {
 		Smeltery.addMelting(FluidType.getFluidType("ElvenSteel"), new ItemStack(LOTRMod.chandelier, 1, 10), -100, TConstruct.chunkLiquidValue);
 		Smeltery.addMelting(FluidType.getFluidType("BlueDwarvenSteel"), new ItemStack(LOTRMod.chandelier, 1, 11), -100, TConstruct.chunkLiquidValue);
 		Smeltery.addMelting(FluidType.getFluidType("MorgulSteel"), new ItemStack(LOTRMod.chandelier, 1, 12), -100, TConstruct.chunkLiquidValue);
-	
+
 		/* Trimmed Blocks */
 		Smeltery.addMelting(FluidType.getFluidType("Silver"), new ItemStack(LOTRMod.brick, 1, 8), 0, TConstruct.nuggetLiquidValue*4);
 		Smeltery.addMelting(FluidType.getFluidType("Gold"), new ItemStack(LOTRMod.brick, 1, 9), 0, TConstruct.nuggetLiquidValue*4);
@@ -143,19 +143,19 @@ public class SmelteryRecipes {
 		registerGemCasting(FluidType.getFluidType("Gulduril"), new ItemStack(LOTRMod.guldurilCrystal));
 
 	}
-	
+
 	public static void registerAlloys(){
-		SmelteryRecipeHandler.addAlloyMixing(SmelteryMainFraction.Dwarf, new FluidStack(TinkersMEBlocks.moltenDwarvenSteelFluid, TConstruct.ingotLiquidValue), new FluidStack(TinkersMEBlocks.moltenCoalFluid, TConstruct.ingotLiquidValue), new FluidStack(FluidType.getFluidType("Iron").fluid, TConstruct.ingotLiquidValue));
-		SmelteryRecipeHandler.addAlloyMixing(SmelteryMainFraction.Dwarf, new FluidStack(TinkersMEBlocks.moltenGalvornFluid, TConstruct.ingotLiquidValue), new FluidStack(TinkersMEBlocks.moltenEdhelmirFluid, TConstruct.ingotLiquidValue), new FluidStack(FluidType.getFluidType("Iron").fluid, TConstruct.ingotLiquidValue));
-		SmelteryRecipeHandler.addAlloyMixing(SmelteryMainFraction.Dwarf, new FluidStack(TinkersMEBlocks.moltenBlueDwarvenSteelFluid, TConstruct.ingotLiquidValue), new FluidStack(TinkersMEBlocks.moltenSarlluinFluid, TConstruct.ingotLiquidValue * 2), new FluidStack(FluidType.getFluidType("Iron").fluid, TConstruct.ingotLiquidValue));
-		SmelteryRecipeHandler.addAlloyMixing(SmelteryMainFraction.Elf, new FluidStack(TinkersMEBlocks.moltenElvenSteelFluid, TConstruct.ingotLiquidValue), new FluidStack(TinkersMEBlocks.moltenCoalFluid, TConstruct.ingotLiquidValue), new FluidStack(FluidType.getFluidType("Iron").fluid, TConstruct.ingotLiquidValue));
-		SmelteryRecipeHandler.addAlloyMixing(SmelteryMainFraction.Orc, new FluidStack(TinkersMEBlocks.moltenUrukSteelFluid, TConstruct.ingotLiquidValue), new FluidStack(TinkersMEBlocks.moltenCoalFluid, TConstruct.ingotLiquidValue), new FluidStack(FluidType.getFluidType("Iron").fluid, TConstruct.ingotLiquidValue));
-		SmelteryRecipeHandler.addAlloyMixing(SmelteryMainFraction.Orc, new FluidStack(TinkersMEBlocks.moltenBlackUrukSteelFluid, TConstruct.ingotLiquidValue), new FluidStack(TinkersMEBlocks.moltenOrcSteelFluid, TConstruct.ingotLiquidValue), new FluidStack(TinkersMEBlocks.moltenDurnaurFluid, TConstruct.ingotLiquidValue));
-		SmelteryRecipeHandler.addAlloyMixing(SmelteryMainFraction.Orc, new FluidStack(TinkersMEBlocks.moltenMorgulSteelFluid, TConstruct.ingotLiquidValue), new FluidStack(TinkersMEBlocks.moltenOrcSteelFluid, TConstruct.ingotLiquidValue), new FluidStack(TinkersMEBlocks.moltenGuldurilFluid, TConstruct.ingotLiquidValue));
+		SmelteryRecipeHandler.addAlloyMixing(SmelteryMainFaction.Dwarf, new FluidStack(TinkersMEBlocks.moltenDwarvenSteelFluid, TConstruct.ingotLiquidValue), new FluidStack(TinkersMEBlocks.moltenCoalFluid, TConstruct.ingotLiquidValue), new FluidStack(FluidType.getFluidType("Iron").fluid, TConstruct.ingotLiquidValue));
+		SmelteryRecipeHandler.addAlloyMixing(SmelteryMainFaction.Dwarf, new FluidStack(TinkersMEBlocks.moltenGalvornFluid, TConstruct.ingotLiquidValue), new FluidStack(TinkersMEBlocks.moltenEdhelmirFluid, TConstruct.ingotLiquidValue), new FluidStack(FluidType.getFluidType("Iron").fluid, TConstruct.ingotLiquidValue));
+		SmelteryRecipeHandler.addAlloyMixing(SmelteryMainFaction.Dwarf, new FluidStack(TinkersMEBlocks.moltenBlueDwarvenSteelFluid, TConstruct.ingotLiquidValue), new FluidStack(TinkersMEBlocks.moltenSarlluinFluid, TConstruct.ingotLiquidValue * 2), new FluidStack(FluidType.getFluidType("Iron").fluid, TConstruct.ingotLiquidValue));
+		SmelteryRecipeHandler.addAlloyMixing(SmelteryMainFaction.Elf, new FluidStack(TinkersMEBlocks.moltenElvenSteelFluid, TConstruct.ingotLiquidValue), new FluidStack(TinkersMEBlocks.moltenCoalFluid, TConstruct.ingotLiquidValue), new FluidStack(FluidType.getFluidType("Iron").fluid, TConstruct.ingotLiquidValue));
+		SmelteryRecipeHandler.addAlloyMixing(SmelteryMainFaction.Orc, new FluidStack(TinkersMEBlocks.moltenUrukSteelFluid, TConstruct.ingotLiquidValue), new FluidStack(TinkersMEBlocks.moltenCoalFluid, TConstruct.ingotLiquidValue), new FluidStack(FluidType.getFluidType("Iron").fluid, TConstruct.ingotLiquidValue));
+		SmelteryRecipeHandler.addAlloyMixing(SmelteryMainFaction.Orc, new FluidStack(TinkersMEBlocks.moltenBlackUrukSteelFluid, TConstruct.ingotLiquidValue), new FluidStack(TinkersMEBlocks.moltenOrcSteelFluid, TConstruct.ingotLiquidValue), new FluidStack(TinkersMEBlocks.moltenDurnaurFluid, TConstruct.ingotLiquidValue));
+		SmelteryRecipeHandler.addAlloyMixing(SmelteryMainFaction.Orc, new FluidStack(TinkersMEBlocks.moltenMorgulSteelFluid, TConstruct.ingotLiquidValue), new FluidStack(TinkersMEBlocks.moltenOrcSteelFluid, TConstruct.ingotLiquidValue), new FluidStack(TinkersMEBlocks.moltenGuldurilFluid, TConstruct.ingotLiquidValue));
 	}
-	
+
 	/* Copied from TiC cause useful */
-	
+
 	private static void registerIngotCasting(FluidType ft, ItemStack ore){
 		ItemStack pattern = new ItemStack(TinkerSmeltery.metalPattern, 1, 0);
 		LiquidCasting tableCasting = TConstructRegistry.getTableCasting();
@@ -163,7 +163,7 @@ public class SmelteryRecipes {
 		tableCasting.addCastingRecipe(pattern, new FluidStack(TinkerSmeltery.moltenGoldFluid, 288), new ItemStack(ore.getItem(), 1, ore.getItemDamage()), false, 50);
 		tableCasting.addCastingRecipe(new ItemStack(ore.getItem(), 1, ore.getItemDamage()), new FluidStack(ft.fluid, 144), pattern, 80);
 	}
-	
+
 	private static void registerGemCasting(FluidType ft, ItemStack ore){
 		ItemStack pattern = new ItemStack(TinkerSmeltery.metalPattern, 1, 26);
 		LiquidCasting tableCasting = TConstructRegistry.getTableCasting();
@@ -171,7 +171,7 @@ public class SmelteryRecipes {
 		tableCasting.addCastingRecipe(pattern, new FluidStack(TinkerSmeltery.moltenGoldFluid, 288), new ItemStack(ore.getItem(), 1, ore.getItemDamage()), false, 50);
 		tableCasting.addCastingRecipe(new ItemStack(ore.getItem(), 1, ore.getItemDamage()), new FluidStack(ft.fluid, 144), pattern, 80);
 	}
-	
+
 	private static void registerNuggetCasting(FluidType ft, ItemStack ore) {
 		ItemStack pattern = new ItemStack(TinkerSmeltery.metalPattern, 1, 27);
 		LiquidCasting tableCasting = TConstructRegistry.getTableCasting();
@@ -179,11 +179,11 @@ public class SmelteryRecipes {
 		tableCasting.addCastingRecipe(pattern, new FluidStack(TinkerSmeltery.moltenGoldFluid, 288), new ItemStack(ore.getItem(), 1, ore.getItemDamage()), false, 50);
 		tableCasting.addCastingRecipe(new ItemStack(ore.getItem(), 1, ore.getItemDamage()), new FluidStack(ft.fluid, 16), pattern, 40);
 	}
-	
+
 	private static void registerBlockCasting(FluidType ft, ItemStack ore) {
 		TConstructRegistry.getBasinCasting().addCastingRecipe(new ItemStack(ore.getItem(), 1, ore.getItemDamage()), new FluidStack(ft.fluid, TConstruct.blockLiquidValue), 100);
 	}
-	
+
 	private static void registerBlockCasting(FluidType ft, ItemStack ore, int fluidAmount) {
 		TConstructRegistry.getBasinCasting().addCastingRecipe(new ItemStack(ore.getItem(), 1, ore.getItemDamage()), new FluidStack(ft.fluid, fluidAmount), 100);
 	}

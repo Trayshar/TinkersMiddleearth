@@ -1,19 +1,17 @@
 package com.thecrafter4000.lotrtc.manual;
 
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.w3c.dom.Document;
-
 import mantle.books.BookData;
 import mantle.books.BookDataStore;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
+import org.w3c.dom.Document;
 import tconstruct.TConstruct;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ManualRegistry {
 	

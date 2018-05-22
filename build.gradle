@@ -15,31 +15,54 @@ buildscript {
     }
 }
 
+repositories {
+    maven {
+        name 'CB Maven FS'
+        url "http://chickenbones.net/maven/"
+    }
+    maven {
+        name "ProfMobius Maven FS"
+        url "http://mobiusstrip.eu/maven"
+    }
+    maven {
+        name 'DVS1 Maven FS'
+        url 'http://dvs1.progwml6.com/files/maven'
+    }
+    maven {
+        name 'ForgeFS'
+        url 'http://files.minecraftforge.net/maven'
+    }
+}
+
 apply plugin: 'forge'
 
-version = "1.3.4"
-group= "com.thecrafter4000.lotrtc" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+version = "unknown"
+group= "com.thecrafter4000.lotrtc"
 archivesBaseName = "[1.7.10] Tinker's Middleearth"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+//Makes sure I don't have to edit both build.gradle and main mod file. I think there is a better way tho.
+File file = file("src/main/java/com/thecrafter4000/lotrtc/TinkersMiddleearth.java") // Finds main modfile
+file.readLines().each{ // Iterates over the whole file
+    if (it.contains("public static final String VERSION = ")) { // looks for the VERSION field
+        project.version = it.substring(39, it.length()-2) // Overwrites the version string
+    }
+}
+
+println "Read mod version: " + project.version + "!"
 
 minecraft {
     version = "1.7.10-10.13.4.1614-1.7.10"
-    runDir = "eclipse"
+    runDir = "run"
 }
 
+idea { module{ inheritOutputDirs = true } }
+
 dependencies {
-    // you may put jars on which you depend on in ./libs
-    // or you may define them like so..
-    //compile "some.group:artifact:version:classifier"
-    //compile "some.group:artifact:version"
-      
-    // real examples
-    //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
-    //compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
-
-    // for more info...
-    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
-    // http://www.gradle.org/docs/current/userguide/dependency_management.html
-
+    compile "mantle:Mantle:1.7.10-0.3.2.jenkins191:deobf"
+    compile "tconstruct:TConstruct:1.7.10-1.8.8.build991:deobf"
 }
 
 processResources

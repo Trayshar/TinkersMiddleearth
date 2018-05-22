@@ -1,36 +1,23 @@
 package com.thecrafter4000.lotrtc.items;
 
-import java.util.Arrays;
-
 import com.thecrafter4000.lotrtc.CommonProxy;
-import com.thecrafter4000.lotrtc.TinkersMiddleearth;
 import com.thecrafter4000.lotrtc.manual.ManualItem;
 import com.thecrafter4000.lotrtc.tools.LotRBattleAxe;
 import com.thecrafter4000.lotrtc.tools.LotRPattern;
 import com.thecrafter4000.lotrtc.tools.ToolRegistry;
 import com.thecrafter4000.lotrtc.tools.Warhammer;
-import com.thecrafter4000.lotrtc.tools.ToolRegistry.ToolEntry;
-
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import lotr.common.LOTRMod;
 import net.minecraft.block.Block;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import tconstruct.library.TConstructRegistry;
-import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.crafting.PatternBuilder;
-import tconstruct.library.crafting.StencilBuilder;
-import tconstruct.library.crafting.ToolBuilder;
-import tconstruct.library.crafting.ToolRecipe;
 import tconstruct.library.tools.DynamicToolPart;
-import tconstruct.library.tools.ToolCore;
 import tconstruct.tools.TinkerTools;
-import tconstruct.tools.items.ToolPart;
 
 public class TinkersMEItems {
 	
@@ -39,7 +26,7 @@ public class TinkersMEItems {
 	
 	public static Item buckets;
 	public static Item manual;
-	public static Item autosmelt;
+	public static Item autosmelt; // TODO: Think of a way to remove this item. It doesn't fit the lore, why did I add it in the first place?
 	// Patterns
 	public static LotRPattern woodPattern;
 	public static LotRPattern metalPattern;

@@ -2,7 +2,6 @@ package com.thecrafter4000.lotrtc.items;
 
 import com.thecrafter4000.lotrtc.CommonProxy;
 import com.thecrafter4000.lotrtc.TinkersMiddleearth;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mantle.world.WorldHelper;
@@ -69,7 +68,7 @@ public class LotrFilledBucket extends FilledBucket {
             }
             catch (ArrayIndexOutOfBoundsException ex)
             {
-                TinkersMiddleearth.logger.warn("AIOBE occured when placing bucket into world; " + ex);
+				TinkersMiddleearth.logger.warn("Something went wrong when placing bucket into world; " + ex);
                 return false;
             }
 

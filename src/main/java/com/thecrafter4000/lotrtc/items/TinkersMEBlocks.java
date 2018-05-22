@@ -1,13 +1,10 @@
 package com.thecrafter4000.lotrtc.items;
 
-import java.util.List;
-
 import com.thecrafter4000.lotrtc.TinkersMiddleearth;
-import com.thecrafter4000.lotrtc.smeltery.FractionSmeltery;
-import com.thecrafter4000.lotrtc.smeltery.FractionTankBlock;
+import com.thecrafter4000.lotrtc.smeltery.FactionSmeltery;
+import com.thecrafter4000.lotrtc.smeltery.FactionTankBlock;
 import com.thecrafter4000.lotrtc.smeltery.LotrTCFluid;
-import com.thecrafter4000.lotrtc.smeltery.SmelteryMainFraction;
-
+import com.thecrafter4000.lotrtc.smeltery.SmelteryMainFaction;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -31,6 +28,8 @@ import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.smeltery.blocks.LavaTankBlock;
 import tconstruct.smeltery.blocks.SmelteryBlock;
 import tconstruct.tools.TinkerTools;
+
+import java.util.List;
 
 public class TinkersMEBlocks {
 	/* Smeltery Blocks */
@@ -81,13 +80,13 @@ public class TinkersMEBlocks {
 
 
     public static void preInit(FMLPreInitializationEvent e) {
-    	GameRegistry.registerBlock(smelteryHighElves = new FractionSmeltery(SmelteryMainFraction.Elf, "HighElves"), FractionSmelteryItemBlock.class, "SmelteryHighElves");
-    	GameRegistry.registerBlock(smelteryDwarven = new FractionSmeltery(SmelteryMainFraction.Dwarf, "Dwarven"), FractionSmelteryItemBlock.class, "SmelteryDwarven");
-    	GameRegistry.registerBlock(smelteryAngmar = new FractionSmeltery(SmelteryMainFraction.Orc, "Angmar"), FractionSmelteryItemBlock.class, "SmelteryAngmar");
-    	
-    	GameRegistry.registerBlock(tankHighElves = new FractionTankBlock("HighElves"), TankItemBlock.class , "LavaTankHighElves");
-    	GameRegistry.registerBlock(tankAngmar = new FractionTankBlock("Angmar"), TankItemBlock.class , "LavaTankAngmar");
-    	GameRegistry.registerBlock(tankDwarven = new FractionTankBlock("Dwarven"), TankItemBlock.class , "LavaTankDwarven");
+		GameRegistry.registerBlock(smelteryHighElves = new FactionSmeltery(SmelteryMainFaction.Elf, "HighElves"), FactionSmelteryItemBlock.class, "SmelteryHighElves");
+		GameRegistry.registerBlock(smelteryDwarven = new FactionSmeltery(SmelteryMainFaction.Dwarf, "Dwarven"), FactionSmelteryItemBlock.class, "SmelteryDwarven");
+		GameRegistry.registerBlock(smelteryAngmar = new FactionSmeltery(SmelteryMainFaction.Orc, "Angmar"), FactionSmelteryItemBlock.class, "SmelteryAngmar");
+
+		GameRegistry.registerBlock(tankHighElves = new FactionTankBlock("HighElves"), TankItemBlock.class, "LavaTankHighElves");
+		GameRegistry.registerBlock(tankAngmar = new FactionTankBlock("Angmar"), TankItemBlock.class, "LavaTankAngmar");
+		GameRegistry.registerBlock(tankDwarven = new FactionTankBlock("Dwarven"), TankItemBlock.class, "LavaTankDwarven");
     	
     	moltenSarlluinFluid = registerFluid("sarlluin");
     	moltenSarlluin = moltenSarlluinFluid.getBlock();
@@ -167,7 +166,7 @@ public class TinkersMEBlocks {
     	}
     }
 
-    /* Copied from TiC cause it's necassary.  */
+	/* Copied from TiC cause it's necessary.  */
     
     private static Fluid registerFluid(String name) {
         return registerFluid(name, "liquid_" + name);

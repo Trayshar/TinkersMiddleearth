@@ -1,27 +1,21 @@
 package com.thecrafter4000.lotrtc.client;
 
-import org.lwjgl.opengl.GL11;
-
 import com.thecrafter4000.lotrtc.TinkersMiddleearth;
 import com.thecrafter4000.lotrtc.tools.ToolRegistry;
-import com.thecrafter4000.lotrtc.tools.ToolRegistry.ToolPartEntry;
 import com.thecrafter4000.lotrtc.tools.ToolRegistry.ToolPartRenderEntry;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.client.ToolGuiElement;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.crafting.ToolRecipe;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.tools.gui.GuiButtonTool;
-import tconstruct.tools.gui.ToolForgeGui;
 import tconstruct.tools.gui.ToolStationGui;
-import tconstruct.tools.logic.ToolForgeLogic;
 
 @SideOnly(Side.CLIENT)
 public class ToolStationGui2 extends ToolStationGui {

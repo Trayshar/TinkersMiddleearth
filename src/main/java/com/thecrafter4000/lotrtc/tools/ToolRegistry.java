@@ -1,17 +1,9 @@
 package com.thecrafter4000.lotrtc.tools;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.thecrafter4000.lotrtc.TinkersMiddleearth;
 import com.thecrafter4000.lotrtc.client.ExtendedToolGuiElement;
 import com.thecrafter4000.lotrtc.items.MaterialRegistry;
 import com.thecrafter4000.lotrtc.items.TinkersMEItems;
-import com.thecrafter4000.lotrtc.tools.ToolRegistry.ToolEntry;
-
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -21,18 +13,13 @@ import net.minecraftforge.fluids.FluidStack;
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.client.TConstructClientRegistry;
-import tconstruct.library.crafting.FluidType;
-import tconstruct.library.crafting.LiquidCasting;
-import tconstruct.library.crafting.Smeltery;
-import tconstruct.library.crafting.StencilBuilder;
-import tconstruct.library.crafting.ToolBuilder;
-import tconstruct.library.crafting.ToolRecipe;
+import tconstruct.library.crafting.*;
 import tconstruct.library.tools.DynamicToolPart;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.util.IPattern;
 import tconstruct.smeltery.TinkerSmeltery;
-import tconstruct.tools.TinkerTools;
-import tconstruct.tools.TinkerTools.MaterialID;
+
+import java.util.*;
 
 public class ToolRegistry {
 

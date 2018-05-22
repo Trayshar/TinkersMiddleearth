@@ -1,15 +1,14 @@
 package com.thecrafter4000.lotrtc.items;
 
-import java.util.List;
-
-import com.thecrafter4000.lotrtc.smeltery.FractionTankBlock;
-
+import com.thecrafter4000.lotrtc.smeltery.FactionTankBlock;
 import mantle.blocks.abstracts.MultiItemBlock;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
+
+import java.util.List;
 
 public class TankItemBlock extends MultiItemBlock {
 
@@ -23,8 +22,8 @@ public class TankItemBlock extends MultiItemBlock {
     }
 
     private static String getName(Block b){
-    	FractionTankBlock block = (FractionTankBlock) b;
-    	return "Tank" + block.fractionName;
+		FactionTankBlock block = (FactionTankBlock) b;
+		return "Tank" + block.factionName;
     }
     
     @Override

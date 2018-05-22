@@ -1,10 +1,7 @@
 package com.thecrafter4000.lotrtc.manual;
 
-import java.util.List;
-
 import com.thecrafter4000.lotrtc.CommonProxy;
 import com.thecrafter4000.lotrtc.manual.ManualRegistry.BookRegEntry;
-
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -15,6 +12,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import tconstruct.TConstruct;
+
+import java.util.List;
 
 public class ManualItem extends CraftingItem {
 
@@ -36,6 +35,7 @@ public class ManualItem extends CraftingItem {
     @Override
     public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
     {
+		//TODO: add Achievement
 //        TAchievements.triggerAchievement(player, "tconstruct.beginner");
 
         if(world.isRemote) {

@@ -1,7 +1,6 @@
 package com.thecrafter4000.lotrtc.smeltery;
 
 import com.thecrafter4000.lotrtc.CommonProxy;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraftforge.fluids.Fluid;

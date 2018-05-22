@@ -1,7 +1,6 @@
 package com.thecrafter4000.lotrtc.tools;
 
 import com.thecrafter4000.lotrtc.items.TinkersMEItems;
-
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

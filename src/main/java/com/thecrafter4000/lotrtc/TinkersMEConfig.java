@@ -1,23 +1,21 @@
 package com.thecrafter4000.lotrtc;
 
-import java.lang.reflect.Field;
-
-import org.apache.logging.log4j.Level;
-
 import com.thecrafter4000.lotrtc.TinkersMEConfig.LotRToolStats.*;
-
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.common.config.Property;
+import org.apache.logging.log4j.Level;
 import tconstruct.library.tools.ToolMaterial;
 
+import java.lang.reflect.Field;
+
+//FIXME: Marked for complete rework
 public class TinkersMEConfig {
 
 	public static Configuration config;
 //	public static final String CategorySmeltery = "smeltery";
 //	public static final String CategoryMaterials = "materialids";
-	public static boolean canUseNormalSmelteryBlocks = false;
-	
+public static boolean canUseNormalSmelteryBlocks = false;
+
 	public static void load(){
 		try{
 			config.load();
@@ -52,13 +50,13 @@ public class TinkersMEConfig {
 			if(config.hasChanged()) config.save();
 		}
 	}
-	
+
 	public static ToolMaterial getToolMaterial(String materialName) {
 		ToolMaterial material = null;
 		int level = -1, durability = -1, speed = -1, damage = -1, reinforced = -1, color = -1;
 		float handle = -1f, stonebound = -1f;
 		String style = null;
-		
+
 		try{
 			for(Field f : MiningLevel.class.getDeclaredFields()) if(f.getName().equals(materialName)) level = f.getInt(null);
 			for(Field f : Durability.class.getDeclaredFields()) if(f.getName().equals(materialName)) durability = f.getInt(null);
@@ -72,12 +70,13 @@ public class TinkersMEConfig {
 		}catch(Exception e){
 			TinkersMiddleearth.logger.catching(Level.WARN, e);
 		}finally {
-			if(level == -1 || durability == -1 || speed == -1 || damage == -1|| reinforced == -1 || color == -1 || handle == -1f || stonebound == -1f || style == null) throw new RuntimeException("Error loading toolmaterials from config for material " + materialName + ": Field not present!"); 
+			if (level == -1 || durability == -1 || speed == -1 || damage == -1 || reinforced == -1 || color == -1 || handle == -1f || stonebound == -1f || style == null)
+				throw new RuntimeException("Error loading toolmaterials from config for material " + materialName + ": Field not present!");
 			material = new ToolMaterial(materialName, level, durability, speed, damage, handle, reinforced, stonebound, style, color);
 		}
 		return material;
 	}
-	
+
 	static class LotRToolStats{
 		static class MiningLevel{
 			public static int MithrilLotR = 5;
@@ -90,7 +89,7 @@ public class TinkersMEConfig {
 			public static int Mallorn = 1;
 			public static int Blackroot = 0;
 		}
-		
+
 		static class Durability{
 			public static int MithrilLotR = 2400;
 			public static int DwarvenSteel = 750;
@@ -102,7 +101,7 @@ public class TinkersMEConfig {
 			public static int Mallorn = 200;
 			public static int Blackroot = 130;
 		}
-		
+
 		static class MiningSpeed{
 			public static int MithrilLotR = 900;
 			public static int DwarvenSteel = 900;
@@ -114,7 +113,7 @@ public class TinkersMEConfig {
 			public static int Mallorn = 400;
 			public static int Blackroot = 350;
 		}
-		
+
 		static class Damage{
 			public static int MithrilLotR = 5;
 			public static int DwarvenSteel = 3;
@@ -131,7 +130,7 @@ public class TinkersMEConfig {
 			public static float MithrilLotR = 3f;
 			public static float DwarvenSteel = 1.5f;
 			public static float BlueDwarvenSteel = 1.3f;
-			public static float ElvenSteel = 1.7f;	
+			public static float ElvenSteel = 1.7f;
 			public static float OrcSteel = 1.1f;
 			public static float UrukSteel = 1.3f;
 			public static float BlackUrukSteel = 1.5f;
@@ -155,7 +154,7 @@ public class TinkersMEConfig {
 			public static float MithrilLotR = 0f;
 			public static float DwarvenSteel = 0f;
 			public static float BlueDwarvenSteel = 0f;
-			public static float ElvenSteel = 0f;	
+			public static float ElvenSteel = 0f;
 			public static float OrcSteel = 0f;
 			public static float UrukSteel = 0f;
 			public static float BlackUrukSteel = 0f;
@@ -163,7 +162,7 @@ public class TinkersMEConfig {
 			public static float Blackroot = 0f;
 		}
 	}
-	
+
 	private static class StyleColor{
 		public static String MithrilLotR = EnumChatFormatting.YELLOW.toString();
 		public static String DwarvenSteel = EnumChatFormatting.GRAY.toString();
@@ -175,7 +174,7 @@ public class TinkersMEConfig {
 		public static String Mallorn = EnumChatFormatting.GREEN.toString();
 		public static String Blackroot = EnumChatFormatting.DARK_GREEN.toString();
 	}
-	
+
 	private static class Color{
 		public static int MithrilLotR = 0xe1e4f5;
 		public static int DwarvenSteel = 0x414e50;
@@ -187,7 +186,7 @@ public class TinkersMEConfig {
 		public static int Mallorn = 0xe2d2ae;
 		public static int Blackroot = 0x423832;
 	}
-	
+
 	public static class LotRMaterialID{
 		public static int MithrilLotR = 50, DwarvenSteel = 51, BlueDwarvenSteel = 52, ElvenSteel = 53, OrcSteel = 54, UrukSteel = 55, BlackUrukSteel = 56;
 		public static int Mallorn = 57, Blackroot = 58;
