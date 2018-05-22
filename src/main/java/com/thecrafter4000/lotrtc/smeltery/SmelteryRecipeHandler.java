@@ -19,7 +19,7 @@ import java.util.Map;
 	/** 
 	Copied from Tic. Sorry dudes :|
 	*/
-	//TODO: rewrite to accept multiple fluid output from on item
+	//TODO: [SmelteryV2] Rewrite to accept multiple fluid outputs from on item
 	public class SmelteryRecipeHandler {
 
 		private static final Map<SmelteryMainFaction, SmelteryRecipeHandler> instanceMap = new HashMap<SmelteryMainFaction, SmelteryRecipeHandler>();

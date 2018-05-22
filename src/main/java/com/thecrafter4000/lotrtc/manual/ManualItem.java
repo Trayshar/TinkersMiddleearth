@@ -12,6 +12,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import tconstruct.TConstruct;
+import tconstruct.achievements.TAchievements;
 
 import java.util.List;
 
@@ -35,8 +36,7 @@ public class ManualItem extends CraftingItem {
     @Override
     public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
     {
-		//TODO: add Achievement
-//        TAchievements.triggerAchievement(player, "tconstruct.beginner");
+		TAchievements.triggerAchievement(player, "tconstruct.beginner");
 
         if(world.isRemote) {
             openBook(stack, world, player);

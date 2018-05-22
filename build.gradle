@@ -61,6 +61,8 @@ minecraft {
 idea { module{ inheritOutputDirs = true } }
 
 dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
     compile "mantle:Mantle:1.7.10-0.3.2.jenkins191:deobf"
     compile "tconstruct:TConstruct:1.7.10-1.8.8.build991:deobf"
 }

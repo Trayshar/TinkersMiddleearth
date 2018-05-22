@@ -40,17 +40,19 @@ public class ToolRecipes {
 	}
 	
 	public static void registerMaterials(){
-		for(Integer i : MaterialRegistry.mapIdName.keySet()){
-			TConstructRegistry.addtoolMaterial(i, MaterialRegistry.mapTool.get(i));
+		for (Integer i : MaterialRegistry.nameMap.keySet()) {
+			TConstructRegistry.addtoolMaterial(i, MaterialRegistry.toolMap.get(i));
 			TConstructRegistry.addDefaultToolPartMaterial(i);
-			if(MaterialRegistry.mapfluids.containsKey(i)) PatternBuilder.instance.registerMaterialSet(MaterialRegistry.mapIdName.get(i), new ItemStack(TinkerTools.toolShard, 1, i), new ItemStack(TinkerTools.toolRod, 1, i), i);
+			if (MaterialRegistry.fluidMap.containsKey(i)) {
+				PatternBuilder.instance.registerMaterialSet(MaterialRegistry.nameMap.get(i), new ItemStack(TinkerTools.toolShard, 1, i), new ItemStack(TinkerTools.toolRod, 1, i), i);
+			}
 		}
 		PatternBuilder.instance.registerFullMaterial(new ItemStack(LOTRMod.planks, 1, 1), 2, "Mallorn", new ItemStack(LOTRMod.mallornStick), new ItemStack(LOTRMod.mallornStick), LotRMaterialID.Mallorn);
 		PatternBuilder.instance.registerFullMaterial(new ItemStack(LOTRMod.blackroot), 2, "Blackroot", new ItemStack(LOTRMod.blackrootStick), new ItemStack(LOTRMod.blackrootStick), LotRMaterialID.Blackroot);
 	}
 	
 	public static void registerToolCasting(){
-		LiquidCasting tableCasting = TConstructRegistry.instance.getTableCasting();
+		LiquidCasting tableCasting = TConstructRegistry.getTableCasting();
 
         for (int iter = 0; iter < TinkerTools.patternOutputs.length; iter++)
         {
@@ -61,13 +63,13 @@ public class ToolRecipes {
                 tableCasting.addCastingRecipe(cast, new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.ingotLiquidValue), new ItemStack(TinkerTools.patternOutputs[iter], 1, Short.MAX_VALUE), false, 50);
                 tableCasting.addCastingRecipe(cast, new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue * 2), new ItemStack(TinkerTools.patternOutputs[iter], 1, Short.MAX_VALUE), false, 50);
 
-                for (Integer id : MaterialRegistry.mapIdName.keySet())
+				for (Integer id : MaterialRegistry.nameMap.keySet())
                 {
-                	Fluid fs = MaterialRegistry.mapfluids.get(id);
+					Fluid fs = MaterialRegistry.fluidMap.get(id);
                 	if(fs != null){
                 		int fluidAmount = ((IPattern) TinkerSmeltery.metalPattern).getPatternCost(cast) * TConstruct.ingotLiquidValue / 2;
 	                    ItemStack metalCast = new ItemStack(TinkerTools.patternOutputs[iter], 1, id);
-	                    tableCasting.addCastingRecipe(metalCast, new FluidStack(fs, fluidAmount), cast, 50);
+						tableCasting.addCastingRecipe(metalCast, new FluidStack(fs, fluidAmount), cast, 50); //What's this?
 	                    Smeltery.addMelting(FluidType.getFluidType(fs), metalCast, 0, fluidAmount);
                 	}else {
                         TConstructRegistry.addPartMapping(TinkerTools.woodPattern, iter + 1, id, new ItemStack(TinkerTools.patternOutputs[iter], 1, id));

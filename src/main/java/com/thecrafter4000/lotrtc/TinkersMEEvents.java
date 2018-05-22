@@ -2,6 +2,7 @@ package com.thecrafter4000.lotrtc;
 
 import com.thecrafter4000.lotrtc.TinkersMEConfig.LotRMaterialID;
 import com.thecrafter4000.lotrtc.items.TinkersMEItems;
+import com.thecrafter4000.lotrtc.tools.ToolRegistry;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
@@ -23,15 +24,9 @@ import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.tools.TinkerTools;
 
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-
-//FIXME: Marked for review.
 public class TinkersMEEvents {
 
 	/* Book stuff */
-
-	private ConcurrentHashMap<UUID, ExtraPlayerInfo> playerStats = new ConcurrentHashMap<UUID, ExtraPlayerInfo>();
 
 	@SubscribeEvent
 	public void onEntityConstructing(EntityEvent.EntityConstructing event) {
@@ -54,7 +49,7 @@ public class TinkersMEEvents {
 	}
 
 	public void PlayerRespawn(PlayerRespawnEvent event) {
-		ExtraPlayerInfo playerData = playerStats.remove(event.player.getPersistentID());
+		ExtraPlayerInfo playerData = ExtraPlayerInfo.get(event.player);
 		ExtraPlayerInfo stats = ExtraPlayerInfo.get(event.player);
 		if (playerData != null) {
 			stats.copy(playerData);
@@ -102,7 +97,6 @@ public class TinkersMEEvents {
 			}
 			if (item == LOTRMod.blackrootStick) {
 				event.handleStack = new ItemStack(TinkerTools.toolRod, 1, LotRMaterialID.Blackroot);
-				return;
 			}
 		}
 	}
@@ -111,14 +105,18 @@ public class TinkersMEEvents {
 
 	@SubscribeEvent
 	public void buildToolPost(ToolCraftEvent.NormalTool event) {
-		if (event.tool == TinkersMEItems.battleaxe) {
-			increaseDamage(event, 1);
+		if (event.tool == null) return;
+		ToolRegistry.ToolData data = ToolRegistry.tools.get(event.tool);
+		if (data == null) return;
+		Integer damage = data.adjustDamage;
+		if (damage != null) {
+			increaseDamage(event, damage);
 		}
 	}
 
-	public void increaseDamage(ToolCraftEvent.NormalTool event, int damage) {
+	private void increaseDamage(ToolCraftEvent.NormalTool event, int damage) {
 		NBTTagCompound tag = event.toolTag;
-		int attack = tag.getCompoundTag("InfiTool").getInteger("Attack") + 1;
+		int attack = tag.getCompoundTag("InfiTool").getInteger("Attack") + damage;
 		tag.getCompoundTag("InfiTool").setInteger("Attack", attack);
 		tag.getCompoundTag("InfiTool").setInteger("BaseAttack", attack);
 

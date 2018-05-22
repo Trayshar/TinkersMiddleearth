@@ -35,14 +35,14 @@ import java.util.Random;
 
 public class FactionSmelteryLogic extends SmelteryLogic {
 
-	public SmelteryMainFaction fraction;
+	public SmelteryMainFaction faction;
 	
 	private boolean needsUpdate;
 	private int tick;
 
-	public FactionSmelteryLogic(SmelteryMainFaction fraction) {
+	public FactionSmelteryLogic(SmelteryMainFaction faction) {
 		super();
-		this.fraction = fraction;
+		this.faction = faction;
 	}
 
 	public FactionSmelteryLogic() {
@@ -56,28 +56,31 @@ public class FactionSmelteryLogic extends SmelteryLogic {
 	@Override
 	public void writeToNBT(NBTTagCompound tags) {
 		super.writeToNBT(tags);
-		tags.setString("Fraction", fraction.name());
+		tags.setString("Fraction", faction.name());
 	}
 	
 	@Override
 	public void readFromNBT(NBTTagCompound tags) {
 		super.readFromNBT(tags);
-		this.fraction = SmelteryMainFaction.valueOf(tags.getString("Fraction"));
+
+		String faction = tags.getString("Faction");
+		if (faction.isEmpty()) faction = tags.getString("Fraction"); // Had a typo here in one old version :L
+		this.faction = SmelteryMainFaction.valueOf(faction);
 	}
 	
 	public boolean isValidBlockID(Block blockID){
-		if(this.fraction.isValidBlock(blockID)) return true;
+		if (this.faction.isValidBlock(blockID)) return true;
 		else if(TinkersMEConfig.canUseNormalSmelteryBlocks) return ((blockID == TinkerSmeltery.smeltery) || (blockID == TinkerSmeltery.smelteryNether));
 		return false;
 	}
 	
 	public boolean isValidTankID(Block blockID){
-		if(this.fraction.isValidTank(blockID)) return true;
+		if (this.faction.isValidTank(blockID)) return true;
 		else if(TinkersMEConfig.canUseNormalSmelteryBlocks) return ((blockID == TinkerSmeltery.lavaTank) || (blockID == TinkerSmeltery.lavaTankNether));
 		return false;
 	}
 
-	//FIXME: Improve this code. Even hardcode it, I don't want to have literal copies of code here.
+	//TODO: [SmelteryV2] Rewrite this code to match the planned fuel system
 	// Only copied cause validBlockId(Block) is not visible :d
 	
 	@Override public boolean checkBricksOnLevel(int x, int y, int z, int[] sides) {
@@ -287,7 +290,8 @@ public class FactionSmelteryLogic extends SmelteryLogic {
 	/*      */     
 	/*      */ 
 	/*  605 */     FluidStack liquid = tankContainer.drain(ForgeDirection.DOWN, 15, false);
-	/*  606 */     if ((liquid != null) && (SmelteryRecipeHandler.isSmelteryFuel(fraction, liquid.getFluid())))
+		/*  606 */
+		if ((liquid != null) && (SmelteryRecipeHandler.isSmelteryFuel(faction, liquid.getFluid())))
 	/*      */     {
 	/*      */       do
 	/*      */       {
@@ -295,8 +299,10 @@ public class FactionSmelteryLogic extends SmelteryLogic {
 	/*      */         
 	/*  612 */         if ((liquid == null) || (liquid.amount == 0))
 	/*      */           break;
-	/*  614 */         this.useTime += (int)(SmelteryRecipeHandler.getFuelDuration(fraction, liquid.getFluid()) * Math.round(15.0F / liquid.amount));
-	/*  615 */         this.internalTemp = SmelteryRecipeHandler.getFuelPower(fraction, liquid.getFluid());
+				/*  614 */
+				this.useTime += (int) (SmelteryRecipeHandler.getFuelDuration(faction, liquid.getFluid()) * Math.round(15.0F / liquid.amount));
+				/*  615 */
+				this.internalTemp = SmelteryRecipeHandler.getFuelPower(faction, liquid.getFluid());
 	/*  616 */       } while (this.useTime < 0);
 	/*      */       
 	/*      */ 
@@ -313,8 +319,9 @@ public class FactionSmelteryLogic extends SmelteryLogic {
 	/*  629 */       if ((tankContainer instanceof IFluidHandler))
 	/*      */       {
 	/*  631 */         FluidStack liquid = ((IFluidHandler)tankContainer).drain(ForgeDirection.DOWN, 15, false);
-	/*      */         
-	/*  633 */         if ((liquid != null) && (SmelteryRecipeHandler.isSmelteryFuel(fraction, liquid.getFluid()))) {
+	/*      */
+				/*  633 */
+				if ((liquid != null) && (SmelteryRecipeHandler.isSmelteryFuel(faction, liquid.getFluid()))) {
 	/*  634 */           return;
 	/*      */         }
 	/*      */       }
@@ -338,8 +345,8 @@ public class FactionSmelteryLogic extends SmelteryLogic {
 	/*  654 */           if ((info.length > 0) && (info[0].fluid != null) && (info[0].fluid.amount > 0) && 
 	/*      */           
 	/*      */ 
-	/*      */ 
-	/*  658 */             (SmelteryRecipeHandler.isSmelteryFuel(fraction, info[0].fluid.getFluid())))
+	/*      */
+							/*  658 */             (SmelteryRecipeHandler.isSmelteryFuel(faction, info[0].fluid.getFluid())))
 	/*      */           {
 	/*      */ 
 	/*      */ 
@@ -352,7 +359,7 @@ public class FactionSmelteryLogic extends SmelteryLogic {
 	/*      */   }
 	
 	public FluidStack getResultFor(ItemStack stack) {
-		return SmelteryRecipeHandler.getSmelteryResult(fraction, stack);
+		return SmelteryRecipeHandler.getSmelteryResult(faction, stack);
 	}
 
 	public void checkValidStructure(int x, int y, int z, int[] sides)
@@ -386,11 +393,12 @@ public class FactionSmelteryLogic extends SmelteryLogic {
 	/*      */ 
 	/*  844 */             FluidStack liquid = ((IFluidHandler)tankContainer).getTankInfo(ForgeDirection.DOWN)[0].fluid;
 	/*  845 */             if ((liquid != null) && 
-	/*      */             
-	/*  847 */               (SmelteryRecipeHandler.isSmelteryFuel(fraction, liquid.getFluid())))
+	/*      */
+								/*  847 */               (SmelteryRecipeHandler.isSmelteryFuel(faction, liquid.getFluid())))
 	/*      */             {
-	/*      */ 
-	/*  850 */               this.internalTemp = SmelteryRecipeHandler.getFuelPower(fraction, liquid.getFluid());
+	/*      */
+							/*  850 */
+							this.internalTemp = SmelteryRecipeHandler.getFuelPower(faction, liquid.getFluid());
 	/*  851 */               this.activeLavaTank = tank;
 	/*      */             }
 	/*      */           }
@@ -431,7 +439,8 @@ public class FactionSmelteryLogic extends SmelteryLogic {
 	/*      */       {
 	/* 1116 */         if (addMoltenMetal2(resource, false))
 	/*      */         {
-	/* 1118 */           ArrayList alloys = SmelteryRecipeHandler.mixMetals(fraction, this.moltenMetal);
+					/* 1118 */
+					ArrayList alloys = SmelteryRecipeHandler.mixMetals(faction, this.moltenMetal);
 	/* 1119 */           for (int al = 0; al < alloys.size(); al++)
 	/*      */           {
 	/* 1121 */             FluidStack liquid = (FluidStack)alloys.get(al);
@@ -606,7 +615,8 @@ public class FactionSmelteryLogic extends SmelteryLogic {
 		/*      */                 {
 		/*  482 */                   this.inventory[i] = null;
 		/*  483 */                   this.activeTemps[i] = 200;
-		/*  484 */                   ArrayList alloys = SmelteryRecipeHandler.mixMetals(fraction, this.moltenMetal);
+									/*  484 */
+									ArrayList alloys = SmelteryRecipeHandler.mixMetals(faction, this.moltenMetal);
 		/*  485 */                   for (int al = 0; al < alloys.size(); al++)
 		/*      */                   {
 		/*  487 */                     FluidStack liquid = (FluidStack)alloys.get(al);
@@ -688,7 +698,8 @@ public class FactionSmelteryLogic extends SmelteryLogic {
 	private void updateTemperatures() {
 		/*  564 */     for (int i = 0; (i < this.maxBlockCapacity) && (i < this.meltingTemps.length); i++)
 		/*      */     {
-		/*  566 */       this.meltingTemps[i] = (SmelteryRecipeHandler.getLiquifyTemperature(fraction, this.inventory[i]).intValue() * 10);
+			/*  566 */
+			this.meltingTemps[i] = (SmelteryRecipeHandler.getLiquifyTemperature(faction, this.inventory[i]).intValue() * 10);
 //		LotRTCIntegrator.logger.info(" Set MeltingTemp[" + i + "]:" + this.meltingTemps[i]);
 		/*      */     }
 		/*      */   }

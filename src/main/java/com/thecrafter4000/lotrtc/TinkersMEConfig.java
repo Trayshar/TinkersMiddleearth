@@ -8,7 +8,7 @@ import tconstruct.library.tools.ToolMaterial;
 
 import java.lang.reflect.Field;
 
-//FIXME: Marked for complete rework
+//TODO: [API][Config] Marked for complete rewrite
 public class TinkersMEConfig {
 
 	public static Configuration config;
@@ -19,7 +19,11 @@ public static boolean canUseNormalSmelteryBlocks = false;
 	public static void load(){
 		try{
 			config.load();
-/*			Removed cause this will crash your server if the player uses other values. That cannot be changed.
+/*			Removed cause this will crash your server if the player uses other values. Stuff that needs to be changed
+
+PatternBuilder#materialSets
+tconstruct.library.TConstructRegistry.patternPartMapping
+com.thecrafter4000.lotrtc.tools.ToolRecipes.registerToolCasting
 
 			Property canUseNormalSmelteryBlocks = config.get(CategorySmeltery, "canUseNormalSmelteryBlocks", true);
 			TinkersMEConfig.canUseNormalSmelteryBlocks = canUseNormalSmelteryBlocks.getBoolean();

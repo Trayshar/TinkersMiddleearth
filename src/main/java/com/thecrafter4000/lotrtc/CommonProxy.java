@@ -3,7 +3,6 @@ package com.thecrafter4000.lotrtc;
 import com.thecrafter4000.lotrtc.items.MaterialRegistry;
 import com.thecrafter4000.lotrtc.items.TinkersMEBlocks;
 import com.thecrafter4000.lotrtc.items.TinkersMEItems;
-import com.thecrafter4000.lotrtc.modifier.ModAutoSmeltLotR;
 import com.thecrafter4000.lotrtc.smeltery.FactionSmelteryLogic;
 import com.thecrafter4000.lotrtc.smeltery.SmelteryRecipes;
 import com.thecrafter4000.lotrtc.tools.HitDelayPatcher;
@@ -16,15 +15,10 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import lotr.common.LOTRMod;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
-import tconstruct.library.crafting.ModifyBuilder;
-import tconstruct.modifiers.tools.ModDurability;
-import tconstruct.modifiers.tools.ModExtraModifier;
 
 public class CommonProxy {
 
@@ -60,14 +54,14 @@ public class CommonProxy {
     	SmelteryRecipes.registerSmelteryMeltings();
     	SmelteryRecipes.registerAlloys();
 
-		// Modifiers. Will get their own class some day. TODO: Rethink those modifiers
+/* Thanks god, this stuff got never released; Very unbalanced
+		// Modifiers. Will get their own class some day.
         ModifyBuilder.registerModifier(new ModDurability(new ItemStack[] { new ItemStack(LOTRMod.diamond) }, 0, 500, 0f, 4, "Diamond", "\u00a7b" + StatCollector.translateToLocal("modifier.tool.diamond"), "\u00a7b"));
         ModifyBuilder.registerModifier(new ModDurability(new ItemStack[] { new ItemStack(LOTRMod.emerald) }, 1, 0, 0.5f, 3, "Emerald", "\u00a72" + StatCollector.translateToLocal("modifier.tool.emerald"), "\u00a72"));
 
-        ModifyBuilder.registerModifier(new ModAutoSmeltLotR(new ItemStack[] { new ItemStack(TinkersMEItems.autosmelt) }, 6, "Lava", "\u00a74", StatCollector.translateToLocal("modifier.tool.lava")));
-
         ModifyBuilder.registerModifier(new ModExtraModifier(new ItemStack[] { new ItemStack(LOTRMod.emerald), new ItemStack(Blocks.gold_block) }, "Tier1Free"));
         ModifyBuilder.registerModifier(new ModExtraModifier(new ItemStack[] { new ItemStack(LOTRMod.blockGem, 1, 9), new ItemStack(LOTRMod.blockGem, 1, 5) }, "Tier1.5Free"));
+*/
     }
 
     public void postInit(FMLPostInitializationEvent e) {

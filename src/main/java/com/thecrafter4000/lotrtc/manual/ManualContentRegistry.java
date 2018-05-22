@@ -1,7 +1,6 @@
 package com.thecrafter4000.lotrtc.manual;
 
 import com.thecrafter4000.lotrtc.items.TinkersMEBlocks;
-import com.thecrafter4000.lotrtc.items.TinkersMEItems;
 import lotr.common.LOTRMod;
 import mantle.lib.client.MantleClientRegistry;
 import net.minecraft.item.ItemStack;
@@ -35,9 +34,5 @@ public class ManualContentRegistry {
 		MantleClientRegistry.registerManualIcon("urukingot", new ItemStack(LOTRMod.urukSteel));
 		MantleClientRegistry.registerManualIcon("blackurukhelmet", new ItemStack(LOTRMod.helmetBlackUruk));
 		MantleClientRegistry.registerManualIcon("blackurukingot", new ItemStack(LOTRMod.blackUrukSteel));
-		
-		
-		MantleClientRegistry.registerManualLargeRecipe("autosmelt", new ItemStack(TinkersMEItems.autosmelt), new ItemStack[]{null, new ItemStack(LOTRMod.blackUrukSteel), null, new ItemStack(LOTRMod.blackUrukSteel), new ItemStack(LOTRMod.balrogFire), new ItemStack(LOTRMod.blackUrukSteel), null, new ItemStack(LOTRMod.blackUrukSteel), null});
-
 	}
 }

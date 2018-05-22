@@ -123,7 +123,7 @@ public class FactionSmelteryRender extends SmelteryRender {
                 ItemStack input = logic.getStackInSlot(i);
                 if (input != null && logic.getTempForSlot(i) > 20)
                 {
-                    ItemStack blockToRender = SmelteryRecipeHandler.getRenderIndex(logic.fraction, input);
+					ItemStack blockToRender = SmelteryRecipeHandler.getRenderIndex(logic.faction, input);
                     if (blockToRender != null)
                     {
                         float blockHeight = input.stackSize / (float) blockToRender.stackSize;

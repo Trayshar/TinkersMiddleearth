@@ -9,14 +9,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MaterialRegistry {
-	public static Map<Integer, Fluid> mapfluids = new HashMap<Integer, Fluid>();
-	public static Map<Integer, String> mapIdName = new HashMap<Integer, String>();
-	public static Map<String, Integer> mapNameId = new HashMap<String, Integer>();
-	public static Map<Integer, ToolMaterial> mapTool = new HashMap<Integer, ToolMaterial>();
+	public static Map<Integer, Fluid> fluidMap = new HashMap<>();
+	public static Map<Integer, String> nameMap = new HashMap<>();
+	public static Map<Integer, ToolMaterial> toolMap = new HashMap<>();
 	
 	private MaterialRegistry() {}
-	
-	public static final void setup(){
+
+	public static void setup() {
 		registerMaterial(LotRMaterialID.MithrilLotR, "MithrilLotR", TinkersMEBlocks.moltenMithrilFluid);
 		registerMaterial(LotRMaterialID.DwarvenSteel, "DwarvenSteel", TinkersMEBlocks.moltenDwarvenSteelFluid);
 		registerMaterial(LotRMaterialID.BlueDwarvenSteel, "BlueDwarvenSteel", TinkersMEBlocks.moltenBlueDwarvenSteelFluid);
@@ -29,10 +28,9 @@ public class MaterialRegistry {
 	}
 	
 	public static void registerMaterial(int materialid, String materialName, Fluid fluid, ToolMaterial material){
-		mapIdName.put(materialid, materialName);
-		mapNameId.put(materialName, materialid);
-		mapfluids.put(materialid, fluid);
-		mapTool.put(materialid, material);
+		nameMap.put(materialid, materialName);
+		fluidMap.put(materialid, fluid);
+		toolMap.put(materialid, material);
 	}
 	
 	public static void registerMaterial(int materialid, String materialName, Fluid fluid){

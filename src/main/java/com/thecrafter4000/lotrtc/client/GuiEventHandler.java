@@ -20,7 +20,10 @@ import tconstruct.tools.logic.StencilTableLogic;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-//FIXME: Wtf. I have no idea whats going on here. Investigation necessary.
+// FIXME: [ToolsV2] Clean code of whole package. Sadly, all of it is necessary.
+
+// I literally coded 2 weeks to fix these guys having their texture field static, making it impossible to have two different texture locations;
+// See "tconstruct.tools.gui.GuiButtonTool.background" and "tconstruct.tools.gui.GuiButtonStencil.background"
 @SideOnly(Side.CLIENT)
 public class GuiEventHandler {
 

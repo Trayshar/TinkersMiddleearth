@@ -3,7 +3,6 @@ package com.thecrafter4000.lotrtc.smeltery;
 import com.thecrafter4000.lotrtc.items.TinkersMEBlocks;
 import net.minecraft.block.Block;
 
-//FIXME: Think of an other structure to hold smeltery "races"
 public enum SmelteryMainFaction {
 
 	Elf, Dwarf, Orc;

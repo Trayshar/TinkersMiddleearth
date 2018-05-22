@@ -6,8 +6,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
@@ -41,33 +39,10 @@ public class LotRBattleAxe extends Battleaxe {
     }
 
 
-	//TODO: What's this method here for? Do some testing what it does actually.
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-        boolean used = false;
-        int hotbarSlot = player.inventory.currentItem;
-        int itemSlot = hotbarSlot == 0 ? 8 : hotbarSlot + 1;
-        ItemStack nearbyStack = null;
-
-        if (hotbarSlot < 8)
-        {
-            nearbyStack = player.inventory.getStackInSlot(itemSlot);
-            if (nearbyStack != null)
-            {
-                Item item = nearbyStack.getItem();
-                if (item instanceof ItemPotion && ((ItemPotion) item).isSplash(nearbyStack.getItemDamage()))
-                {
-                    nearbyStack = item.onItemRightClick(nearbyStack, world, player);
-                    if (nearbyStack.stackSize < 1)
-                    {
-                        nearbyStack = null;
-                        player.inventory.setInventorySlotContents(itemSlot, null);
-                    }
-                }
-            }
-        }
-        return stack;
-    }
+		return stack;
+	}
 	
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {

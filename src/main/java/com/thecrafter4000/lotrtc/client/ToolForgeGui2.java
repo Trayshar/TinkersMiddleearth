@@ -67,7 +67,7 @@ public class ToolForgeGui2 extends ToolForgeGui {
 		} catch (Exception e) {}
 		
 		try{
-			if(f == null) f = ToolForgeGui.class.getDeclaredField("field_146290_a"); // Deobfuscated name
+			if (f == null) f = ToolForgeGui.class.getDeclaredField("field_146290_a"); // Deobfuscated name. Wait what?
 			f.setAccessible(true);
 			return f.getInt(this);
 		}catch (Exception e) {
@@ -97,7 +97,7 @@ public class ToolForgeGui2 extends ToolForgeGui {
 		else {
 			element = TConstructClientRegistry.tierTwoButtons.get(index-1);
 		}
-		//ToDo: Using button element field
+		//TODO: [ToolsV2] Using button element field
 		
 		if(element instanceof ExtendedToolGuiElement) {
 			// Getting recipe

@@ -1,8 +1,67 @@
-Custom Weapons:
-- Spike
-- Battlestaff
+- Smeltery V2
+	- More than one fluid from one input
+	    - Recycling of old tools/parts
+	- Setting for "alloying"
+	- Full fuel support instead of lava only
+    - Better steel
+	    - Someone (likely me) needs to research on how steel is made in ME.
 
-Add some modifier stuuf
+- Tools V2
+    - Tools are the sum of their parts
+	- Single parts can be modified
+	- Lowest part durability is tools durability
+	- "Main" parts(Blade, Head) does always take damage, others only half of the time (50% chance)
+	- Tool not useless if one part breaks; lower stats instead
+
+	Parts:
+		- Handle:
+			- Durability: x0.75;
+			- Modifications:
+				- Enduring
+				- Hefty
+				- Swift(x1.25 Hitspeed) / Sharp / Quick (x1.25 Toolspeed)
+		- Blade/Head
+			- Durability: x1.25
+			- Modifications:
+				- Enduring
+				- Hefty
+				- Legendary(Blade)/Masterful(Head)
+				- Blessed/Silken
+				- Banes
+				- Flame of Udun/Chill of Deadelos/Headhunting
+
+		- Connector(Only two-headed tools)
+			- Durability: x1.0
+			- Modifications:
+				- Enduring
+				- Switchspeed(x0.75, x1.25, x1.5)
+
+		- Stick
+			- Durability: x5.0
+			- Wood only
+			- Modifications:
+				- Enduring
+				- Swift(x1.118 Hitspeed) / Long / Quick(x1.118 Toolspeed)
+
+	Tools:
+		- two-headed:
+			- Pickaxe(Handle, Stick, Connector, Pickaxe head, Pickaxe head)
+			- Mattock(Handle, Stick, Connector, Axe head, Pickaxe head)(Dwarven only)
+		- normal:
+			- Shovel(Handle, Stick, Shovel head)
+			- Hoe(Handle, Stick, Hoe head)
+			- Axe(Handle, Stick, Axe head)
+			- Shears(Handle, Shears head)
+
+	Weapons:
+		- two-headed:
+			- Battlestaff(small Blade, large handle, small Blade)
+		- normal:
+			- Sword(Sword handle, Blade)
+			- Dagger(dagger handle, small blade)
+			- Battleaxe(Handle, Stick, Battleaxe head)
+			- Warhammer(Handle, Stick, Warhammer head)
+
 - Other way to obtain extra modifier
-- Recyler
-- Toolpart color changer
+
+- Change color of parts (see "Dyer" branch)

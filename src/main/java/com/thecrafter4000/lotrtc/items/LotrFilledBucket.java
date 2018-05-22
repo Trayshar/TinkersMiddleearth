@@ -64,7 +64,7 @@ public class LotrFilledBucket extends FilledBucket {
                 if (fluid instanceof BlockFluidFinite)
                     metadata = 7;
 
-                world.setBlock(clickX, clickY, clickZ, fluid, metadata, 3); // TODO: Merge liquids
+				world.setBlock(clickX, clickY, clickZ, fluid, metadata, 3);
             }
             catch (ArrayIndexOutOfBoundsException ex)
             {

@@ -82,12 +82,4 @@ This book updates itself if something changed. Keep it with you.</text>
  <main>blackurukingot</main>
 </material>
 </page>
-
-<page type="crafting">
-<text>Autosmelt Modifier</text>
-<recipe>
- <name>autosmelt</name>
- <size>three</size>
-</recipe>
-</page>
 </book>

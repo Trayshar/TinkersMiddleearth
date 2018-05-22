@@ -15,7 +15,6 @@ import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.library.crafting.Smeltery;
 import tconstruct.smeltery.TinkerSmeltery;
 
-//TODO: Have one utility method per fluid; Nobody wants to read this shit.
 public class SmelteryRecipes {
 
 	public static void registerSmelteryMeltings(){

@@ -5,12 +5,12 @@ import com.thecrafter4000.lotrtc.manual.ManualContentRegistry;
 import com.thecrafter4000.lotrtc.manual.ManualRegistry;
 import com.thecrafter4000.lotrtc.smeltery.FactionSmelteryRender;
 import com.thecrafter4000.lotrtc.tools.ToolRegistry;
-import com.thecrafter4000.lotrtc.tools.ToolRegistry.ToolEntry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.client.MinecraftForgeClient;
 import tconstruct.client.FlexibleToolRenderer;
+import tconstruct.library.tools.ToolCore;
 
 public class ClientProxy extends CommonProxy {
 
@@ -30,8 +30,8 @@ public class ClientProxy extends CommonProxy {
 		
 		/* Register ItemRenderer */
 		FlexibleToolRenderer r = new FlexibleToolRenderer();
-		for(ToolEntry t : ToolRegistry.tools){
-			MinecraftForgeClient.registerItemRenderer(t.tool, r);
+		for (ToolCore key : ToolRegistry.tools.keySet()) {
+			MinecraftForgeClient.registerItemRenderer(key, r);
 		}
 	}
 }
