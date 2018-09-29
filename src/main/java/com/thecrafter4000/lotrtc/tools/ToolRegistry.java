@@ -20,7 +20,7 @@ import tconstruct.smeltery.TinkerSmeltery;
 
 import java.util.*;
 
-//TODO: [ToolsV2] Remove gui stuff, have another class for that
+//TODO: [ToolsV2] Divide into Client and Server side
 public class ToolRegistry {
 
 	/* Tools */

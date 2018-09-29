@@ -1,6 +1,6 @@
 ## Tinker's Middleearth - Brings Tinker's into Middleearth!
 ### About this Mod
-This mod is an addon for Tinker's Construct. It tries to make it compatible with Mevans Lord of the Rings mod as much as possible.
+This mod is an addon for Tinker's Construct. It attempts to make Mevans Lord of the Rings mod compatible with Tinker's as much as possible.
 ### Releases
 Releases can be found on CurseForge: https://minecraft.curseforge.com/projects/tinkersmiddleearth
 ### Links

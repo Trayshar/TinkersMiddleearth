@@ -81,6 +81,7 @@ public class FactionSmelteryLogic extends SmelteryLogic {
 	}
 
 	//TODO: [SmelteryV2] Rewrite this code to match the planned fuel system
+	//TODO: [API] Use ASM
 	// Only copied cause validBlockId(Block) is not visible :d
 	
 	@Override public boolean checkBricksOnLevel(int x, int y, int z, int[] sides) {

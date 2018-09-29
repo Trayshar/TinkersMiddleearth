@@ -6,8 +6,6 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraftforge.fluids.Fluid;
 import tconstruct.smeltery.blocks.TConstructFluid;
 
-/* Also copied from TiC with few changes */
-
 public class LotrTCFluid extends TConstructFluid {
 
 	public Fluid fluid = null;

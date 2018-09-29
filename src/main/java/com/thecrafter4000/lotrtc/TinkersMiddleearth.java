@@ -13,13 +13,13 @@ import org.apache.logging.log4j.Logger;
 @Mod(version=TinkersMiddleearth.VERSION, name=TinkersMiddleearth.NAME, modid=TinkersMiddleearth.MODID, acceptedMinecraftVersions="1.7.10", dependencies=TinkersMiddleearth.Dependencies )
 public class TinkersMiddleearth {
 
-	public static final String MODID = "lotrtc";
-	public static final String VERSION = "1.3.4";
-	public static final String NAME = "Tinker's MiddleEarth";
+	public static final String MODID = "@modid@";
+	public static final String VERSION = "@version@";
+	public static final String NAME = "@name@";
 	public static final String Dependencies = "required-after:TConstruct;required-after:lotr";
 	@Instance public static TinkersMiddleearth instance;
 	
-	public static final Logger logger = LogManager.getLogger("Tinker's Middleearth");
+	public static final Logger logger = LogManager.getLogger(NAME);
 	@SidedProxy(clientSide="com.thecrafter4000.lotrtc.ClientProxy", serverSide="com.thecrafter4000.lotrtc.ServerProxy")	public static CommonProxy proxy;
 	
 	@EventHandler

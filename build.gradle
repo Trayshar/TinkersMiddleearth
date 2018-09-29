@@ -35,27 +35,31 @@ repositories {
 }
 
 apply plugin: 'forge'
+apply plugin: 'idea'
 
-version = "unknown"
-group= "com.thecrafter4000.lotrtc"
-archivesBaseName = "[1.7.10] Tinker's Middleearth"
+ext.configFile = file('build.properties')
+ext.config = parseConfig(configFile)
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+version = config.version
+group = config.group
+//noinspection GroovyUnusedAssignment
+archivesBaseName = config.archivesBaseName
 
-//Makes sure I don't have to edit both build.gradle and main mod file. I think there is a better way tho.
-File file = file("src/main/java/com/thecrafter4000/lotrtc/TinkersMiddleearth.java") // Finds main modfile
-file.readLines().each{ // Iterates over the whole file
-    if (it.contains("public static final String VERSION = ")) { // looks for the VERSION field
-        project.version = it.substring(39, it.length()-2) // Overwrites the version string
-    }
-}
+println "Current mod version is " + project.version
 
-println "Read mod version: " + project.version + "!"
+// Need this here so eclipse task generates correctly.
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
 minecraft {
     version = "1.7.10-10.13.4.1614-1.7.10"
     runDir = "run"
+
+    replaceIn 'src/main/java/com/thecrafter4000/lotrtc/TinkersMiddleearth.java'
+    replace '@version@', config.version
+    replace '@modid@', config.modid
+    replace '@mcversion@', project.minecraft.version
+    replace '@name@', config.name
 }
 
 idea { module{ inheritOutputDirs = true } }
@@ -67,22 +71,30 @@ dependencies {
     compile "tconstruct:TConstruct:1.7.10-1.8.8.build991:deobf"
 }
 
-processResources
-{
+import org.apache.tools.ant.filters.ReplaceTokens
+
+processResources {
     // this will ensure that this task is redone when the versions change.
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
 
-    // replace stuff in mcmod.info, nothing else
+    // replace stuff
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-                
-        // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
+
+        filter ReplaceTokens, tokens: [version: config.version, mcversion: project.minecraft.version, modid: config.modid, name: config.name]
     }
         
     // copy everything else, thats not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
+    }
+}
+
+static def parseConfig(File config) {
+    config.withReader {
+        def prop = new Properties()
+        prop.load(it)
+        return (new ConfigSlurper().parse(prop))
     }
 }

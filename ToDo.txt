@@ -62,6 +62,6 @@
 			- Battleaxe(Handle, Stick, Battleaxe head)
 			- Warhammer(Handle, Stick, Warhammer head)
 
-- Other way to obtain extra modifier
+- Other way to obtain extra modifier (scrolls)
 
-- Change color of parts (see "Dyer" branch)
+- Change color/texture of parts (see "Dyer" branch)

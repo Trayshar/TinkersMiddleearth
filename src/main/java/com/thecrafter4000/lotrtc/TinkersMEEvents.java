@@ -48,6 +48,7 @@ public class TinkersMEEvents {
 		}
 	}
 
+	@SubscribeEvent
 	public void PlayerRespawn(PlayerRespawnEvent event) {
 		ExtraPlayerInfo playerData = ExtraPlayerInfo.get(event.player);
 		ExtraPlayerInfo stats = ExtraPlayerInfo.get(event.player);

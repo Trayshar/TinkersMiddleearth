@@ -1,8 +1,8 @@
 [
 {
-  "modid": "lotrtc",
-  "name": "Tinker's MiddleEarth",
-  "description": "Makes Mevans LotR mod and TC compatible",
+  "modid": "@modid@",
+  "name": "@name@",
+  "description": "Brings Tinkers Construct to Middleearth!",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
@@ -11,7 +11,7 @@
   "credits": "Mevans[LotR mod], SlimeKnights[TConstruct, Mantle], Forge",
   "logoFile": "",
   "screenshots": [],
-  "requiredMods": [ "Forge", "TConstruct", "lotr"],
+  "requiredMods": [ "Forge", "TConstruct", "lotr" ],
   "dependencies": [ "TConstruct", "lotr" ]
 }
 ]
