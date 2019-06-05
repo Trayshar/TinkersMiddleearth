@@ -1,67 +1,68 @@
-- Smeltery V2
-	- More than one fluid from one input
-	    - Recycling of old tools/parts
-	- Setting for "alloying"
-	- Full fuel support instead of lava only
-    - Better steel
-	    - Someone (likely me) needs to research on how steel is made in ME.
+- General
+	- Interact with a smeltery requires +100 alignment
+	- Disable alloy furnaces (Disable crafting recipe and cancel GUI)
+	- Remove bronze crafting recipe
+	- Port to latest lotR version
+	- Update Books. They are the only wiki right now.
+	- Fix lotR Recipes not working with tinker's items
+	
+- Smeltery Update
+	- Usage & Recipes
+		- Only fluids next to each other will create alloys
+	- Fuel overhaul
+		- new block type; "Smeltery heat source".
+			- Smelter heat source, will burn fuel
+				- The lower the burn time, the lower the max temp the smeltery will have.
+				- The bigger the smeltery, the quicker fuel will be consumed
+					- perhaps adding ways to generate good heat without lava
+						- maybe special combination (wood + coal, etc.)
+						- maybe extra fuel (research needed)
+			- Lava heat source; Requires lava and can hold alot of it, more than a tank
+				- Can smelt mithril
+		- maybe adding bellows
+			- Increases heat, but fuel will be consumed quicker
+			- Two states; Full and Empty of air. Will need redstone signal to Empty, and will require no signal to Fill. (TL;DR player has to use a redstone clock or a lever to operate it)
+	- Building
+		- more faction-based smelteries and a special structure for each smeltery that buffs it in some way
+		- Seared faction bricks
+			- Add faction-suitable grout recipes (mordor gravel, white sand, etc)
+			- Basin recipe; 2 molten ingots + faction brick = seared faction brick
+	- Better steel (research needed)
+	
+- Modifier Update
+	- Scrolls are modifier
+		- Different levels stack
+		- To apply them, you need gems. Incompatible Modifiers use the same gem, and there can only be one modification type per gem.
+	- Banes
+		- Banes can stack(will take longer to acquire exponentionally)
+		- Won't require modifier, but grant one extra modifier
+			- maybe remove one level of bane if you actually use the extra modifier? (modifing your weapon reduces the bane)
+	- New Scrolls
+		- "United": The higher your alignment with a specific faction, the higher the chance to not consume durability. Caps at 80% (durability x5).
+			- Very very very rare mob drop from elite units (Black uruk, Swan knight, etc.)
+				- They will drop the scroll for their own faction, which is evil to you. Players have to trade with others to obtain useable scrolls.
+					- Config can swap that, e.g. for singleplayer
+				- To get the drop, you need atleast -5000 with the mob faction
+			- You need atleast 2500+ alignment with your faction to apply it
+			- Replace "durable" modifier?
 
-- Tools V2
-    - Tools are the sum of their parts
-	- Single parts can be modified
-	- Lowest part durability is tools durability
-	- "Main" parts(Blade, Head) does always take damage, others only half of the time (50% chance)
-	- Tool not useless if one part breaks; lower stats instead
-
-	Parts:
-		- Handle:
-			- Durability: x0.75;
-			- Modifications:
-				- Enduring
-				- Hefty
-				- Swift(x1.25 Hitspeed) / Sharp / Quick (x1.25 Toolspeed)
-		- Blade/Head
-			- Durability: x1.25
-			- Modifications:
-				- Enduring
-				- Hefty
-				- Legendary(Blade)/Masterful(Head)
-				- Blessed/Silken
-				- Banes
-				- Flame of Udun/Chill of Deadelos/Headhunting
-
-		- Connector(Only two-headed tools)
-			- Durability: x1.0
-			- Modifications:
-				- Enduring
-				- Switchspeed(x0.75, x1.25, x1.5)
-
-		- Stick
-			- Durability: x5.0
-			- Wood only
-			- Modifications:
-				- Enduring
-				- Swift(x1.118 Hitspeed) / Long / Quick(x1.118 Toolspeed)
-
-	Tools:
-		- two-headed:
-			- Pickaxe(Handle, Stick, Connector, Pickaxe head, Pickaxe head)
-			- Mattock(Handle, Stick, Connector, Axe head, Pickaxe head)(Dwarven only)
-		- normal:
-			- Shovel(Handle, Stick, Shovel head)
-			- Hoe(Handle, Stick, Hoe head)
-			- Axe(Handle, Stick, Axe head)
-			- Shears(Handle, Shears head)
-
-	Weapons:
-		- two-headed:
-			- Battlestaff(small Blade, large handle, small Blade)
-		- normal:
-			- Sword(Sword handle, Blade)
-			- Dagger(dagger handle, small blade)
-			- Battleaxe(Handle, Stick, Battleaxe head)
-			- Warhammer(Handle, Stick, Warhammer head)
-
-- Other way to obtain extra modifier (scrolls)
-
-- Change color/texture of parts (see "Dyer" branch)
+- Tool Tinkering Update
+	- Change color/texture of specific parts (see "Dyer" branch)
+	- Parts
+		- Faction-specific texture, model and properties (glowing elven blade)
+			- Faction specific workstations/partbuilders/etc
+				- material restriction (configuratable)
+		- Could take multiple steps to create one part ("tinkering intensifies" achievement if player modifies 100 parts)
+			- Handle
+				- Could be treated with leather/fur
+			- Binding
+				- Gems could be applied. idk. am tired.
+			- Extra
+				- gems
+				- leather/fur
+			- Weapon head
+			- Tool Head
+	
+- Armor Update (likely never to come)
+	- Modifiers
+		- Autoforge (ultra rare (utumno lava level-only) scroll modifier, taking a bath in molten metal repairs your armor)

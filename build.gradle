@@ -71,6 +71,13 @@ dependencies {
     compile "tconstruct:TConstruct:1.7.10-1.8.8.build991:deobf"
 }
 
+jar {
+    manifest {
+        attributes 'FMLCorePlugin': 'com.thecrafter4000.lotrtc.asm.TinkersMECoremod'
+        attributes 'FMLCorePluginContainsMod': 'true'
+    }
+}
+
 import org.apache.tools.ant.filters.ReplaceTokens
 
 processResources {

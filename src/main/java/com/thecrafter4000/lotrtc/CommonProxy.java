@@ -44,6 +44,7 @@ public class CommonProxy {
     }
 
     public void init(FMLInitializationEvent e) {
+		//TODO [SmelteryV2] Yes. there is a typo. Sadly to late, change this will invalidate all smelteries. Might want to do exactly that when Smeltery Update rolls out.
 		GameRegistry.registerTileEntity(FactionSmelteryLogic.class, "lotrtc:fractionsmelterylogic");
     	patchLotrOres();
     	TinkersMEBlocks.init(e);
@@ -70,7 +71,7 @@ public class CommonProxy {
     	ToolRegistry.postInit();
     }
     
-    public static void patchLotrOres(){
+    public static void patchLotrOres() {
     	OreDictionary.registerOre("blockCopper", new ItemStack(LOTRMod.blockOreStorage, 1, 0));
     	OreDictionary.registerOre("blockTin", new ItemStack(LOTRMod.blockOreStorage, 1, 1));
     	OreDictionary.registerOre("blockBronze", new ItemStack(LOTRMod.blockOreStorage, 1, 2));

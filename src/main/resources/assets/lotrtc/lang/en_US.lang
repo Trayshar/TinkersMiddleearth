@@ -1,4 +1,4 @@
-itemGroup.lotrtc=Tinkers Middleearth
+itemGroup.lotrtc=Tinker's Middleearth
 
 item.lotrtc.manual.intro.name=The Journey Begins...
 Manual.intro.tooltip.name=How everything starts
@@ -45,14 +45,14 @@ item.lotrtc.MetalPattern.warhammerhead.name=Warhammmer Head Cast
 
 item.lotrtc.WoodPattern.warhammerhead.name=Warhammmer Head Pattern
 
-gui.toolstation.warhammer.desc=The Warhammer is a heavy offensive weapon.\n\nNatural Abilities:\n- Knockback\n\nDamage: Average\nDurability: Average
+gui.toolstation.warhammer.desc=The Warhammer is a heavy, offensive weapon.\n\nNatural Abilities:\n- Knockback\n\nDamage: Average\nDurability: Average
 
 
 item.lotrtc.bucket.ElvenSteel.name=Molten Elven Steel Bucket
 item.lotrtc.bucket.DwarvenSteel.name=Molten Dwarven Steel Bucket
 item.lotrtc.bucket.OrcSteel.name=Molten Orc Steel Bucket
 item.lotrtc.bucket.BlueDwarvenSteel.name=Molten Blue Dwarven Steel Bucket
-item.lotrtc.bucket.UrukSteel.name=Molten Isengart Uruk Steel Bucket
+item.lotrtc.bucket.UrukSteel.name=Molten Isengard Uruk Steel Bucket
 item.lotrtc.bucket.BlackUrukSteel.name=Molten Black Uruk Steel Bucket
 item.lotrtc.bucket.MorgulSteel.name=Molten Morgul Steel Bucket
 item.lotrtc.bucket.Sarlluin.name=Molten Sarlluin Bucket
@@ -66,7 +66,7 @@ item.lotrtc.bucket.Gulduril.name=Molten Gulduril Bucket
 tile.fluid.molten.elven_steel.name=Molten Elven Steel
 tile.fluid.molten.dwarven_steel.name=Molten Dwarven Steel
 tile.fluid.molten.orc_steel.name=Molten Orc Steel
-tile.fluid.molten.uruk_steel.name=Molten Isengart Uruk Steel
+tile.fluid.molten.uruk_steel.name=Molten Isengard Uruk Steel
 tile.fluid.molten.morgul_steel.name=Molten Morgul Steel
 tile.fluid.molten.black_uruk_steel.name=Molten Black Uruk Steel
 tile.fluid.molten.blue_dwarven_steel.name=Molten Blue Dwarven Steel
@@ -81,7 +81,7 @@ tile.fluid.molten.coal.name=Liquified Coal
 fluid.elven_steel.molten=Molten Elven Steel
 fluid.dwarven_steel.molten=Molten Dwarven Steel
 fluid.orc_steel.molten=Molten Orc Steel
-fluid.uruk_steel.molten=Molten Isengart Uruk Steel
+fluid.uruk_steel.molten=Molten Isengard Uruk Steel
 fluid.morgul_steel.molten=Molten Morgul Steel
 fluid.black_uruk_steel.molten=Molten Black Uruk Steel
 fluid.blue_dwarven_steel.molten=Molten Blue Dwarven Steel

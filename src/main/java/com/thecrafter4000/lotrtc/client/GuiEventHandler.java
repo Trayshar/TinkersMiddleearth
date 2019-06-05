@@ -33,21 +33,21 @@ public class GuiEventHandler {
 
 	@SubscribeEvent
 	public void onInitGuiPost(InitGuiEvent.Post e){
-		if(e.gui.getClass() == StencilTableGui.class) {
-			onStencilGui(e);
-		} else if (e.gui.getClass() == ToolForgeGui.class) {
+//		if(e.gui.getClass() == StencilTableGui.class) {
+//			onStencilGui(e);
+//		} else if (e.gui.getClass() == ToolForgeGui.class) {
 //			onForgeGui(e);
-		} else if (e.gui.getClass() == ToolStationGui.class) {
+//		} else if (e.gui.getClass() == ToolStationGui.class) {
 //			onStationGui(e);
-		}
+//		}
 	}
 
 	@SubscribeEvent
 	public void onGuiOpen(GuiOpenEvent e){
 		if(e.gui == null) return;
-		if(e.gui.getClass() == ToolStationGui.class){
+		if(e.gui.getClass() == ToolStationGui.class) {
 			e.gui = new ToolStationGui2((ToolStationGui) e.gui);
-		}else if(e.gui.getClass() == ToolForgeGui.class){
+		}else if(e.gui.getClass() == ToolForgeGui.class) {
 			e.gui = new ToolForgeGui2((ToolForgeGui) e.gui);
 		}
 	}
