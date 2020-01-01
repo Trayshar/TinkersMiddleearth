@@ -36,6 +36,7 @@ public class TinkersMEClassTransformer implements IClassTransformer {
 	}
 
 	static{
+		// "tconstruct.tools.gui.GuiButtonTool.background" and "tconstruct.tools.gui.GuiButtonStencil.background" are static, making it impossible to have a second texture file for my own stuff
 		BiConsumer<ClassNode, Boolean> fixButtons = (node, isObf) -> {
 			for (FieldNode field : node.fields) {
 				if(field.name.equals("background")) {

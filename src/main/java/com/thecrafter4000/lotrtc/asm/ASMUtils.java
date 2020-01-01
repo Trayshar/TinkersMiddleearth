@@ -302,7 +302,7 @@ public class ASMUtils {
 		}
 
 		public Class<?> defineClass(String name, byte[] content) {
-			log("GOTE: Creating " + name);
+			log("Creating " + name);
 			return defineClass(name, content, 0, content.length);
 		}
 	}
