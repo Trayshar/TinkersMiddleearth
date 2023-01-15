@@ -29,6 +29,7 @@ import tconstruct.smeltery.blocks.LavaTankBlock;
 import tconstruct.smeltery.blocks.SmelteryBlock;
 import tconstruct.tools.TinkerTools;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class TinkersMEBlocks {
@@ -78,7 +79,7 @@ public class TinkersMEBlocks {
 	public static Block moltenDurnaur;
 	public static Block moltenGulduril;
 
-
+	public static HashMap<Block, ItemStack> fluidblock_to_bucketitem = new HashMap<Block, ItemStack>();
     public static void preInit(FMLPreInitializationEvent e) {
 		GameRegistry.registerBlock(smelteryHighElves = new FactionSmeltery(SmelteryMainFaction.Elf, "HighElves"), FactionSmelteryItemBlock.class, "SmelteryHighElves");
 		GameRegistry.registerBlock(smelteryDwarven = new FactionSmeltery(SmelteryMainFaction.Dwarf, "Dwarven"), FactionSmelteryItemBlock.class, "SmelteryDwarven");
@@ -215,7 +216,8 @@ public class TinkersMEBlocks {
             for(int i = 0; i < LotrFilledBucket.textureNames2.length; i++)
                 if(LotrFilledBucket.textureNames2[i].equals(name)) {
                     FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(fluid, 1000), new ItemStack(TinkersMEItems.buckets, 1, i), new ItemStack(Items.bucket)));
-                    reg = true;
+					fluidblock_to_bucketitem.put(block, new ItemStack(TinkersMEItems.buckets, 1, i));
+					reg = true;
                 }
 
             if(!reg)

@@ -1,21 +1,27 @@
 package com.thecrafter4000.lotrtc;
 
 import com.thecrafter4000.lotrtc.TinkersMEConfig.LotRMaterialID;
+import com.thecrafter4000.lotrtc.items.TinkersMEBlocks;
 import com.thecrafter4000.lotrtc.items.TinkersMEItems;
 import com.thecrafter4000.lotrtc.tools.ToolRegistry;
+import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent;
 import lotr.common.LOTRMod;
 import lotr.common.item.LOTRWeaponStats;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityEvent;
+import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import tconstruct.library.event.ToolBuildEvent;
@@ -124,5 +130,29 @@ public class TinkersMEEvents {
 		ItemStack stack = new ItemStack(event.tool);
 		stack.setTagCompound(tag);
 		event.overrideResult(stack);
+	}
+
+	// See https://forums.minecraftforge.net/topic/29351-1710-solved-picking-up-a-custom-fluid-with-a-vanilla-bucket/
+	@SubscribeEvent
+	public void onBucketFill(FillBucketEvent event) {
+		ItemStack result = fillBucket(event.world, event.target);
+		if (result == null) {
+			return;
+		}
+		event.result = result;
+		event.setResult(Event.Result.ALLOW);
+	}
+
+	private ItemStack fillBucket(World world, MovingObjectPosition pos) {
+		Block block = world.getBlock(pos.blockX, pos.blockY, pos.blockZ);
+
+		ItemStack bucket = TinkersMEBlocks.fluidblock_to_bucketitem.get(block);
+		if (bucket != null && world.getBlockMetadata(pos.blockX, pos.blockY, pos.blockZ) == 0) {
+			world.setBlockToAir(pos.blockX, pos.blockY, pos.blockZ);
+			return bucket.copy();
+		}
+		else {
+			return null;
+		}
 	}
 }
