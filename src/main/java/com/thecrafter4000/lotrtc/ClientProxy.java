@@ -6,12 +6,16 @@ import com.thecrafter4000.lotrtc.smeltery.FactionSmelteryRender;
 import com.thecrafter4000.lotrtc.tools.ToolRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.MinecraftForgeClient;
 import tconstruct.client.FlexibleToolRenderer;
 import tconstruct.library.tools.ToolCore;
 
 public class ClientProxy extends CommonProxy {
+	public static final ResourceLocation icons = new ResourceLocation("lotrtc", "textures/gui/icons.png");
+	public static final ResourceLocation tc_icons = new ResourceLocation("tinker", "textures/gui/icons.png");
 
 	@Override
 	public void preInit(FMLPreInitializationEvent e) {
@@ -31,5 +35,11 @@ public class ClientProxy extends CommonProxy {
 		for (ToolCore key : ToolRegistry.tools.keySet()) {
 			MinecraftForgeClient.registerItemRenderer(key, r);
 		}
+	}
+
+	@Override
+	public void postInit(FMLPostInitializationEvent e) {
+		super.postInit(e);
+		ToolRegistry.postInitClient();
 	}
 }

@@ -44,7 +44,7 @@ public class CommonProxy {
     }
 
     public void init(FMLInitializationEvent e) {
-		//TODO [SmelteryV2] Yes. there is a typo. Sadly to late, change this will invalidate all smelteries. Might want to do exactly that when Smeltery Update rolls out.
+		//TODO: [SmelteryV2] Yes, there is a typo. Sadly changing this will invalidate all smelteries. Might want to do exactly that when Smeltery Update rolls out.
 		GameRegistry.registerTileEntity(FactionSmelteryLogic.class, "lotrtc:fractionsmelterylogic");
     	patchLotrOres();
     	TinkersMEBlocks.init(e);

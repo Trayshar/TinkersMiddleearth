@@ -1,18 +1,15 @@
 package com.thecrafter4000.lotrtc.tools;
 
 import com.thecrafter4000.lotrtc.TinkersMiddleearth;
-import com.thecrafter4000.lotrtc.client.ExtendedToolGuiElement;
 import com.thecrafter4000.lotrtc.items.MaterialRegistry;
 import com.thecrafter4000.lotrtc.items.TinkersMEItems;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.crafting.*;
 import tconstruct.library.tools.DynamicToolPart;
 import tconstruct.library.tools.ToolCore;
@@ -20,43 +17,41 @@ import tconstruct.smeltery.TinkerSmeltery;
 
 import java.util.*;
 
-//TODO: [ToolsV2] Divide into Client and Server side
 public class ToolRegistry {
 
 	/* Tools */
 	public static Map<ToolCore, ToolData> tools = new HashMap<>();
-	/* Integer -> Pattern ID. I use an map instead of a list so I can remove patterns if necessary. */
+	/* Integer -> Pattern ID. I use a map instead of a list, so I can remove patterns if necessary. */
 	public static Map<Integer, ToolPartEntry> parts = new HashMap<Integer, ToolPartEntry>();
-	public static List<ToolPartRenderEntry> partRender = new ArrayList<ToolPartRenderEntry>();
 	private static Set<ToolCore> recipeless = new HashSet<>();
 	private static int nextIndex = 0;
 
 	/**
-	 * Add's an normal tool
+	 * Adds a normal tool
 	 */
-	public static void addTool(ToolCore tool, String name, int buttonX, int buttonY, int guiType, int[] iconX, int[] iconY) {
-		addTool(tool, name, "textures/gui/icons.png", buttonX, buttonY, guiType, iconX, iconY, "lotrtc", true, false);
+	public static void addTool(ToolCore tool, String name, int buttonX, int buttonY, int guiType, int[] iconX, int[] iconY, boolean[] usesCustomTexture) {
+		addTool(tool, name, "textures/gui/icons.png", buttonX, buttonY, guiType, iconX, iconY, usesCustomTexture, "lotrtc", true, false);
 	}
 
 	/**
-	 * Add's an tool only crafted on tool forge
+	 * Adds a tool only crafted on tool forge
 	 */
-	public static void addTierTwoTool(ToolCore tool, String name, int buttonX, int buttonY, int guiType, int[] iconX, int[] iconY) {
-		addTool(tool, name, "textures/gui/icons.png", buttonX, buttonY, guiType, iconX, iconY, "lotrtc", true, true);
+	public static void addTierTwoTool(ToolCore tool, String name, int buttonX, int buttonY, int guiType, int[] iconX, int[] iconY, boolean[] usesCustomTexture) {
+		addTool(tool, name, "textures/gui/icons.png", buttonX, buttonY, guiType, iconX, iconY, usesCustomTexture, "lotrtc", true, true);
 	}
 
 	/**
-	 *  Add's an tool, but no button
+	 *  Adds a tool, but no button
 	 */
 	public static void addToolWithoutGui(ToolCore tool, String name) {
-		addTool(tool, name, "", 0, 0, 0, new int[]{}, new int[]{}, "lotrtc", false, false);
+		addTool(tool, name, "", 0, 0, 0, new int[]{}, new int[]{}, new boolean[]{}, "lotrtc", false, false);
 	}
 
 	/**
 	 * Internal method
 	 */
-	private static void addTool(ToolCore tool, String name, String texture, int buttonX, int buttonY, int guiType, int[] iconX, int[] iconY, String domain, boolean addGui, boolean tierTwo) {
-		tools.put(tool, new ToolData(name, texture, buttonX, buttonY, guiType, iconX, iconY, domain, addGui, tierTwo, tool.getHeadItem(), tool.getHandleItem(), tool.getAccessoryItem(), tool.getExtraItem()));
+	private static void addTool(ToolCore tool, String name, String texture, int buttonX, int buttonY, int guiType, int[] iconX, int[] iconY, boolean[] usesCustomTexture, String domain, boolean addGui, boolean tierTwo) {
+		tools.put(tool, new ToolData(name, texture, buttonX, buttonY, guiType, iconX, iconY, usesCustomTexture, domain, addGui, tierTwo, tool.getHeadItem(), tool.getHandleItem(), tool.getAccessoryItem(), tool.getExtraItem()));
 	}
 
 	/* Tool parts */
@@ -89,31 +84,24 @@ public class ToolRegistry {
 	}
 
 	/**
-	 *  Add's a tool part
+	 *  Adds a tool part
 	 */
 	public static void addToolPart(DynamicToolPart item, int materialCosts, int iconX, int iconY){
 		addToolPart(item, materialCosts, "textures/gui/icons.png", iconX, iconY, true);
 	}
 
 	/**
-	 *  Add's a tool part
+	 *  Adds a tool part
 	 */
 	public static void addToolPart(DynamicToolPart item, int materialCosts, String texture, int iconX, int iconY, boolean addSmelteryCasting ){
 		parts.put(nextIndex, new ToolPartEntry(item, materialCosts, addSmelteryCasting, texture, iconX, iconY));
 		nextIndex++;
 	}
 
-	/**
-	 *  Registers an icon for an tool part on tool station/forge. It is used to draw the slot backgrounds for non-tinker items.
-	 */
-	public static void addToolPartRender(Item tool, ResourceLocation tex, int x, int y){
-		partRender.add(new ToolPartRenderEntry(tool, tex, x, y));
-	}
-
 	public static void init(){
 		/* Tools */
 
-		/* Have to copy the list cause I can't iterate something I'm changing */
+		/* Have to copy the list because I can't iterate something I'm changing */
 		for (ToolRecipe t : new ArrayList<>(ToolBuilder.instance.combos)) {
 			if (recipeless.contains(t.getType())) {
 				ToolBuilder.instance.recipeList.remove(t.getType().getToolName());
@@ -128,7 +116,7 @@ public class ToolRegistry {
 		/* Creates a list containing all non-metal ids */
 		List<Integer> nonMetals = new ArrayList<>(Arrays.asList(0, 1, 3, 4, 5, 6, 7, 8, 9, 17));
 
-		/* Creates an mapping between id and fluid. Used for table casting. */
+		/* Creates a mapping between id and fluid. Used for table casting. */
 		HashMap<Integer, Fluid> materials = new HashMap<>(MaterialRegistry.fluidMap);
 		int[] liquidDamage = new int[] { 2, 13, 10, 11, 12, 14, 15, 6, 16, 18 }; // ItemStack
 		for(int i = 0; i < TinkerSmeltery.liquids.length; i ++){
@@ -185,10 +173,13 @@ public class ToolRegistry {
 				nextPartIndex++;
 			}
 		}
+	}
 
+	public static void postInitClient() {
 		/* Register */
-		for(ToolPartEntry entry : parts.values()){
-			TConstructClientRegistry.addStencilButton2(entry.xButton, entry.yButton, entry.guiID, entry.domain, entry.textureButton);
+		for(ToolPartEntry entry : parts.values()) {
+			tconstruct.library.client.TConstructClientRegistry
+					.addStencilButton2(entry.xButton, entry.yButton, entry.guiID, entry.domain, entry.textureButton);
 		}
 
 		/* Register */
@@ -196,9 +187,19 @@ public class ToolRegistry {
 			if (data.addGui) {
 				String desc = String.format("gui.toolstation.%s.desc", tool.getToolName().toLowerCase());
 				if (data.tierTwo) {
-					TConstructClientRegistry.addTierTwoButton(new ExtendedToolGuiElement(data.guiType, data.xButton, data.yButton, data.xIcon, data.yIcon, tool.getLocalizedToolName(), desc, data.domain, data.textureButton, tool));
+					tconstruct.library.client.TConstructClientRegistry.addTierTwoButton(
+							new com.thecrafter4000.lotrtc.client.ExtendedToolGuiElement(
+									data.guiType, data.xButton, data.yButton,
+									data.xIcon, data.yIcon, tool.getLocalizedToolName(),
+									desc, data.domain, data.textureButton, data.usesCustomTexture)
+					);
 				} else {
-					TConstructClientRegistry.addToolButton(new ExtendedToolGuiElement(data.guiType, data.xButton, data.yButton, data.xIcon, data.yIcon, tool.getLocalizedToolName(), desc, data.domain, data.textureButton, tool));
+					tconstruct.library.client.TConstructClientRegistry.addToolButton(
+							new com.thecrafter4000.lotrtc.client.ExtendedToolGuiElement(
+									data.guiType, data.xButton, data.yButton,
+									data.xIcon, data.yIcon, tool.getLocalizedToolName(),
+									desc, data.domain, data.textureButton, data.usesCustomTexture)
+					);
 				}
 			}
 		});
@@ -215,11 +216,12 @@ public class ToolRegistry {
 		private String textureButton;
 		private int xButton, yButton;
 		private int[] xIcon, yIcon;
+		private boolean[] usesCustomTexture;
 		private boolean addGui;
 		private boolean tierTwo;
 		private boolean removeRecipe = false;
 
-		private ToolData(String name, String texture, int buttonX, int buttonY, int guiType, int[] iconX, int[] iconY, String domain, boolean addGui, boolean tierTwo, Item... items) {
+		private ToolData(String name, String texture, int buttonX, int buttonY, int guiType, int[] iconX, int[] iconY, boolean[] usesCustomTexture, String domain, boolean addGui, boolean tierTwo, Item... items) {
 			this.name = name;
 			this.recipe = items;
 			this.domain = domain;
@@ -229,6 +231,7 @@ public class ToolRegistry {
 			this.addGui = addGui;
 			this.xIcon = iconX;
 			this.yIcon = iconY;
+			this.usesCustomTexture = usesCustomTexture;
 			this.guiType = guiType;
 			this.tierTwo = tierTwo;
 		}
@@ -257,20 +260,6 @@ public class ToolRegistry {
 			this.textureButton = texture;
 			this.xButton = iconX;
 			this.yButton = iconY;
-		}
-	}
-
-	public static class ToolPartRenderEntry {
-		public final Item part;
-		public final ResourceLocation tex;
-		public final int x;
-		public final int y;
-
-		private ToolPartRenderEntry(Item part, ResourceLocation tex, int x, int y) {
-			this.part = part;
-			this.tex = tex;
-			this.x = x;
-			this.y = y;
 		}
 	}
 }

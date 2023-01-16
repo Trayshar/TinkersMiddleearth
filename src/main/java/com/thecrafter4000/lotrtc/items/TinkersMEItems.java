@@ -12,15 +12,11 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.library.tools.DynamicToolPart;
 import tconstruct.tools.TinkerTools;
 
 public class TinkersMEItems {
-	
-	public static final ResourceLocation icons = new ResourceLocation("lotrtc", "textures/gui/icons.png");
-	public static final ResourceLocation ticons = new ResourceLocation("tinker", "textures/gui/icons.png");
 	
 	public static Item buckets;
 	public static Item manual;
@@ -41,9 +37,8 @@ public class TinkersMEItems {
 		
 		// Tool parts
 		ToolRegistry.addToolPart((DynamicToolPart) (warHammerHead = new DynamicToolPart("_warhammer_head", "WarHammerHead", "lotrtc").setUnlocalizedName("lotrtc.WarHammerHead")), 8, 0, 1);
-		ToolRegistry.addToolPartRender(warHammerHead, icons, 0, 1);
 		// Tools
-		ToolRegistry.addTierTwoTool(warhammer = new Warhammer(), "warhammer", 0, 0, 1, new int[]{0, 8, 9, 0}, new int[]{0, 3, 3, 0});
+		ToolRegistry.addTierTwoTool(warhammer = new Warhammer(), "warhammer", 0, 0, 1, new int[]{0, 8, 9, 0}, new int[]{1, 3, 3, 0}, new boolean[]{true, false, false, false});
 		ToolRegistry.addToolWithoutGui(battleaxe = new LotRBattleAxe(), "battleaxe");
 		// Patterns
 		GameRegistry.registerItem(woodPattern = new LotRPattern("pattern_", "lotrtc.WoodPattern"), "woodPattern");
