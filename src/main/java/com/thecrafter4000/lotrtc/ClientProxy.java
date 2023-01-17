@@ -3,6 +3,7 @@ package com.thecrafter4000.lotrtc;
 import com.thecrafter4000.lotrtc.manual.ManualContentRegistry;
 import com.thecrafter4000.lotrtc.manual.ManualRegistry;
 import com.thecrafter4000.lotrtc.smeltery.FactionSmelteryRender;
+import com.thecrafter4000.lotrtc.tools.ClientToolRegistry;
 import com.thecrafter4000.lotrtc.tools.ToolRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -40,6 +41,6 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void postInit(FMLPostInitializationEvent e) {
 		super.postInit(e);
-		ToolRegistry.postInitClient();
+		ClientToolRegistry.postInit();
 	}
 }

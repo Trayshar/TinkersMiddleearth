@@ -175,51 +175,19 @@ public class ToolRegistry {
 		}
 	}
 
-	public static void postInitClient() {
-		/* Register */
-		for(ToolPartEntry entry : parts.values()) {
-			tconstruct.library.client.TConstructClientRegistry
-					.addStencilButton2(entry.xButton, entry.yButton, entry.guiID, entry.domain, entry.textureButton);
-		}
-
-		/* Register */
-		ToolRegistry.tools.forEach((tool, data) -> {
-			if (data.addGui) {
-				String desc = String.format("gui.toolstation.%s.desc", tool.getToolName().toLowerCase());
-				if (data.tierTwo) {
-					tconstruct.library.client.TConstructClientRegistry.addTierTwoButton(
-							new com.thecrafter4000.lotrtc.client.ExtendedToolGuiElement(
-									data.guiType, data.xButton, data.yButton,
-									data.xIcon, data.yIcon, tool.getLocalizedToolName(),
-									desc, data.domain, data.textureButton, data.usesCustomTexture)
-					);
-				} else {
-					tconstruct.library.client.TConstructClientRegistry.addToolButton(
-							new com.thecrafter4000.lotrtc.client.ExtendedToolGuiElement(
-									data.guiType, data.xButton, data.yButton,
-									data.xIcon, data.yIcon, tool.getLocalizedToolName(),
-									desc, data.domain, data.textureButton, data.usesCustomTexture)
-					);
-				}
-			}
-		});
-	}
-
-	/* Common code */
-
 	public static class ToolData {
 		public String name;
 		public Integer adjustDamage = null;
-		private Item[] recipe;
-		private int guiType;
-		private String domain;
-		private String textureButton;
-		private int xButton, yButton;
-		private int[] xIcon, yIcon;
-		private boolean[] usesCustomTexture;
-		private boolean addGui;
-		private boolean tierTwo;
-		private boolean removeRecipe = false;
+		protected Item[] recipe;
+		protected int guiType;
+		protected String domain;
+		protected String textureButton;
+		protected int xButton, yButton;
+		protected int[] xIcon, yIcon;
+		protected boolean[] usesCustomTexture;
+		protected boolean addGui;
+		protected boolean tierTwo;
+		protected boolean removeRecipe = false;
 
 		private ToolData(String name, String texture, int buttonX, int buttonY, int guiType, int[] iconX, int[] iconY, boolean[] usesCustomTexture, String domain, boolean addGui, boolean tierTwo, Item... items) {
 			this.name = name;
@@ -241,13 +209,13 @@ public class ToolRegistry {
 		public String name;
 		public boolean addSmelteryCasting;
 		public int materialCosts;
-		private Item item;
-		private String texture;
-		private String domain;
-		private String textureButton;
-		private int xButton;
-		private int yButton;
-		private int guiID;
+		protected Item item;
+		protected String texture;
+		protected String domain;
+		protected String textureButton;
+		protected int xButton;
+		protected int yButton;
+		protected int guiID;
 
 		/* Gets all necessary information from the item */
 		private ToolPartEntry(DynamicToolPart item, int materialCosts, boolean addSmelteryCasting, String texture, int iconX, int iconY) {
