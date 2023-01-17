@@ -11,21 +11,23 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 public class TinkersMEClassTransformer implements IClassTransformer {
 
-	public static Map<String, BiConsumer<ClassNode, Boolean>> classes = new HashMap<>();
+	private static final Map<String, Consumer<ClassNode>> classes = new HashMap<>();
+
+	/** Set in {@link TinkersMECoremod} */
+	protected static boolean isObfuscated = false;
 
 	public byte[] transform(String name, String transformedName, byte[] basicClass) {
-		boolean isObfuscated = !name.equals(transformedName);
 		if(classes.containsKey(transformedName)) {
 			ClassNode classNode = new ClassNode();
 			ClassReader classReader = new ClassReader(basicClass);
 			classReader.accept(classNode, 0);
 			System.out.println("TinkersME: Transforming " + transformedName);
 			try {
-				classes.get(transformedName).accept(classNode, isObfuscated);
+				classes.get(transformedName).accept(classNode);
 				classes.remove(transformedName);
 			} catch(Exception e) {
 				e.printStackTrace();
@@ -46,7 +48,8 @@ public class TinkersMEClassTransformer implements IClassTransformer {
 
 	static{
 		// "tconstruct.tools.gui.GuiButtonTool.background" and "tconstruct.tools.gui.GuiButtonStencil.background" are static, making it impossible to have a second texture file for my own stuff
-		BiConsumer<ClassNode, Boolean> fixButtons = (node, isObf) -> {
+		Consumer<ClassNode> fixButtons = (node) -> {
+			String drawButtonFunc = isObfuscated ? "func_146112_a" : "drawButton";
 			for (FieldNode field : node.fields) {
 				if(field.name.equals("background")) {
 					field.access = Opcodes.ACC_PUBLIC;
@@ -54,7 +57,7 @@ public class TinkersMEClassTransformer implements IClassTransformer {
 			}
 
 			for (MethodNode method : node.methods) {
-				if(method.name.equals("<init>") || method.name.equals("drawButton")) {
+				if(method.name.equals("<init>") || method.name.equals(drawButtonFunc)) {
 					AbstractInsnNode[] instructions = method.instructions.toArray();
 					for(int i = 0; i < instructions.length; i++) {
 						AbstractInsnNode insn = instructions[i];
@@ -74,7 +77,7 @@ public class TinkersMEClassTransformer implements IClassTransformer {
 			}
 		};
 
-		BiConsumer<ClassNode, Boolean> changeSmelteryBlockCheck = (node, isObf) -> {
+		Consumer<ClassNode> changeSmelteryBlockCheck = (node) -> {
 			ASMUtils.publicizeMethods(node, methodNode -> methodNode.name.equals("validBlockID") || methodNode.name.equals("validTankID"));
 		};
 
@@ -83,10 +86,12 @@ public class TinkersMEClassTransformer implements IClassTransformer {
 		// See tconstruct.tools.gui.ToolForgeGui.java:36
 		// See tconstruct.tools.gui.ToolForgeGui.java:43
 		// "new GuiButtonTool(0, ..., element.buttonIconY, REPAIR.domain, element.texture, element);"
-		BiConsumer<ClassNode, Boolean> fixTextureDomain = (node, isObf) -> {
-			MethodNode method = ASMUtils.resolveMethod(node, "initGui", "()V");
+		Consumer<ClassNode> fixTextureDomain = (node) -> {
+			String initGuiFunc = isObfuscated ? "func_73866_w_" : "initGui";
+			MethodNode method = ASMUtils.resolveMethod(node, initGuiFunc, "()V");
 			if(method == null) {
-				System.err.println(node.name + ": Error finding method initGui()V; UI might be broken!");
+				System.err.println(node.name + ": Error finding method initGui; UI might be broken!");
+				// System.err.println(node.name + ": Found" + node.methods.stream().map(m -> m.name + m.desc).reduce("", (a, b) -> a + ", " + b));
 				return;
 			}
 			int varOperand = "tconstruct/tools/gui/ToolStationGui".equals(node.name) ? 4 : 5;
@@ -123,10 +128,12 @@ public class TinkersMEClassTransformer implements IClassTransformer {
 		};
 
 		// Overwrites slot drawing in tconstruct.tools.gui.ToolStationGui.drawGuiContainerBackgroundLayer
-		BiConsumer<ClassNode, Boolean> overwriteSlotDrawing = (node, isObf) -> {
-			MethodNode method = ASMUtils.resolveMethod(node, "drawGuiContainerBackgroundLayer", "(FII)V");
+		Consumer<ClassNode> overwriteSlotDrawing = (node) -> {
+			String drawGuiContainerBackgroundLayerFunc = isObfuscated ? "func_146976_a" : "drawGuiContainerBackgroundLayer";
+			String guiTopField = isObfuscated ? "field_147009_r" : "guiTop";
+			MethodNode method = ASMUtils.resolveMethod(node, drawGuiContainerBackgroundLayerFunc, "(FII)V");
 			if(method == null) {
-				System.err.println(node.name + ": Error finding method drawGuiContainerBackgroundLayer(FII)V; UI might be broken!");
+				System.err.println(node.name + ": Error finding method drawGuiContainerBackgroundLayer; UI might be broken!");
 				return;
 			}
 
@@ -167,7 +174,7 @@ public class TinkersMEClassTransformer implements IClassTransformer {
 
 			// Get this.guiTop
 			callOverwrite.add(new VarInsnNode(Opcodes.ALOAD, 0));
-			callOverwrite.add(new FieldInsnNode(Opcodes.GETFIELD, "tconstruct/tools/gui/ToolStationGui", "guiTop", "I"));
+			callOverwrite.add(new FieldInsnNode(Opcodes.GETFIELD, "tconstruct/tools/gui/ToolStationGui", guiTopField, "I"));
 
 			// Get this.customTextureData (this field is injected later on)
 			callOverwrite.add(new VarInsnNode(Opcodes.ALOAD, 0));
@@ -180,10 +187,11 @@ public class TinkersMEClassTransformer implements IClassTransformer {
 		};
 
 		// Injects custom code into tconstruct.tools.gui.ToolStationGui.actionPerformed and tconstruct.tools.gui.ToolForgeGui.actionPerformed
-		BiConsumer<ClassNode, Boolean> setCustomTextureData = (node, isObf) -> {
-			MethodNode method = ASMUtils.resolveMethod(node, "actionPerformed", "(Lnet/minecraft/client/gui/GuiButton;)V");
+		Consumer<ClassNode> setCustomTextureData = (node) -> {
+			String actionPerformedFunc = isObfuscated ? "func_146284_a" : "actionPerformed";
+			MethodNode method = ASMUtils.resolveMethod(node, actionPerformedFunc, "(Lnet/minecraft/client/gui/GuiButton;)V");
 			if(method == null) {
-				System.err.println(node.name + ": Error finding method actionPerformed(Lnet/minecraft/client/gui/GuiButton;)V; UI might be broken!");
+				System.err.println(node.name + ": Error finding method actionPerformed; UI might be broken!");
 				return;
 			}
 
@@ -196,10 +204,10 @@ public class TinkersMEClassTransformer implements IClassTransformer {
 		};
 
 		// Injects custom code into tconstruct.tools.gui.ToolStationGui.resetGui and tconstruct.tools.gui.ToolForgeGui.resetGui
-		BiConsumer<ClassNode, Boolean> resetCustomTextureData = (node, isObf) -> {
+		Consumer<ClassNode> resetCustomTextureData = (node) -> {
 			MethodNode method = ASMUtils.resolveMethod(node, "resetGui", "()V");
 			if(method == null) {
-				System.err.println(node.name + ": Error finding method resetGui()V; UI might be broken!");
+				System.err.println(node.name + ": Error finding method resetGui; UI might be broken!");
 				return;
 			}
 
@@ -211,24 +219,22 @@ public class TinkersMEClassTransformer implements IClassTransformer {
 		};
 
 		// Injects the "public boolean[] customTextureData" field
-		BiConsumer<ClassNode, Boolean> addCustomTextureDataField = (node, isObf) -> {
+		Consumer<ClassNode> addCustomTextureDataField = (node) -> {
 			node.fields.add(new FieldNode(Opcodes.ACC_PUBLIC, "customTextureData", "[Z", null, null));
 		};
 
 		classes.put("tconstruct.tools.gui.GuiButtonTool", fixButtons);
 		classes.put("tconstruct.tools.gui.GuiButtonStencil", fixButtons);
-		classes.put("tconstruct.tools.gui.ToolStationGui", (node, isObf) -> {
-			addCustomTextureDataField.accept(node, isObf);
-			fixTextureDomain.accept(node, isObf);
-			overwriteSlotDrawing.accept(node, isObf);
-			resetCustomTextureData.accept(node, isObf);
-			setCustomTextureData.accept(node, isObf);
-		});
-		classes.put("tconstruct.tools.gui.ToolForgeGui", (node, isObf) -> {
-			fixTextureDomain.accept(node, isObf);
-			resetCustomTextureData.accept(node, isObf);
-			setCustomTextureData.accept(node, isObf);
-		});
+		classes.put("tconstruct.tools.gui.ToolStationGui",
+				addCustomTextureDataField
+				.andThen(fixTextureDomain)
+				.andThen(overwriteSlotDrawing)
+				.andThen(resetCustomTextureData)
+				.andThen(setCustomTextureData));
+		classes.put("tconstruct.tools.gui.ToolForgeGui",
+				fixTextureDomain
+				.andThen(resetCustomTextureData)
+				.andThen(setCustomTextureData));
 		classes.put("tconstruct.smeltery.logic.SmelteryLogic", changeSmelteryBlockCheck);
 	}
 }
