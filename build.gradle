@@ -74,7 +74,7 @@ dependencies {
 jar {
     manifest {
         attributes 'FMLCorePlugin': 'com.thecrafter4000.lotrtc.asm.TinkersMECoremod'
-        attributes 'FMLCorePluginContainsMod': 'true'
+        attributes 'FMLCorePluginContainsFMLMod': 'true'
     }
 }
 
