@@ -21,8 +21,8 @@ public class SmelteryRecipes {
 		SmelteryRecipeHandler.addSmelteryFuel(SmelteryMainFaction.Dwarf, FluidRegistry.LAVA, 1500, 90);
 
 		/* Register Ores */
+		// TODO: Make those faction-exclusive
 		Smeltery.addMelting(FluidType.getFluidType("Obsidian"), new ItemStack(LOTRMod.obsidianGravel), -300, TConstruct.ingotLiquidValue);
-		Smeltery.addDictionaryMelting("oreSilver", FluidType.getFluidType("Silver"), 0, TConstruct.oreLiquidValue);
 		SmelteryRecipeHandler.addMelting(SmelteryMainFaction.Dwarf, LOTRMod.oreMithril, 0, 0, TinkersMEBlocks.moltenMithrilFluid, TConstruct.oreLiquidValue);
 		Smeltery.addMelting(FluidType.getFluidType("MithrilLotR"), new ItemStack(LOTRMod.oreMithril), 100, (int)(TConstruct.ingotLiquidValue * 1.5D));
 		SmelteryRecipeHandler.addMelting(SmelteryMainFaction.Orc, LOTRMod.oreMorgulIron, 0, 0, TinkersMEBlocks.moltenOrcSteelFluid, TConstruct.oreLiquidValue);

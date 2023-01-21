@@ -1,5 +1,6 @@
 package com.thecrafter4000.lotrtc.smeltery;
 
+import com.thecrafter4000.lotrtc.TinkersMiddleearth;
 import mantle.utils.ItemMetaWrapper;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
@@ -21,7 +22,6 @@ import java.util.*;
 		//TODO: [SmelteryV2] Rewrite to accept multiple fluid outputs from on item
 	    private final Map<ItemMetaWrapper, FluidStack> smeltingList = new HashMap<>();
 	    private final Map<ItemMetaWrapper, Integer> temperatureList = new HashMap<>();
-	    private final Map<ItemMetaWrapper, ItemStack> renderBlocks = new HashMap<>();
 	    private final List<AlloyMix> alloys = new ArrayList<>();
 	    private final Map<Fluid, Integer[]> smelteryFuels = new HashMap<>(); // fluid -> [power, duration]
 	    
@@ -128,7 +128,12 @@ import java.util.*;
 	        ItemMetaWrapper in = new ItemMetaWrapper(input);
 	        inst.smeltingList.put(in, liquid);
 	        inst.temperatureList.put(in, temperature);
-	        inst.renderBlocks.put(in, new ItemStack(block, input.stackSize, metadata));
+
+			// Allways add the render data to the main smeltery, since its client-only anyway and only rendered if the recipe works
+			ItemStack prev = Smeltery.getRenderIndex().put(in, new ItemStack(block, input.stackSize, metadata));
+			if(prev != null && (((ItemBlock)prev.getItem()).field_150939_a != block || prev.getItemDamage() != metadata)) {
+				TinkersMiddleearth.logger.warn("[SmelteryRecipeHandler] Replaced render block for ({}:{}) with ({}:{}), previous ({}:{})", in.item, in.meta, block, metadata, prev.getItem(), prev.getItemDamage());
+			}
 	    }
 
 	    /**
@@ -201,13 +206,6 @@ import java.util.*;
 		public static FluidStack getSmelteryResult(SmelteryMainFaction faction, Block block, int metadata)
 	    {
 	        return SmelteryRecipeHandler.getSmelteryResult(faction, new ItemStack(block, 1, metadata));
-	    }
-
-		public static ItemStack getRenderIndex(SmelteryMainFaction faction, ItemStack input)
-	    {
-	        ItemStack tmp = getInstance(faction).renderBlocks.get(new ItemMetaWrapper(input));
-	        if(tmp == null) tmp = Smeltery.getRenderIndex(input);
-	        return tmp;
 	    }
 
 		public static ArrayList<FluidStack> mixMetals(SmelteryMainFaction faction, ArrayList<FluidStack> moltenMetal)

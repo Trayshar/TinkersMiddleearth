@@ -1,5 +1,7 @@
 package com.thecrafter4000.lotrtc.asm;
 
+import static com.thecrafter4000.lotrtc.asm.TinkersMECoremod.logger;
+
 import net.minecraft.launchwrapper.IClassTransformer;
 import org.apache.commons.io.FileUtils;
 import org.objectweb.asm.ClassReader;
@@ -19,13 +21,14 @@ public class TinkersMEClassTransformer implements IClassTransformer {
 
 	/** Set in {@link TinkersMECoremod} */
 	protected static boolean isObfuscated = true;
+	private static final boolean dumpASM = Boolean.parseBoolean(System.getProperty("lotrtc.dumpASM", "false"));
 
 	public byte[] transform(String name, String transformedName, byte[] basicClass) {
 		if(classes.containsKey(transformedName)) {
 			ClassNode classNode = new ClassNode();
 			ClassReader classReader = new ClassReader(basicClass);
 			classReader.accept(classNode, 0);
-			System.out.println("TinkersME: Transforming " + transformedName);
+			logger.info("Transforming " + transformedName);
 			try {
 				classes.get(transformedName).accept(classNode);
 				classes.remove(transformedName);
@@ -37,10 +40,13 @@ public class TinkersMEClassTransformer implements IClassTransformer {
 			classNode.accept(classWriter);
 			basicClass = classWriter.toByteArray();
 
-			try {
-				FileUtils.writeByteArrayToFile(new File("asm/" + transformedName + ".class"), basicClass);
-			} catch (IOException e) {
-				System.err.printf("Error writing to \"asm\\%s.class\": %s", transformedName, e.getMessage());
+			if(dumpASM) {
+				try {
+					FileUtils.writeByteArrayToFile(new File("asm/" + transformedName + ".class"), basicClass);
+					logger.info("Dumped \"asm/{}.class\"", transformedName);
+				} catch (IOException e) {
+					logger.error("Error writing to \"asm/{}.class\": {}", transformedName, e.getMessage());
+				}
 			}
 		}
 		return basicClass;
@@ -77,11 +83,6 @@ public class TinkersMEClassTransformer implements IClassTransformer {
 			}
 		};
 
-		Consumer<ClassNode> publicizeSmelteryLogicFunctions = (node) -> {
-			int c = ASMUtils.publicizeMethods(node, ASMUtils.matchNames("validBlockID", "validTankID", "updateTemperatures"));
-			if(c != 3) System.err.printf("%s: publicized %d methods, expected %d; Smeltery might be broken!", node.name, c, 3);
-		};
-
 		// Passing the wrong texture file to the buttons...
 		// See tconstruct.tools.gui.ToolStationGui.java:107
 		// See tconstruct.tools.gui.ToolForgeGui.java:36
@@ -91,8 +92,7 @@ public class TinkersMEClassTransformer implements IClassTransformer {
 			String initGuiFunc = isObfuscated ? "func_73866_w_" : "initGui";
 			MethodNode method = ASMUtils.resolveMethod(node, initGuiFunc, "()V");
 			if(method == null) {
-				System.err.println(node.name + ": Error finding method initGui; UI might be broken!");
-				// System.err.println(node.name + ": Found" + node.methods.stream().map(m -> m.name + m.desc).reduce("", (a, b) -> a + ", " + b));
+				logger.error(node.name + ": Error finding method initGui; UI might be broken!");
 				return;
 			}
 			int varOperand = "tconstruct/tools/gui/ToolStationGui".equals(node.name) ? 4 : 5;
@@ -129,13 +129,13 @@ public class TinkersMEClassTransformer implements IClassTransformer {
 		};
 
 		// Overwrites slot drawing in tconstruct.tools.gui.ToolStationGui.drawGuiContainerBackgroundLayer
-		// TODO: Use new overwrite functionality for that
+		// TODO: Use new overlay functionality for that
 		Consumer<ClassNode> overwriteSlotDrawing = (node) -> {
 			String drawGuiContainerBackgroundLayerFunc = isObfuscated ? "func_146976_a" : "drawGuiContainerBackgroundLayer";
 			String guiTopField = isObfuscated ? "field_147009_r" : "guiTop";
 			MethodNode method = ASMUtils.resolveMethod(node, drawGuiContainerBackgroundLayerFunc, "(FII)V");
 			if(method == null) {
-				System.err.println(node.name + ": Error finding method drawGuiContainerBackgroundLayer; UI might be broken!");
+				logger.error(node.name + ": Error finding method drawGuiContainerBackgroundLayer; UI might be broken!");
 				return;
 			}
 
@@ -162,7 +162,7 @@ public class TinkersMEClassTransformer implements IClassTransformer {
 				}
 			}
 
-			if(c != 3) System.out.printf("%s: Found glColor4f call %d times, expected 3; UI might be broken!\n", node.name, c);
+			if(c != 3) logger.error("{}: Found glColor4f call {} times, expected 3; UI might be broken!", node.name, c);
 			if(start < 0 || stop < 0) return;
 
 			// Remove all code between the two glColor4f calls. The first will be removed, the second won't.
@@ -194,7 +194,7 @@ public class TinkersMEClassTransformer implements IClassTransformer {
 			String actionPerformedFunc = isObfuscated ? "func_146284_a" : "actionPerformed";
 			MethodNode method = ASMUtils.resolveMethod(node, actionPerformedFunc, "(Lnet/minecraft/client/gui/GuiButton;)V");
 			if(method == null) {
-				System.err.println(node.name + ": Error finding method actionPerformed; UI might be broken!");
+				logger.error(node.name + ": Error finding method actionPerformed; UI might be broken!");
 				return;
 			}
 
@@ -210,7 +210,7 @@ public class TinkersMEClassTransformer implements IClassTransformer {
 		Consumer<ClassNode> resetCustomTextureData = (node) -> {
 			MethodNode method = ASMUtils.resolveMethod(node, "resetGui", "()V");
 			if(method == null) {
-				System.err.println(node.name + ": Error finding method resetGui; UI might be broken!");
+				logger.error(node.name + ": Error finding method resetGui; UI might be broken!");
 				return;
 			}
 
@@ -227,12 +227,12 @@ public class TinkersMEClassTransformer implements IClassTransformer {
 		};
 
 		// Copies some methods from {@link com.thecrafter4000.lotrtc.asm.overwrites.SmelteryLogic} into {@link tconstruct.smeltery.logic.SmelteryLogic}
-		Consumer<ClassNode> applySmelteryLogicOverwrite = node -> {
+		Consumer<ClassNode> applySmelteryLogicOverlay = node -> {
 			boolean success = ASMUtils.applyOverlay(
 				"com.thecrafter4000.lotrtc.asm.overlays.SmelteryLogic", node,
 				ASMUtils.matchNames("heatItems", "fill", "mixMetals", "getAlloys"), true
 			);
-			if (!success) System.err.printf("%s: Failed to apply SmelteryLogic overlay; Smeltery will be broken!", node.name);
+			if (!success) logger.error("{}: Failed to apply SmelteryLogic overlay; Smeltery will be broken!", node.name);
 		};
 
 		classes.put("tconstruct.tools.gui.GuiButtonTool", fixButtons);
@@ -247,8 +247,6 @@ public class TinkersMEClassTransformer implements IClassTransformer {
 				fixTextureDomain
 				.andThen(resetCustomTextureData)
 				.andThen(setCustomTextureData));
-		classes.put("tconstruct.smeltery.logic.SmelteryLogic",
-				publicizeSmelteryLogicFunctions
-				.andThen(applySmelteryLogicOverwrite));
+		classes.put("tconstruct.smeltery.logic.SmelteryLogic",applySmelteryLogicOverlay);
 	}
 }

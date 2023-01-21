@@ -1,20 +1,11 @@
 package com.thecrafter4000.lotrtc.asm;
 
-import static org.objectweb.asm.Opcodes.ACC_PUBLIC;
-import static org.objectweb.asm.Opcodes.ALOAD;
-import static org.objectweb.asm.Opcodes.ILOAD;
-import static org.objectweb.asm.Opcodes.INVOKESPECIAL;
-import static org.objectweb.asm.Opcodes.RETURN;
-import static org.objectweb.asm.Opcodes.V1_8;
-
 import com.google.common.collect.ImmutableList;
+import net.minecraft.launchwrapper.Launch;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 import org.objectweb.asm.tree.*;
-
-import net.minecraft.launchwrapper.Launch;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -25,6 +16,9 @@ import java.util.ListIterator;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.UnaryOperator;
+
+import static org.objectweb.asm.Opcodes.*;
 
 /**
  * Utilities for ASM operations.
@@ -78,7 +72,7 @@ public class ASMUtils {
 	}
 
 	/**
-	 * Retrieves the default constructor of the superclass and generates an default constructor for
+	 * Retrieves the default constructor of the superclass and generates a default constructor for
 	 * subclasses.
 	 *
 	 * @param superclass The superclass
@@ -126,8 +120,8 @@ public class ASMUtils {
 	}
 
 	/**
-	 * Adjusts the given opcode to the types type, e.g. returns {@code ALOAD} if the class
-	 * represents an object and the given opcode is {@code ILOAD}. Wrapper method for {@link
+	 * Adjusts the given opcode to the types type, e.g. returns {@code Opcodes#ALOAD} if the class
+	 * represents an object and the given opcode is {@code Opcodes#ILOAD}. Wrapper method for {@link
 	 * Type#getOpcode(int)}.
 	 */
 	public static int adjustOpcode(Class<?> clazz, int opcode) {
@@ -180,49 +174,6 @@ public class ASMUtils {
 		builder.append(')');
 		builder.append(getDescription(returnType));
 		return builder.toString();
-	}
-
-	/**
-	 * Logs the given message. You must not use this method for error handling, it's for info-level
-	 * logging only.
-	 *
-	 * Wrapper for future reference, because I hate using {@code System.out.println()} for logging.
-	 */
-	public static void log(String message) {
-		System.out.println(message);
-	}
-
-	/**
-	 * Publicizes all matching methods the given {@code ClassNode} provides.
-	 *
-	 * @return the number of changed methods.
-	 */
-	public static int publicizeMethods(ClassNode clazz, Predicate<MethodNode> predicate) {
-		int i = 0;
-		for (MethodNode method : clazz.methods) {
-			if (predicate.test(method)) {
-				method.access = publicize(method.access);
-				i++;
-			}
-		}
-		return i;
-	}
-
-	/**
-	 * Makes all constructors the given {@code ClassNode} has public.
-	 *
-	 * @return the number of modified constructors.
-	 */
-	public static int publicizeAllConstructors(ClassNode clazz) {
-		return publicizeMethods(clazz, methodNode -> "<init>".equals(methodNode.name));
-	}
-
-	/**
-	 * Adjusts the given access opcode to have {@link Opcodes#ACC_PUBLIC} set as access flag.
-	 */
-	public static int publicize(int access) {
-		return ((access | Opcodes.ACC_PROTECTED | Opcodes.ACC_PRIVATE) ^ Opcodes.ACC_PROTECTED
-		        ^ Opcodes.ACC_PRIVATE) | Opcodes.ACC_PUBLIC;
 	}
 
 	/**
@@ -298,6 +249,21 @@ public class ASMUtils {
 								if(mn.owner.equals(internalName)) mn.owner = destination.name;
 								break;
 							}
+							case AbstractInsnNode.FRAME: {
+								FrameNode fn = (FrameNode) node;
+								UnaryOperator<Object> op = (obj) -> {
+									if (internalName.equals(obj)) return destination.name;
+									return obj;
+								};
+								if(fn.local != null) fn.local.replaceAll(op);
+								if(fn.stack != null) fn.stack.replaceAll(op);
+								break;
+							}
+						}
+					}
+					if(n.localVariables != null) {
+						for(LocalVariableNode node : n.localVariables) {
+							if(node.name.equals("this")) node.desc = "L" + destination.name + ";";
 						}
 					}
 					destination.methods.add(n);
@@ -305,7 +271,7 @@ public class ASMUtils {
 			}
 			return true;
 		} catch(IOException e) {
-			log("Failed to copy methods: " + e.getMessage());
+			System.err.println("Failed to copy methods: " + e.getMessage());
 		}
 		return false;
 	}
@@ -350,7 +316,6 @@ public class ASMUtils {
 		}
 
 		public Class<?> defineClass(String name, byte[] content) {
-			log("Creating " + name);
 			return defineClass(name, content, 0, content.length);
 		}
 	}
