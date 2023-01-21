@@ -1,0 +1,9 @@
+.idea
+.gradle
+build
+run
+out
+Releases
+gradle/wrapper/gradle-wrapper.jar
+libs/*
+!libs/Dummy.jar
