@@ -11,22 +11,17 @@ import tconstruct.library.crafting.AlloyMix;
 import tconstruct.library.crafting.FluidType;
 import tconstruct.library.crafting.Smeltery;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-	/** 
-	Copied from Tic. Sorry dudes :|
-	*/
-	//TODO: [SmelteryV2] Rewrite to accept multiple fluid outputs from on item
+/** Adapted from {@link Smeltery} */
 	public class SmelteryRecipeHandler {
 
 		private static final Map<SmelteryMainFaction, SmelteryRecipeHandler> instanceMap = new HashMap<>();
-	    
+
+		//TODO: [SmelteryV2] Rewrite to accept multiple fluid outputs from on item
 	    private final Map<ItemMetaWrapper, FluidStack> smeltingList = new HashMap<>();
 	    private final Map<ItemMetaWrapper, Integer> temperatureList = new HashMap<>();
-	    private final Map<ItemMetaWrapper, ItemStack> renderIndex = new HashMap<>();
+	    private final Map<ItemMetaWrapper, ItemStack> renderBlocks = new HashMap<>();
 	    private final List<AlloyMix> alloys = new ArrayList<>();
 	    private final Map<Fluid, Integer[]> smelteryFuels = new HashMap<>(); // fluid -> [power, duration]
 	    
@@ -35,8 +30,8 @@ import java.util.Map;
 				instanceMap.put(t, new SmelteryRecipeHandler());
 		}
 
-		private static SmelteryRecipeHandler getInstance(SmelteryMainFaction fraction) {
-	    	return instanceMap.get(fraction);
+		private static SmelteryRecipeHandler getInstance(SmelteryMainFaction faction) {
+	    	return instanceMap.get(faction);
 	    }
 	    
 	    /**
@@ -45,17 +40,17 @@ import java.util.Map;
 	     * @param power The temperature of the fluid. This also influences the melting speed. Lava is 1000.
 	     * @param duration How long one "portion" of liquid fuels the smeltery. Lava is 10.
 	     */
-		public static void addSmelteryFuel(SmelteryMainFaction fraction, Fluid fluid, int power, int duration)
+		public static void addSmelteryFuel(SmelteryMainFaction faction, Fluid fluid, int power, int duration)
 	    {
-	    	getInstance(fraction).smelteryFuels.put(fluid, new Integer[] { power, duration });
+	    	getInstance(faction).smelteryFuels.put(fluid, new Integer[] { power, duration });
 	    }
 
 	    /**
 	     * Returns true if the liquid is a valid smeltery fuel.
 	     */
-		public static boolean isSmelteryFuel(SmelteryMainFaction fraction, Fluid fluid)
+		public static boolean isSmelteryFuel(SmelteryMainFaction faction, Fluid fluid)
 	    {
-	        boolean tmp = getInstance(fraction).smelteryFuels.containsKey(fluid);
+	        boolean tmp = getInstance(faction).smelteryFuels.containsKey(fluid);
 	        if(!tmp) return Smeltery.isSmelteryFuel(fluid);
 	        return tmp;
 	    }
@@ -63,18 +58,18 @@ import java.util.Map;
 	    /**
 	     * Returns the power of a smeltery fuel or 0 if it's not a fuel.
 	     */
-		public static int getFuelPower(SmelteryMainFaction fraction, Fluid fluid)
+		public static int getFuelPower(SmelteryMainFaction faction, Fluid fluid)
 	    {
-	        Integer[] power = getInstance(fraction).smelteryFuels.get(fluid);
+	        Integer[] power = getInstance(faction).smelteryFuels.get(fluid);
 	        return power == null ? Smeltery.getFuelPower(fluid) : power[0];
 	    }
 
 	    /**
 	     * Returns the duration of a smeltery fuel or 0 if it's not a fuel.
 	     */
-		public static int getFuelDuration(SmelteryMainFaction fraction, Fluid fluid)
+		public static int getFuelDuration(SmelteryMainFaction faction, Fluid fluid)
 	    {
-	        Integer[] power = getInstance(fraction).smelteryFuels.get(fluid);
+	        Integer[] power = getInstance(faction).smelteryFuels.get(fluid);
 	        return power == null ? Smeltery.getFuelDuration(fluid) : power[1];
 	    }
 
@@ -87,10 +82,10 @@ import java.util.Map;
 	     * @param temperature How hot the block should be before liquifying. Max temp in the Smeltery is 800, other structures may vary
 	     * @param output The result of the process in liquid form
 	     */
-		public static void addMelting(SmelteryMainFaction fraction, ItemStack stack, int temperature, FluidStack output)
+		public static void addMelting(SmelteryMainFaction faction, ItemStack stack, int temperature, FluidStack output)
 	    {
 	        if (stack.getItem() instanceof ItemBlock)
-	            addMelting(fraction, stack, ((ItemBlock) stack.getItem()).field_150939_a, stack.getItemDamage(), temperature, output);
+	            addMelting(faction, stack, ((ItemBlock) stack.getItem()).field_150939_a, stack.getItemDamage(), temperature, output);
 	        else
 	            throw new IllegalArgumentException("ItemStack must house a block.");
 	    }
@@ -105,14 +100,14 @@ import java.util.Map;
 	     * @param temperature How hot the block should be before liquifying. Max temp in the Smeltery is 800, other structures may vary
 	     * @param output The result of the process in liquid form
 	     */
-		public static void addMelting(SmelteryMainFaction fraction, Block block, int metadata, int temperature, FluidStack output)
+		public static void addMelting(SmelteryMainFaction faction, Block block, int metadata, int temperature, FluidStack output)
 	    {
-	        addMelting(fraction, new ItemStack(block, 1, metadata), block, metadata, temperature, output);
+	        addMelting(faction, new ItemStack(block, 1, metadata), block, metadata, temperature, output);
 	    }
 
-		public static void addMelting(SmelteryMainFaction fraction, Block block, int metadata, int temperaturOverlay, Fluid fluid, int fluidamount)
+		public static void addMelting(SmelteryMainFaction faction, Block block, int metadata, int temperaturOverlay, Fluid fluid, int fluidamount)
 	    {
-	        addMelting(fraction, new ItemStack(block, 1, metadata), block, metadata, FluidType.getTemperatureByFluid(fluid) + temperaturOverlay, new FluidStack(fluid, fluidamount));
+	        addMelting(faction, new ItemStack(block, 1, metadata), block, metadata, FluidType.getTemperatureByFluid(fluid) + temperaturOverlay, new FluidStack(fluid, fluidamount));
 	    }
 
 	    /**
@@ -127,13 +122,13 @@ import java.util.Map;
 	     * @param temperature How hot the block should be before liquifying
 	     * @param liquid The result of the process
 	     */
-		public static void addMelting(SmelteryMainFaction fraction, ItemStack input, Block block, int metadata, int temperature, FluidStack liquid)
+		public static void addMelting(SmelteryMainFaction faction, ItemStack input, Block block, int metadata, int temperature, FluidStack liquid)
 	    {
-	    	SmelteryRecipeHandler inst = getInstance(fraction);
+	    	SmelteryRecipeHandler inst = getInstance(faction);
 	        ItemMetaWrapper in = new ItemMetaWrapper(input);
 	        inst.smeltingList.put(in, liquid);
 	        inst.temperatureList.put(in, temperature);
-	        inst.renderIndex.put(in, new ItemStack(block, input.stackSize, metadata));
+	        inst.renderBlocks.put(in, new ItemStack(block, input.stackSize, metadata));
 	    }
 
 	    /**
@@ -145,13 +140,12 @@ import java.util.Map;
 	     * @param result The output of the combination of mixers. The quantity is used for amount of a successful mix
 	     * @param mixers the liquids to be mixed. Quantities are used as ratios
 	     */
-		public static void addAlloyMixing(SmelteryMainFaction fraction, FluidStack result, FluidStack... mixers)
+		public static void addAlloyMixing(SmelteryMainFaction faction, FluidStack result, FluidStack... mixers)
 	    {
-	        ArrayList inputs = new ArrayList();
-	        for (FluidStack liquid : mixers)
-	            inputs.add(liquid);
+	        ArrayList<FluidStack> inputs = new ArrayList<>();
+			Collections.addAll(inputs, mixers);
 
-	        getInstance(fraction).alloys.add(new AlloyMix(result, inputs));
+	        getInstance(faction).alloys.add(new AlloyMix(result, inputs));
 	    }
 
 	    /**
@@ -160,13 +154,12 @@ import java.util.Map;
 	     * @param item The Source ItemStack
 	     * @return The result temperature
 	     */
-		public static Integer getLiquifyTemperature(SmelteryMainFaction fraction, ItemStack item)
+		public static Integer getLiquifyTemperature(SmelteryMainFaction faction, ItemStack item)
 	    {
-//	    	LotRTCIntegrator.logger.info("Item: " + item);
 	        if (item == null)
 	            return 20;
 
-	        Integer temp = getInstance(fraction).temperatureList.get(new ItemMetaWrapper(item));
+	        Integer temp = getInstance(faction).temperatureList.get(new ItemMetaWrapper(item));
 	        if (temp == null) temp = Smeltery.getLiquifyTemperature(item);
 	        return temp;
 	    }
@@ -177,9 +170,9 @@ import java.util.Map;
 	     * @param block The Source Block
 	     * @return The result ItemStack
 	     */
-		public static Integer getLiquifyTemperature(SmelteryMainFaction fraction, Block block, int metadata)
+		public static Integer getLiquifyTemperature(SmelteryMainFaction faction, Block block, int metadata)
 	    {
-	        return SmelteryRecipeHandler.getLiquifyTemperature(fraction, new ItemStack(block, 1, metadata));
+	        return SmelteryRecipeHandler.getLiquifyTemperature(faction, new ItemStack(block, 1, metadata));
 	    }
 
 	    /**
@@ -188,16 +181,14 @@ import java.util.Map;
 	     * @param item The Source ItemStack
 	     * @return The result ItemStack
 	     */
-		public static FluidStack getSmelteryResult(SmelteryMainFaction fraction, ItemStack item)
+		public static FluidStack getSmelteryResult(SmelteryMainFaction faction, ItemStack item)
 	    {
-//	        System.out.println("[" + FMLCommonHandler.instance().getEffectiveSide() + "] Function called");
 	        if (item == null)
 	            return null;
 
-	        FluidStack stack = getInstance(fraction).smeltingList.get(new ItemMetaWrapper(item));
+	        FluidStack stack = getInstance(faction).smeltingList.get(new ItemMetaWrapper(item));
 	        if (stack == null)
 	        	stack = Smeltery.getSmelteryResult(item);
-//	        System.out.println("[" + FMLCommonHandler.instance().getEffectiveSide() + "] Fluid" + stack.getLocalizedName());
 	        return stack.copy();
 	    }
 
@@ -207,23 +198,22 @@ import java.util.Map;
 	     * @param block The Source Block
 	     * @return The result ItemStack
 	     */
-		public static FluidStack getSmelteryResult(SmelteryMainFaction fraction, Block block, int metadata)
+		public static FluidStack getSmelteryResult(SmelteryMainFaction faction, Block block, int metadata)
 	    {
-	        return SmelteryRecipeHandler.getSmelteryResult(fraction, new ItemStack(block, 1, metadata));
+	        return SmelteryRecipeHandler.getSmelteryResult(faction, new ItemStack(block, 1, metadata));
 	    }
 
-		public static ItemStack getRenderIndex(SmelteryMainFaction fraction, ItemStack input)
+		public static ItemStack getRenderIndex(SmelteryMainFaction faction, ItemStack input)
 	    {
-	        ItemStack tmp = getInstance(fraction).renderIndex.get(new ItemMetaWrapper(input));
+	        ItemStack tmp = getInstance(faction).renderBlocks.get(new ItemMetaWrapper(input));
 	        if(tmp == null) tmp = Smeltery.getRenderIndex(input);
-//	        LotRTCIntegrator.logger.info("Getting Mapping for " + (input == null ? "null" : input.getDisplayName()) + ": " + (tmp == null ? "null" : tmp.getDisplayName()));
 	        return tmp;
 	    }
 
-		public static ArrayList mixMetals(SmelteryMainFaction fraction, ArrayList<FluidStack> moltenMetal)
+		public static ArrayList<FluidStack> mixMetals(SmelteryMainFaction faction, ArrayList<FluidStack> moltenMetal)
 	    {
-	        ArrayList liquids = new ArrayList();
-	        for (AlloyMix alloy : getInstance(fraction).alloys)
+			ArrayList<FluidStack>  liquids = new ArrayList<>();
+	        for (AlloyMix alloy : getInstance(faction).alloys)
 	        {
 	            FluidStack liquid = alloy.mix(moltenMetal);
 	            if (liquid != null)
@@ -231,34 +221,6 @@ import java.util.Map;
 	        }
 	        if(liquids.isEmpty()) return Smeltery.mixMetals(moltenMetal);
 	        return liquids;
-	    }
-
-		public static Map<ItemMetaWrapper, FluidStack> getSmeltingList(SmelteryMainFaction fraction)
-	    {
-	    	Map<ItemMetaWrapper, FluidStack> tmp = new HashMap<ItemMetaWrapper, FluidStack>(getInstance(fraction).smeltingList);
-	    	tmp.putAll(Smeltery.getSmeltingList());
-	        return tmp;
-	    }
-
-		public static Map<ItemMetaWrapper, Integer> getTemperatureList(SmelteryMainFaction fraction)
-	    {
-	    	Map<ItemMetaWrapper, Integer> tmp = new HashMap<ItemMetaWrapper, Integer>(getInstance(fraction).temperatureList);
-	    	tmp.putAll(Smeltery.getTemperatureList());
-	        return tmp;
-	    }
-
-		public static Map<ItemMetaWrapper, ItemStack> getRenderIndex(SmelteryMainFaction fraction)
-	    {
-	    	Map<ItemMetaWrapper, ItemStack> tmp = new HashMap<ItemMetaWrapper, ItemStack>(getInstance(fraction).renderIndex);
-	    	tmp.putAll(Smeltery.getRenderIndex());
-	        return tmp;
-	    }
-
-		public static List<AlloyMix> getAlloyList(SmelteryMainFaction fraction)
-	    {
-	    	List<AlloyMix> tmp = new ArrayList<AlloyMix>(getInstance(fraction).alloys);
-	    	tmp.addAll(Smeltery.getAlloyList());
-	        return tmp;
 	    }
 
 	    /**
@@ -271,16 +233,16 @@ import java.util.Map;
 	     * @param temperatureDifference  Difference between FluidType BaseTemperature
 	     * @param fluidAmount Amount of Fluid
 	     */
-		public static void addMelting(SmelteryMainFaction fraction, FluidType type, ItemStack input, int temperatureDifference, int fluidAmount)
+		public static void addMelting(SmelteryMainFaction faction, FluidType type, ItemStack input, int temperatureDifference, int fluidAmount)
 	    {
 	        int temp = type.baseTemperature + temperatureDifference;
 	        if (temp <= 20)
 	            temp = type.baseTemperature;
 
 	        if (input.getItem() instanceof ItemBlock)
-	            addMelting(fraction, input, ((ItemBlock) input.getItem()).field_150939_a, input.getItemDamage(), type.baseTemperature + temperatureDifference, new FluidStack(type.fluid, fluidAmount));
+	            addMelting(faction, input, ((ItemBlock) input.getItem()).field_150939_a, input.getItemDamage(), type.baseTemperature + temperatureDifference, new FluidStack(type.fluid, fluidAmount));
 	        else
-	            addMelting(fraction, input, type.renderBlock, type.renderMeta, type.baseTemperature + temperatureDifference, new FluidStack(type.fluid, fluidAmount));
+	            addMelting(faction, input, type.renderBlock, type.renderMeta, type.baseTemperature + temperatureDifference, new FluidStack(type.fluid, fluidAmount));
 	    }
 
 	    /**
@@ -293,9 +255,9 @@ import java.util.Map;
 	     * @param temperatureDifference Difference between FluidType BaseTemperature
 	     * @param fluidAmount Amount of Fluid
 	     */
-		public static void addDictionaryMelting(SmelteryMainFaction fraction, String oreName, FluidType type, int temperatureDifference, int fluidAmount)
+		public static void addDictionaryMelting(SmelteryMainFaction faction, String oreName, FluidType type, int temperatureDifference, int fluidAmount)
 	    {
 	        for (ItemStack is : OreDictionary.getOres(oreName))
-	            addMelting(fraction, type, is, temperatureDifference, fluidAmount);
+	            addMelting(faction, type, is, temperatureDifference, fluidAmount);
 	    }
 	}

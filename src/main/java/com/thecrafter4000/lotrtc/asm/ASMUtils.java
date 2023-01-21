@@ -8,20 +8,20 @@ import static org.objectweb.asm.Opcodes.RETURN;
 import static org.objectweb.asm.Opcodes.V1_8;
 
 import com.google.common.collect.ImmutableList;
+import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
-import org.objectweb.asm.tree.ClassNode;
-import org.objectweb.asm.tree.FieldNode;
-import org.objectweb.asm.tree.InsnNode;
-import org.objectweb.asm.tree.MethodInsnNode;
-import org.objectweb.asm.tree.MethodNode;
-import org.objectweb.asm.tree.VarInsnNode;
+import org.objectweb.asm.tree.*;
 
 import net.minecraft.launchwrapper.Launch;
 
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
+import java.util.Arrays;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -238,8 +238,6 @@ public class ASMUtils {
 			String mName = method.name;
 			String mDesc = method.desc;
 
-			//TODO: Add obfuscation tweaks
-
 			if (mName.equals(name) && mDesc.equals(desc)) {
 				return method;
 			}
@@ -260,13 +258,63 @@ public class ASMUtils {
 			String mName = node.name;
 			String mDesc = node.desc;
 
-			//TODO: Add obfuscation tweaks
-
 			if (mName.equals(name) && mDesc.equals(desc)) {
 				return node;
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * Copy a subset of methods from one class to another
+	 * @param name Name of the source class
+	 * @param overwrite If true, all methods that are added will be removed in the destination
+	 * @return True if success
+	 */
+	public static boolean applyOverlay(String name, ClassNode destination, Predicate<MethodNode> methods, boolean overwrite) {
+		try {
+			String internalName = ASMUtils.getInternalName(name);
+
+			// Resolves the supplied class into a ClassNode
+			ClassReader r = new ClassReader(internalName);
+			ClassNode source = new ClassNode();
+			r.accept(source, 0);
+
+			if(overwrite) destination.methods.removeIf(methods);
+
+			for (MethodNode n : source.methods) {
+				if (methods.test(n)) {
+					// Redirect certain method/field calls to not point at the overwrite class
+					for (ListIterator<AbstractInsnNode> it = n.instructions.iterator(); it.hasNext(); ) {
+						AbstractInsnNode node = it.next();
+						switch(node.getType()) {
+							case AbstractInsnNode.FIELD_INSN: {
+								FieldInsnNode fn = (FieldInsnNode) node;
+								if(fn.owner.equals(internalName)) fn.owner = destination.name;
+								break;
+							}
+							case AbstractInsnNode.METHOD_INSN: {
+								MethodInsnNode mn = (MethodInsnNode) node;
+								if(mn.owner.equals(internalName)) mn.owner = destination.name;
+								break;
+							}
+						}
+					}
+					destination.methods.add(n);
+				}
+			}
+			return true;
+		} catch(IOException e) {
+			log("Failed to copy methods: " + e.getMessage());
+		}
+		return false;
+	}
+
+	public static Predicate<MethodNode> matchNames(String... names) {
+		List<String> list = Arrays.asList(names);
+		return node -> {
+			return list.contains(node.name);
+		};
 	}
 
 	@SuppressWarnings("unchecked")
