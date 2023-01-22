@@ -8,6 +8,7 @@ import org.objectweb.asm.Type;
 import org.objectweb.asm.tree.*;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
@@ -223,19 +224,27 @@ public class ASMUtils {
 	 * @return True if success
 	 */
 	public static boolean applyOverlay(String name, ClassNode destination, Predicate<MethodNode> methods, boolean overwrite) {
+		String internalName = ASMUtils.getInternalName(name);
+		InputStream rawClassData = null;
 		try {
-			String internalName = ASMUtils.getInternalName(name);
+			// Note: The system class loader returns null sometimes for some reason
+			rawClassData = Launch.classLoader.getResourceAsStream(internalName + ".class");
+			if(rawClassData == null) {
+				System.err.println("Failed to load class \"" + internalName + "\"!");
+				return false;
+			}
 
 			// Resolves the supplied class into a ClassNode
-			ClassReader r = new ClassReader(internalName);
+			ClassReader r = new ClassReader(rawClassData);
 			ClassNode source = new ClassNode();
 			r.accept(source, 0);
 
+			// Applies the predicate to all methods already present and deletes them if they match
 			if(overwrite) destination.methods.removeIf(methods);
 
 			for (MethodNode n : source.methods) {
 				if (methods.test(n)) {
-					// Redirect certain method/field calls to not point at the overwrite class
+					// Redirect certain method/field calls to not point at the overlay class
 					for (ListIterator<AbstractInsnNode> it = n.instructions.iterator(); it.hasNext(); ) {
 						AbstractInsnNode node = it.next();
 						switch(node.getType()) {
@@ -271,7 +280,17 @@ public class ASMUtils {
 			}
 			return true;
 		} catch(IOException e) {
-			System.err.println("Failed to copy methods: " + e.getMessage());
+			System.err.println("Failed to copy methods for \"" + internalName + "\": " + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			if(rawClassData != null) {
+				try {
+					rawClassData.close();
+				} catch (IOException e) {
+					System.err.println("Failed to close file \"" + internalName + "\": " + e.getMessage());
+					e.printStackTrace();
+				}
+			}
 		}
 		return false;
 	}

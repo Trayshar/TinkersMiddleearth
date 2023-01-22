@@ -2,6 +2,9 @@
 - Option to disable LotR bronze crafting and alloy furnaces
 - Update books
 - Fix lotR recipes not working with tinker's items (missing OreDict?)
+- Look into how Mantle and TC handle plugins. There seems to be a system in place already for submodding, in some capacity
+- Look into compatability with [Iguanas Tinker Tweaks](https://www.curseforge.com/minecraft/mc-mods/iguanas-tinker-tweaks)
+- Re-balance mod
 
 ## Smeltery Update
 - Make smelteries more faction-specific

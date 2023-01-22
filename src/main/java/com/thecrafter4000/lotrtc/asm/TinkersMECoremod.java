@@ -8,7 +8,9 @@ import java.util.Map;
 
 @IFMLLoadingPlugin.MCVersion("1.7.10")
 @IFMLLoadingPlugin.SortingIndex(1001)
-@IFMLLoadingPlugin.TransformerExclusions({"com.thecrafter4000.lotrtc."})
+// WARNING: Never exclude normal mod files, because apparently they will not be processed by ANY transformer,
+// even FML's own. Stuff like @SideOnly won't work (and lead to weird crashes on the server)!
+@IFMLLoadingPlugin.TransformerExclusions({"com.thecrafter4000.lotrtc.asm."})
 public class TinkersMECoremod implements IFMLLoadingPlugin {
 	static final Logger logger = LogManager.getLogger("Tinker's Middleearth Coremod");
 	@Override
