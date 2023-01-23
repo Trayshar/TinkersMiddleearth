@@ -88,7 +88,6 @@ public class SmelteryRecipes {
 		Smeltery.addMelting(FluidType.getFluidType("Silver"), new ItemStack(LOTRMod.chandelier, 1, 2), -100, TConstruct.chunkLiquidValue);
 		Smeltery.addMelting(FluidType.getFluidType("Gold"), new ItemStack(LOTRMod.chandelier, 1, 3), -100, TConstruct.chunkLiquidValue);
 		Smeltery.addMelting(FluidType.getFluidType("MithrilLotR"), new ItemStack(LOTRMod.chandelier, 1, 4), -100, TConstruct.chunkLiquidValue);
-		Smeltery.addMelting(FluidType.getFluidType("ElvenSteel"), new ItemStack(LOTRMod.chandelier, 1, 6), -100, TConstruct.chunkLiquidValue);
 		Smeltery.addMelting(FluidType.getFluidType("OrcSteel"), new ItemStack(LOTRMod.chandelier, 1, 7), -100, TConstruct.chunkLiquidValue);
 		Smeltery.addMelting(FluidType.getFluidType("DwarvenSteel"), new ItemStack(LOTRMod.chandelier, 1, 8), -100, TConstruct.chunkLiquidValue);
 		Smeltery.addMelting(FluidType.getFluidType("UrukSteel"), new ItemStack(LOTRMod.chandelier, 1, 9), -100, TConstruct.chunkLiquidValue);

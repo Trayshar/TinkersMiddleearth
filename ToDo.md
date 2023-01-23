@@ -4,7 +4,10 @@
 - Fix lotR recipes not working with tinker's items (missing OreDict?)
 - Look into how Mantle and TC handle plugins. There seems to be a system in place already for submodding, in some capacity
 - Look into compatability with [Iguanas Tinker Tweaks](https://www.curseforge.com/minecraft/mc-mods/iguanas-tinker-tweaks)
+- Add NEI compatability
 - Re-balance mod
+- Add new smelting recipes for bird cages, obsidian bricks and walls, orc platings, mugs and plates, mithril mail
+- Add recipes for armor, weapons and tool smelting, depending on durability
 
 ## Smeltery Update
 - Make smelteries more faction-specific

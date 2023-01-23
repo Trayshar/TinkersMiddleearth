@@ -12,7 +12,7 @@ This mod depends on [Tinker's Construct](https://www.curseforge.com/minecraft/mc
 1. Clone this repository, open it in Intellij IDEA as gradle project
 2. Run `setupDecompWorkspace` gradle task
 3. Download LotR mod and deobfuscate it using [Bon-2](https://ci.tterrag.com/job/BON2/15/). Place the deobfuscated file into the `libs` folder. **Never** upload this file!
-4. Generate the source code of the deobfuscated LotR mod using [CFR](https://github.com/leibnitz27/cfr/releases/tag/0.152). **Don't** place it in the `libs` folder. **Never** upload this file!
+4. Generate the source code of the deobfuscated LotR mod using [CFR](https://github.com/leibnitz27/cfr/releases/tag/0.152). Put them in a jar file. **Don't** place it in the `libs` folder. **Never** upload this file!
 5. Add `Dummy.jar` and the deobfuscated LotR mod as local dependencies to the project. Link the source for the LotR mod.
 6. Execute `runClient` gradle task. If it launches, you've done well
 
