@@ -3,6 +3,7 @@ package com.thecrafter4000.lotrtc;
 import com.thecrafter4000.lotrtc.items.MaterialRegistry;
 import com.thecrafter4000.lotrtc.items.TinkersMEBlocks;
 import com.thecrafter4000.lotrtc.items.TinkersMEItems;
+import com.thecrafter4000.lotrtc.manual.ManualRegistry;
 import com.thecrafter4000.lotrtc.smeltery.FactionSmelteryLogic;
 import com.thecrafter4000.lotrtc.smeltery.SmelteryRecipes;
 import com.thecrafter4000.lotrtc.tools.HitDelayPatcher;
@@ -29,6 +30,7 @@ public class CommonProxy {
 	};
 
 	public void preInit(FMLPreInitializationEvent e) {
+		ManualRegistry.preInit(); // Important: Before TinkersMEItems.preInit
     	HitDelayPatcher.patch();
 //    	TinkersMEConfig.config = new Configuration(e.getSuggestedConfigurationFile());
 //    	TinkersMEConfig.load();

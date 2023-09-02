@@ -47,10 +47,7 @@ public class TinkersMEEvents {
 
 		if (!data.hasBook) {
 			data.hasBook = true;
-			ItemStack book = new ItemStack(TinkersMEItems.manual);
-			if (!event.player.inventory.addItemStackToInventory(book)) {
-				AbilityHelper.spawnItemAtPlayer(event.player, book);
-			}
+			AbilityHelper.spawnItemAtPlayer(event.player, new ItemStack(TinkersMEItems.manual));
 		}
 	}
 

@@ -1,5 +1,7 @@
 package com.thecrafter4000.lotrtc.manual;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import mantle.books.BookData;
 import mantle.books.BookDataStore;
 import net.minecraft.client.Minecraft;
@@ -15,29 +17,31 @@ import java.util.List;
 
 public class ManualRegistry {
 	
-	public static List<BookRegEntry> list = new ArrayList<BookRegEntry>();
+	public static List<BookRegEntry> list = new ArrayList<>();
 	
-	public static void preInitClient(){
-		list.add( new BookRegEntry("intro"));
-		list.add( new BookRegEntry("material"));
-//		list.add( new BookRegEntry("blocks"));
+	public static void preInit() {
+		list.add(new BookRegEntry("intro"));
+		list.add(new BookRegEntry("material"));
+//		list.add(new BookRegEntry("blocks"));
 	}
 	
-	public static void initClient(){
+	public static void initClient() {
 		for(BookRegEntry b : list) b.load();
 	}
 	
-	public static class BookRegEntry{
-		public String name;
-		public String toolTip;
+	public static class BookRegEntry {
+		public final String name;
+		public String toolTip = "";
 		public BookData data = new BookData();
 		
 		public BookRegEntry(String name){
 			this.name = name;
-			this.toolTip = I18n.format("Manual." + name + ".tooltip.name");
 		}
-		
-		public void load(){
+
+		@SideOnly(Side.CLIENT)
+		public void load() {
+			this.toolTip = I18n.format("Manual." + name + ".tooltip.name");
+
 			data.unlocalizedName = "lotrtc.manual." + name;
 			data.modID = "lotrtc";
 			data.toolTip = toolTip;
@@ -50,7 +54,8 @@ public class ManualRegistry {
 			data.doc = doc;
 			BookDataStore.addBook(data);
 		}
-		
+
+		@SideOnly(Side.CLIENT)
 	    Document readManual(String location, DocumentBuilderFactory dbFactory) {
 	        try {
 	            InputStream stream = TConstruct.class.getResourceAsStream(location);

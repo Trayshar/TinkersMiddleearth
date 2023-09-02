@@ -20,7 +20,6 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void preInit(FMLPreInitializationEvent e) {
-		ManualRegistry.preInitClient();
 		super.preInit(e);
 	}
 	
