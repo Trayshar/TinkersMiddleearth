@@ -23,8 +23,8 @@ public class ToolRecipes {
 		PatternBuilder.instance.registerMaterial(new ItemStack(LOTRMod.blockOreStorage, 1, 4), 18, "MithrilLotR");
 		PatternBuilder.instance.registerMaterial(new ItemStack(LOTRMod.dwarfSteel), 2, "DwarvenSteel");
 		PatternBuilder.instance.registerMaterial(new ItemStack(LOTRMod.blockOreStorage, 1, 7), 18, "DwarvenSteel");
-		PatternBuilder.instance.registerMaterial(new ItemStack(LOTRMod.blueDwarfSteel), 2, "BlueDwarfenSteel");
-		PatternBuilder.instance.registerMaterial(new ItemStack(LOTRMod.blockOreStorage, 1, 15), 18, "BlueDwarfenSteel");
+		PatternBuilder.instance.registerMaterial(new ItemStack(LOTRMod.blueDwarfSteel), 2, "BlueDwarvenSteel");
+		PatternBuilder.instance.registerMaterial(new ItemStack(LOTRMod.blockOreStorage, 1, 15), 18, "BlueDwarvenSteel");
 		PatternBuilder.instance.registerMaterial(new ItemStack(LOTRMod.elfSteel), 2, "ElvenSteel");
 		PatternBuilder.instance.registerMaterial(new ItemStack(LOTRMod.blockOreStorage2, 1, 1), 18, "ElvenSteel");
 		PatternBuilder.instance.registerMaterial(new ItemStack(LOTRMod.orcSteel), 2, "OrcSteel");
